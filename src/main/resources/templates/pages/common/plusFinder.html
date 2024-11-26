@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>플러스파인더 </title>
+
+    <th:block th:replace="~{layout/config :: configFragment}"></th:block>
+    <link rel="stylesheet" href="/common/common.css">
+    <script th:src="@{/common/common.js}"></script>
+
+    <style>
+        html,
+        body {
+            font-size: 14px;
+        }
+        #main {
+            padding: 1rem;
+        }
+
+        .PFTop {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 1rem;
+        }
+
+        .PFpaging {
+            display: flex;
+            justify-content: center;
+            margin: 0.5rem;
+        }
+
+        a:link {
+            color: black;
+            text-decoration: none;
+        }
+
+        a:visited {
+            color: black;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: black;
+            text-decoration: underline;
+        }
+
+        a:active {
+            color: black;
+            text-decoration: none;
+        }
+
+        .plusFinder-Srh{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .plusFinder-Srh-input{
+            flex-grow: 1;
+        }
+
+        .plusFinder-Srh-button{
+            margin-left:  10px;
+        }
+    </style>
+
+</head>
+
+<body>
+<div id="main">
+    <div class="plusFinderBottom">
+        <div class="plusFinder-Srh">
+            <div class="plusFinder-Srh-input">
+                <label>통합검색</label>
+                <input type="text" id="inputPfSrh">
+            </div>
+            <div class="plusFinder-Srh-button">
+                <button type="button" id="btnSearch" class="btn btn-info button">조회</button>
+                <button type="button" id="btnClose" class="btn btn-info button">닫기</button>
+            </div>
+        </div>
+
+        <table id="PFtable" class="striped cell-border table-light-info">
+            <thead>
+            <tr>
+                <th th:each="colName : ${lstColName}" th:text="${colName}"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="rowData : ${lstpf}">
+                <td class="center" th:each="row, i : ${rowData}">
+                    <span th:if="${i.index == 0}" th:text="${row.value}"></span>
+                    <a th:if="${i.index > 0}" href="#" th:text="${row.value}" th:value="${rowData['0']}"
+                       th:onclick="sendParent([[${rowData.values().stream().findFirst().orElse('')}]],[[${row.value}]])"></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- 스크립트 -->
+
+<script th:inline="javascript">
+    document.addEventListener('DOMContentLoaded', function() {
+        DataTable.type('num', 'className', '');
+
+        const url = window.location.search;
+        const urlParam = new URLSearchParams(url);
+        const txtID = urlParam.get('txtID') || '';
+        const txtName = urlParam.get('txtName') || '';
+        const nLarge = urlParam.get('nLarge') || '';
+        let inputPfSrh = document.getElementById('inputPfSrh')
+
+
+        const PFtable = $('#PFtable').removeAttr('width').DataTable({
+            dom: '<"PFTop">t<"PFpaging"p>',
+            select: true,
+            language: {
+                zeroRecords: "검색된 항목이 없습니다.",
+            },
+            lengthChange: false,
+            ordering: false,
+            info: false,
+            paging: true,
+            scrollX: false,
+            scrollY: true,
+        });
+
+        window.sendParent = function(PfID, PfName) {
+            //txtID, txtName은 호출지점 input태그 id값을 넣어줍니다. 예를 들어,
+            //<input type='hidden' id="codeID"> 플러스파인더 1열값
+            //<input type='text' id="codeName>  플러스파인더 2열값
+            //PlusFinder('codeID','codeName','nLarge','sMiddle')
+            //플러스파인더에서 불러온 1열 = txtID , 2열 = txtName 값 고정입니다.
+            opener.setPlusFinderData(txtID, txtName, PfID, PfName);
+            window.close();
+        };
+
+        function search(){
+
+            PlusFinder(txtID,txtName,nLarge, inputPfSrh.value);
+
+            let url = `/pages/common/plusFinder?txtID=${encodeURIComponent(txtID)}
+                                                &txtName=${encodeURIComponent(txtName)}
+                                                &nLarge=${encodeURIComponent(nLarge)}
+                                                &sMiddle=${encodeURIComponent(inputPfSrh.value)}`;
+            fetch(url)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('응답 실패');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    PFtable.clear().rows.add(data).draw();
+                })
+                .catch(error => {
+                    console.error("검색 중 오류 발생:", error);
+                })
+        }
+
+        inputPfSrh =  document.getElementById('inputPfSrh');
+        inputPfSrh.value = urlParam.get('sMiddle');
+        inputPfSrh.focus(); inputPfSrh.select();
+
+        document.getElementById('inputPfSrh').addEventListener('keydown',(e)=>{ if(e.key === 'Enter') search()});
+        document.getElementById('btnSearch').addEventListener('click', search);
+        document.getElementById('btnClose').addEventListener('click', function () {window.close()});
+    });
+</script>
+</body>
+
+</html>

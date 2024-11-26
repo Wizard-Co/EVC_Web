@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="wizard.eVC.baseMgmt.article.ArticleMapper">
+
+    <select id="getArticleList" statementType="CALLABLE" resultType="wizard.eVC.baseMgmt.article.DTO.Article"
+            parameterType="map">
+        { call xp_Article_sArticle(
+                #{buyerArticleNo, javaType=String, jdbcType=VARCHAR, mode=IN}
+                , #{includeUseYN, javaType=String, jdbcType=CHAR, mode=IN}
+                , #{supplyTypeID, javaType=String,jdbcType=CHAR, mode=IN}
+                , #{articleTypeID, javaType=String,jdbcType=CHAR, mode=IN}
+               )}
+    </select>
+    <select id="getArticleDetail" statementType="CALLABLE" resultType="wizard.eVC.baseMgmt.article.DTO.Article"
+            parameterType="String">
+        { call xp_Article_sArticleDetail(#{articleID, javaType=String, jdbcType=VARCHAR, mode=IN})}
+    </select>
+
+    <select id="getArticleProcess" resultType="wizard.eVC.baseMgmt.article.DTO.ArticleProcess" parameterType="String">
+        { call xp_Article_sArticleProcess(#{articleID, javaType=String, jdbcType=VARCHAR, mode=IN})}
+    </select>
+
+    <select id="getProcess" statementType="CALLABLE" resultType="wizard.eVC.baseMgmt.article.DTO.ArticleProcess"
+            parameterType="map">
+        { call xp_Code_sProcess(
+                #{processID, javaType=String, jdbcType=VARCHAR, mode=IN}
+            , #{process, javaType=String, jdbcType=VARCHAR, mode=IN}
+               )}
+    </select>
+
+    <select id="getProcessPattern" statementType="CALLABLE" resultType="map" parameterType="String">
+        { call xp_PlanInput_sPatternByArticleGrpID(
+                #{sArticleGrpID, javaType=String, jdbcType=VARCHAR, mode=IN}
+               )}
+    </select>
+
+    <select id="saveArticle" statementType="CALLABLE" resultType="wizard.eVC.baseMgmt.article.DTO.Article" parameterType="wizard.eVC.baseMgmt.article.DTO.Article">
+        { call xp_Article_iArticle(
+                #{articleID, javaType=String, jdbcType=VARCHAR, mode=OUT},
+                #{companyID, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{article, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{buyerArticleNo, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{articleTypeID, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{productTypeID, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{supplyTypeID, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{partTypeID, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{exDiameter, javaType=double, jdbcType=NUMERIC, mode=IN},
+                #{inDiameter, javaType=double, jdbcType=NUMERIC, mode=IN},
+                #{width, javaType=double, jdbcType=NUMERIC, mode=IN},
+                #{weight, javaType=double, jdbcType=NUMERIC, mode=IN},
+                #{length, javaType=double, jdbcType=NUMERIC, mode=IN},
+                #{useYN, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{spec, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{needStockQty, javaType=double, jdbcType=NUMERIC, mode=IN},
+                #{prodQtyPerBox, javaType=double, jdbcType=NUMERIC, mode=IN},
+                #{outQtyPerBox, javaType=double, jdbcType=NUMERIC, mode=IN},
+                #{unitTypeID, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{fileName1, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{filePath1, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{fileName2, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{filePath2, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{fileName3, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{filePath3, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{fileName4, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{filePath4, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{fileName5, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{filePath5, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{labelPrintYN, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{unitPrice, javaType=double, jdbcType=NUMERIC, mode=IN},
+                #{unitPriceTypeID, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{outUnitPrice, javaType=double, jdbcType=NUMERIC, mode=IN},
+                #{buySaleMainYN, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{comments, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{patternID, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{inspectYN, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{hsCode, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{freeStuffinYN, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{createUserID, javaType=String, jdbcType=VARCHAR, mode=IN}
+               )}
+    </select>
+
+    <select id="saveArticleProcess" statementType="CALLABLE" parameterType="wizard.eVC.baseMgmt.article.DTO.ArticleProcess">
+        { call xp_Article_iArticleProcess(
+                #{articleID, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{processID, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{useYN, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{articleID, javaType=String, jdbcType=VARCHAR, mode=IN}
+               )}
+    </select>
+
+    <select id="updateArticle" statementType="CALLABLE" resultType="wizard.eVC.baseMgmt.article.DTO.Article" parameterType="wizard.eVC.baseMgmt.article.DTO.Article">
+        { call xp_Article_uArticle(
+                #{articleID, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{companyID, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{article, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{buyerArticleNo, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{articleTypeID, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{productTypeID, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{supplyTypeID, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{partTypeID, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{exDiameter, javaType=double, jdbcType=NUMERIC, mode=IN},
+                #{inDiameter, javaType=double, jdbcType=NUMERIC, mode=IN},
+                #{width, javaType=double, jdbcType=NUMERIC, mode=IN},
+                #{weight, javaType=double, jdbcType=NUMERIC, mode=IN},
+                #{length, javaType=double, jdbcType=NUMERIC, mode=IN},
+                #{useYN, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{spec, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{needStockQty, javaType=double, jdbcType=NUMERIC, mode=IN},
+                #{prodQtyPerBox, javaType=double, jdbcType=NUMERIC, mode=IN},
+                #{outQtyPerBox, javaType=double, jdbcType=NUMERIC, mode=IN},
+                #{unitTypeID, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{fileName1, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{filePath1, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{fileName2, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{filePath2, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{fileName3, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{filePath3, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{fileName4, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{filePath4, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{fileName5, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{filePath5, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{labelPrintYN, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{unitPrice, javaType=double, jdbcType=NUMERIC, mode=IN},
+                #{unitPriceTypeID, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{outUnitPrice, javaType=double, jdbcType=NUMERIC, mode=IN},
+                #{buySaleMainYN, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{comments, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{patternID, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{inspectYN, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{hsCode, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{freeStuffinYN, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{lastUpdateUserID, javaType=String, jdbcType=VARCHAR, mode=IN}
+               )}
+    </select>
+
+    <select id="updateArticleFtp" statementType="CALLABLE" parameterType="wizard.eVC.baseMgmt.article.DTO.ArticleProcess">
+        { call xp_Article_uArticle_FTP(
+                #{articleID, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{fileName1, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{filePath1, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{fileName2, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{filePath2, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{fileName3, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{filePath4, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{fileName5, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{filePath5, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{lastUpdateUserID, javaType=String, jdbcType=VARCHAR, mode=IN}
+               )}
+    </select>
+
+    <select id="checkDeleteArticle" statementType="CALLABLE" resultType="String" parameterType="map">
+        { call xp_Article_dArticle_Check(
+                #{articleID, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{message, javaType=String, jdbcType=VARCHAR, mode=OUT}
+               )}
+    </select>
+
+    <select id="deleteArticle" statementType="CALLABLE" parameterType="map">
+        { call xp_Article_dArticle(
+                #{articleID, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{lastUpdateUserID, javaType=String, jdbcType=VARCHAR, mode=IN}
+               )}
+    </select>
+</mapper>

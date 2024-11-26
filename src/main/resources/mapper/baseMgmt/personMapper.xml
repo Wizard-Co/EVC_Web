@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="wizard.eVC.baseMgmt.person.PersonMapper">
+
+    <select id="getPersonList" statementType="CALLABLE" resultType="wizard.eVC.baseMgmt.person.DTO.Person"
+            parameterType="map">
+        { call xp_Person_sPerson(
+                #{depart, javaType=String, jdbcType=VARCHAR, mode=IN}
+            , #{name, javaType=String, jdbcType=CHAR, mode=IN}
+            , #{areaID, javaType=String,jdbcType=CHAR, mode=IN}
+            , #{licenseID, javaType=String,jdbcType=CHAR, mode=IN}
+            , #{includeAdminYN, javaType=String,jdbcType=CHAR, mode=IN}
+            , #{includeEndYN, javaType=String,jdbcType=CHAR, mode=IN}
+               )}
+    </select>
+
+    <select id="getPersonDetail" statementType="CALLABLE" resultType="wizard.eVC.baseMgmt.person.DTO.Person"
+            parameterType="string">
+        { call xp_Person_sPerson(
+                #{depart, javaType=String, jdbcType=VARCHAR, mode=IN}
+            , #{name, javaType=String, jdbcType=CHAR, mode=IN}
+            , #{areaID, javaType=String,jdbcType=CHAR, mode=IN}
+            , #{licenseID, javaType=String,jdbcType=CHAR, mode=IN}
+            , #{includeAdminYN, javaType=String,jdbcType=CHAR, mode=IN}
+            , #{includeEndYN, javaType=String,jdbcType=CHAR, mode=IN}
+               )}
+    </select>
+
+</mapper>

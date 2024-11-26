@@ -1,0 +1,123 @@
+<!--
+  *packageName      : templates.pages.basicMgmt
+  *fileName         : article
+  *author           : article
+  *date             : 2024-09-27
+  *======================================================
+  *DATE             AUTHOR               NOTE
+  *------------------------------------------------------
+  * 2024-09-27         sooJeong             최초 생성
+ -->
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}" lang="ko">
+
+<th:block layout:fragment="script">
+    <script th:src="@{/baseMgmt/article/article.js}"></script>
+</th:block>
+<!--content-->
+<section layout:fragment="content">
+    <body>
+    <loading-form id="loading" class="invisible"></loading-form>
+    <main>
+        <div class="menu">
+            <div class="page-header">
+                ■ 품명 코드 등록
+            </div>
+            <div class="icon">
+                <div class="flx">
+                    <button type="button" class="btn btn-info m-r-05" id="btnSearch">조회</button>
+                    <button type="button" class="btn btn-success m-r-05" id="btnAdd">등록</button>
+                    <button type="button" class="btn btn-success" id="btnDelete">삭제</button>
+                </div>
+                <div class="flx mt-05">
+                    <button type="button" id="btnExcel" class="btn btn-print m-r-05">엑셀</button>
+                    <button type="button" id="btnPrint" class="btn btn-print" onclick="window.print()">인쇄</button>
+                </div>
+            </div>
+        </div>
+        <condition class="panel">
+            <div class="panel-body">
+                <div class="flx">
+                    <div class="div-srh m-r-4">
+                        <label for="inputArticleSrh" class="lbl-srh">품번</label>
+                        <input type="text" id="inputArticleSrh" class="form-control" placeholder="설비명 검색">
+                    </div>
+                    <div class="div-srh m-r-4">
+                        <label for="cboSupplyTypeSrh" class="lbl-srh">공급유형</label>
+                        <select id="cboSupplyTypeSrh" class="form-control w150px">
+                            <option value="">전체</option>
+                            <option th:each="option : ${cboSupplyType}"
+                                    th:value="${option.codeID}" th:text="${option.codeName}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="div-srh m-r-4">
+                        <label for="cboArticleTypeSrh" class="lbl-srh">품명그룹</label>
+                        <select id="cboArticleTypeSrh" class="form-control w150px">
+                            <option value="">전체</option>
+                            <option th:each="option : ${cboArticleType}"
+                                    th:value="${option.codeID}" th:text="${option.codeName}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="div-srh m-r-4">
+                        <label class="form-check-label" for="chkIncludeUseYN">
+                            사용안함 포함
+                        </label>
+                        <input class="form-check-input lbl-srh" type="checkbox" value="Y" id="chkIncludeUseYN">
+                    </div>
+                </div>
+            </div>
+        </condition>
+        <section>
+            <table id="articleTable" class="striped cell-border table-light-info" style="width:100%">
+                <thead>
+                <tr>
+                    <th rowspan="2">순</th>
+                    <th rowspan="2">품명코드</th>
+                    <th rowspan="2">품번</th>
+                    <th rowspan="2">세부규격</th>
+                    <th rowspan="2">품명그룹</th>
+
+                    <th rowspan="2">사용여부</th>
+                    <th rowspan="2">단위</th>
+                    <th rowspan="2">적정<br>재고량</th>
+                    <th rowspan="2">입고/생산<br>박스당<br>수량</th>
+                    <th rowspan="2">출하<br>박스당<br>수량</th>
+
+                    <th rowspan="2">공급유형</th>
+                    <th rowspan="2">제품군</th>
+                    <th rowspan="2">품목분류</th>
+                    <th rowspan="2">라벨관리<br>여부</th>
+                    <th rowspan="2">매입단가</th>
+
+                    <th rowspan="2">매출단가</th>
+                    <th rowspan="2">H.S코드</th>
+                    <th colspan="5">제품스펙</th>
+                    <th rowspan="2">무검사품<br>여부</th>
+                    <th rowspan="2">공정패턴</th>
+
+                    <th rowspan="2">제품이미지명</th>
+                    <th rowspan="2">작업표준서명</th>
+                    <th rowspan="2">비고</th>
+                    <th rowspan="2">생성자</th>
+                    <th rowspan="2">생성일자</th>
+                </tr>
+                <tr>
+                    <th>내경</th>
+                    <th>외경</th>
+                    <th>길이</th>
+                    <th>폭</th>
+                    <th>중량</th>
+                </tr>
+                </thead>
+            </table>
+        </section>
+    </main>
+    </body>
+
+</section>
+</html>
+

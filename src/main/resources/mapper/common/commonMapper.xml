@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="wizard.eVC.common.CMMapper">
+
+    <select id="getCmCode" resultType="wizard.eVC.common.dto.CMCode" parameterType="String">
+        select codeID
+             , codeName
+        from cm_Code
+        where codeTypeID = #{codeTypeID}
+    </select>
+
+    <select id="getPlusFinder" statementType="CALLABLE" resultType="hashmap" parameterType="hashmap">
+        { call xp_Common_PlusFinder(#{nLarge, javaType=int,jdbcType=INTEGER, mode=IN}
+            , #{sMiddle, javaType=String, jdbcType=VARCHAR, mode=IN})}
+    </select>
+
+    <select id="getProcess" statementType="CALLABLE" resultType="wizard.eVC.baseMgmt.article.DTO.ArticleProcess" parameterType="hashmap">
+        { call xp_Code_sProcess(#{processID, javaType=String,jdbcType=VARCHAR, mode=IN}
+            , #{process, javaType=String, jdbcType=VARCHAR, mode=IN})}
+    </select>
+
+</mapper>

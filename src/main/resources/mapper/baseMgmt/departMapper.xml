@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="wizard.eVC.baseMgmt.depart.DepartMapper">
+
+    <select id="getDepartList"  statementType="CALLABLE" resultType="wizard.eVC.baseMgmt.depart.DTO.Depart"
+            parameterType="map">
+        { call xp_Code_sDepart(
+               #{depart,javaType=String, jdbcType=VARCHAR, mode=IN }
+               ,#{useClss, javaType=String, jdbcType=CHAR, mode=IN}
+               )}
+    </select>
+
+    <select id="saveDepart"  statementType="CALLABLE" resultType="wizard.eVC.baseMgmt.depart.DTO.Depart"
+            parameterType="wizard.eVC.baseMgmt.depart.DTO.Depart">
+        { call xp_Code_iDepart(
+            #{departID,javaType=String, jdbcType=VARCHAR, mode=IN }
+            ,#{depart, javaType=String, jdbcType=VARCHAR, mode=IN}
+            ,#{comments, javaType=String, jdbcType=VARCHAR, mode=IN}
+            ,#{createUserID, javaType=String, jdbcType=VARCHAR, mode=IN}
+            ,#{useClss, javaType=String, jdbcType=VARCHAR, mode=IN}
+               )}
+    </select>
+
+    <select id="updateDepart"  statementType="CALLABLE" resultType="wizard.eVC.baseMgmt.depart.DTO.Depart"
+            parameterType="wizard.eVC.baseMgmt.depart.DTO.Depart">
+        { call xp_Code_uDepart(
+                #{departID,javaType=String, jdbcType=VARCHAR, mode=IN }
+            ,#{depart, javaType=String, jdbcType=VARCHAR, mode=IN}
+            ,#{comments, javaType=String, jdbcType=VARCHAR, mode=IN}
+            ,#{lastUpdateUserID, javaType=String, jdbcType=VARCHAR, mode=IN}
+            ,#{useClss, javaType=String, jdbcType=VARCHAR, mode=IN}
+               )}
+    </select>
+
+    <select id="deleteDepart" statementType="CALLABLE" parameterType="map">
+        { call xp_Code_dDepart(
+                #{departID, javaType=String, jdbcType=VARCHAR, mode=IN}
+               )}
+    </select>
+
+    <select id="getDepartDetail" statementType="CALLABLE" resultType="wizard.eVC.baseMgmt.depart.DTO.Depart"
+            parameterType="String">
+        { call xp_Code_sDepartdetail(
+                #{departID, javaType=String, jdbcType=VARCHAR, mode=IN}
+               )}
+    </select>
+
+
+
+
+</mapper>

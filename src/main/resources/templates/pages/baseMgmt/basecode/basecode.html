@@ -1,0 +1,65 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}" lang="ko">
+
+
+<!--content-->
+<section layout:fragment="content">
+    <body>
+    <div>
+        <input id="codeID" type="text">
+        <input id="codeName" type="text" onkeydown="if(event.key === 'Enter'){PlusFinder('codeID','codeName',7077,'')}">
+    </div>
+<!--    <div><button type="submit" id="btnSave" onclick="Update()">저장</button></div>-->
+<!--        <form id="addForm" th:object="${basecodedto}" class="needs-validation" novalidate >-->
+<!--            <table id="formTable" class="table table-bordered text-center">-->
+<!--                <tbody>-->
+<!--                <input type="text" id="departID" th:field="*{departID}" onkeydown="check()">-->
+<!--                <tr>-->
+<!--                    <td class="col-md-2">-->
+<!--                        <label>부서검색</label>-->
+<!--                    </td>-->
+<!--                    <td class="col-md-10" colspan="3">-->
+<!--                        <input type="text" class="form-control" id="depart" name="chargeEmail" th:field="*{depart}"-->
+<!--                               onkeydown="PlusFinder('departID', 'depart',90,'')" >-->
+<!--                    </td>-->
+<!--                </tr>-->
+<!--                </tbody>-->
+<!--            </table>-->
+<!--        </form>-->
+<!--        </div>-->
+
+<!--    <script>-->
+<!--        let form = document.getElementById('addForm');-->
+<!--        let departID = document.getElementById('departID');-->
+
+<!--        function Update(){-->
+<!--            const userConfirm = confirm("저장 하시겠습니까?");-->
+<!--            if(userConfirm){-->
+<!--                if(departID){-->
+
+
+<!--                const payload = new FormData(form);-->
+
+<!--                fetch('/basicMgmt/bascode/update', {-->
+<!--                    method: 'post',-->
+<!--                    body: payload,-->
+<!--                    headers: {},-->
+<!--                })-->
+<!--                    .then(res => {-->
+<!--                        if (!res.ok) console.log('http error: ', res)-->
+<!--                        else alert("수정 되었습니다.")-->
+<!--                    })-->
+<!--                    .catch(error => console.log('Unexpected error: ', error));-->
+<!--            }-->
+
+<!--            }-->
+<!--        }-->
+
+
+
+<!--    </script>-->
+    </body>
+</section>
+</html>
+

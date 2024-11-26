@@ -1,0 +1,350 @@
+<!--
+  *packageName      : templates.pages.baseMgmt
+  *fileName         : articleDateil.html
+  *author           : sooJeong
+  *date             : 2024-09-27
+  *======================================================
+  *DATE             AUTHOR               NOTE
+  *------------------------------------------------------
+  * 2024-09-27      sooJeong             최초 생성
+ -->
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/subLayout}" lang="ko">
+
+<th:block layout:fragment="script">
+    <script th:src="@{/baseMgmt/article/articleDetail.js}"></script>
+</th:block>
+<!--content-->
+<section layout:fragment="content">
+    <head>
+        <style>
+            .table {
+                margin-bottom: 0;
+            }
+
+            .form-border {
+                border: solid 1px #dee2e6;
+                padding: 0.5rem;
+                min-height: 280px;
+                font-size: 13px;
+            }
+
+        </style>
+    </head>
+    <body>
+    <div id="addPop">
+        <div class="menu">
+            <div class="page-header">
+                <h3>기준정보
+                    <span> /설비관리</span>
+                </h3>
+            </div>
+            <div class="icon">
+                <button type="submit" id="btnUpdate" form="addForm" class="btn btn-success">수정</button>
+                <button type="submit" id="btnSave" form="addForm" class="btn btn-success">저장</button>
+                <button type="button" id="btnDelete" class="btn btn-success">삭제</button>
+                <button type="button" id="btnClose" class="btn btn-print">닫기
+                </button>
+            </div>
+        </div>
+        <div id="main">
+            <form id="addForm" th:object="${article}" class="needs-validation" novalidate>
+                <div class="flx">
+                    <div id="divForm" style="width: 70%">
+                        <span class="form-notice float-start"><b>*</b> 표시는 필수 기입 사항 입니다</span>
+                        <table id="formTable" class="table table-bordered text-center">
+                            <tr>
+                                <td class="col-md-2">
+                                    <label><span class="form-notice">*</span>코드</label>
+                                </td>
+                                <td class="left">
+                                    <input type="text" class="form-control input-necessary"
+                                           th:field="*{articleID}" readonly>
+                                </td>
+                                <td class="col-md-2">
+                                    <label>품명그룹</label>
+                                </td>
+                                <td class="left">
+                                    <select class="form-control display-inline-block" th:field="*{articleTypeID}">
+                                        <option th:each="option : ${cboArticleType}"
+                                                th:value="${option.codeID}" th:text="${option.codeName}">
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-2">
+                                    <label><span class="form-notice">*</span>품번</label>
+                                </td>
+                                <td class="left">
+                                    <input type="text" class="form-control input-necessary" th:field="*{buyerArticleNo}"
+                                           required>
+                                    <div class="invalid-feedback">
+                                        품번을 입력해주세요.
+                                    </div>
+                                </td>
+                                </td>
+                                <td class="col-md-2">
+                                    <label>품명</label>
+                                </td>
+                                <td class="left">
+                                    <input type="text" class="form-control input-necessary" th:field="*{article}"
+                                           required>
+                                    <div class="invalid-feedback">
+                                        품명을 입력해주세요.
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-2">
+                                    <label>세부내역</label>
+                                </td>
+                                <td class="left" colspan="3">
+                                    <input type="text" class="form-control" th:field="*{spec}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-2">
+                                    <label><span class="form-notice">*</span>제품군</label>
+                                </td>
+                                <td class="left">
+                                    <select class="form-control display-inline-block" th:field="*{productTypeID}">
+                                        <option th:if="${#strings.isEmpty(productTypeID)}" value=""></option>
+                                        <option th:each="option : ${cboProductType}"
+                                                th:value="${option.codeID}" th:text="${option.codeName}">
+                                    </select>
+                                </td>
+                                </td>
+                                <td class="col-md-2">
+                                    <label>부품분류</label>
+                                </td>
+                                <td class="left">
+                                    <select class="form-control display-inline-block" th:field="*{partTypeID}">
+                                        <option th:if="${#strings.isEmpty(partTypeID)}" value=""></option>
+                                        <option th:each="option : ${cboPartType}"
+                                                th:value="${option.codeID}" th:text="${option.codeName}">
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-2">
+                                    <label>단위</label>
+                                </td>
+                                <td class="left">
+                                    <select class="form-control display-inline-block" th:field="*{unitTypeID}">
+                                        <option th:if="${#strings.isEmpty(unitTypeID)}" value=""></option>
+                                        <option th:each="option : ${cboUnitType}"
+                                                th:value="${option.codeID}" th:text="${option.codeName}">
+                                    </select>
+                                </td>
+                                </td>
+                                <td class="col-md-2">
+                                    <label>적정재고량</label>
+                                </td>
+                                <td class="left">
+                                    <input type="number" class="form-control" th:field="*{needStockQty}" required>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-2">
+                                    <label>공급유형</label>
+                                </td>
+                                <td class="left">
+                                    <select class="form-control display-inline-block" th:field="*{supplyTypeID}">
+                                        <option th:each="option : ${cboSupplyType}"
+                                                th:value="${option.codeID}" th:text="${option.codeName}">
+                                    </select>
+                                </td>
+                                <td class="col-md-2">
+                                    <label>hs코드</label>
+                                </td>
+                                <td class="left">
+                                    <input type="text" class="form-control" th:field="*{hsCode}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-2">
+                                    <label>입고/생산<br>박스당수량</label>
+                                </td>
+                                <td class="left">
+                                    <input type="number" class="form-control" th:field="*{prodQtyPerBox}">
+                                </td>
+                                </td>
+                                <td class="col-md-2">
+                                    <label>출하박스당 수량</label>
+                                </td>
+                                <td class="left">
+                                    <input type="number" class="form-control" th:field="*{outQtyPerBox}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-2">
+                                    <label>매입단가</label>
+                                </td>
+                                <td class="left">
+                                    <input type="number" step="0.01" class="form-control" th:field="*{unitPrice}">
+                                </td>
+                                </td>
+                                <td class="col-md-2">
+                                    <label>매출단가</label>
+                                </td>
+                                <td class="left">
+                                    <input type="number" step="0.01" class="form-control" th:field="*{outUnitPrice}">
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="table table-bordered text-center" style="border-top: 0px transparent">
+                            <tr>
+                                <td class="w50px">
+                                    <label>내경</label>
+                                </td>
+                                <td class="left">
+                                    <input type="number" step="0.001" class="form-control" th:field="*{inDiameter}">
+                                </td>
+                                </td>
+                                <td class="w50px">
+                                    <label>외경</label>
+                                </td>
+                                <td class="left">
+                                    <input type="number" step="0.001" class="form-control" th:field="*{exDiameter}">
+                                </td>
+                                <td class="w50px">
+                                    <label>길이</label>
+                                </td>
+                                <td class="left">
+                                    <input type="number" step="0.001" class="form-control" th:field="*{length}">
+                                </td>
+                                <td class="w50px">
+                                    <label>중량</label>
+                                </td>
+                                <td class="left">
+                                    <input type="number" step="0.001" class="form-control" th:field="*{weight}">
+                                </td>
+                                <td class="w50px">
+                                    <label>폭</label>
+                                </td>
+                                <td class="left">
+                                    <input type="number" step="0.001" class="form-control" th:field="*{width}">
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="table table-bordered text-center" style="border-top: 0px transparent">
+                            <tr>
+                                <td class="col-md-2">
+                                    <label>라벨관리</label>
+                                </td>
+                                <td class="left">
+                                    <select class="form-control display-inline-block" th:field="*{labelPrintYN}">
+                                        <option value="Y">Y</option>
+                                        <option value="N">N</option>
+                                    </select>
+                                </td>
+                                <td class="col-md-2">
+                                    <label style="font-size: 10px;">무검사품<br>여부</label>
+                                </td>
+                                <td class="left">
+                                    <select class="form-control display-inline-block" th:field="*{labelPrintYN}">
+                                        <option value="Y">Y</option>
+                                        <option value="N">N</option>
+                                    </select>
+                                </td>
+                                <td class="col-md-2">
+                                    <label>사용여부</label>
+                                </td>
+                                <td class="left">
+                                    <input type="checkbox" th:field="*{useYN}" th:value="Y">
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="table table-bordered text-center" style="border-top: 0px transparent">
+                            <tr>
+                                <td class="col-md-2">
+                                    <label>비고</label>
+                                </td>
+                                <td class="left" colspan="3">
+                                    <input type="text" class="form-control" th:field="*{comments}">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-2">
+                                    <label>공정패턴</label>
+                                </td>
+                                <td class="left" colspan="3">
+                                    <select class="form-control display-inline-block">
+                                        <option></option>
+                                    </select>
+                                </td>
+                            </tr>
+
+                        </table>
+                        <span class="form-result float-start"></span>
+                    </div>
+                    <div id="divForm2" style="width: 30%; padding-left: 1rem;">
+                        <div id="divProcess" class="mb-1" style="height: 50%">
+                            <div class="form-notice"><b>*</b>생산공정 선택</div>
+                            <div class="form-border">
+                                <table class="table table-bordered text-center table-light-info">
+                                    <thead>
+                                    <th>No</th>
+                                    <th>선택</th>
+                                    <th>공정</th>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="option,i : ${cboProcess}">
+                                        <td th:text="${i.index}"></td>
+                                        <td>
+                                            <input type="checkbox" class="v-middle" th:value="${option.processID}"
+                                                   th:name="|articleProcessList[${i.index}].processID|"
+                                                   th:checked=" ${update} ? ${#lists.contains(apList, option.processID)}">
+                                        </td>
+                                        <td th:text="${option.process}"></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div id="divImage" style="height: 50%">
+                            <div class="form-notice"><b>*</b>첨부파일 선택</div>
+                            <div class="form-border">
+                                <table class="table table-bordered text-center table-light-info">
+                                    <tr>
+                                        <td class="left flx">
+                                            <label for="realFile" class="form-control label-file">파일 선택</label>
+                                            <input type="text" th:field="*{fileName1}" class="form-control"
+                                                   accept="image/*">
+                                            <input type="file" id="realFile" name="fileList[0]" class="fileList"
+                                                   accept="image/*" hidden>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="left flx">
+                                            <label for="realFile2" class="form-control label-file">파일 선택</label>
+                                            <input type="text" th:field="*{fileName2}" class="form-control"
+                                                   accept="image/*" readonly>
+                                            <input type="file" id="realFile2" name="fileList[1]" class="fileList"
+                                                   accept="image/*" hidden>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="left flx">
+                                            <label for="realFile3" class="form-control label-file">파일 선택</label>
+                                            <input type="text" th:field="*{fileName3}" class="form-control"
+                                                   accept="image/*" readonly>
+                                            <input type="file" id="realFile3" name="fileList[2]" class="fileList"
+                                                   accept="image/*" hidden>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    </body>
+</section>
+</html>

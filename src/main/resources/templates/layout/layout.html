@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EVC</title>
+
+    <th:block th:replace="~{layout/config :: configFragment}"></th:block>
+    <link rel="stylesheet" th:href="@{/common/common.css}"/>
+    <th:block layout:fragment="css"></th:block>
+
+</head>
+
+<body>
+<section th:replace="~{layout/nav2 :: navigation}"></section>
+<section layout:fragment="content"></section>
+
+<script th:src="@{/common/common.js}"></script>
+<th:block layout:fragment="script"></th:block>
+</body>
+
+</html>
