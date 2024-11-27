@@ -156,7 +156,7 @@ public class FTP {
         response.setContentType("image/*");
         response.setHeader("Content-Disposition", "inline;");
 
-        String fullpath = filepath + "/" + filename;
+        String fullpath = filepath + filename;
         FTPFile[] files = ftp.listFiles();
 
         boolean exist = false;
