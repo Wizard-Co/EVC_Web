@@ -1,5 +1,9 @@
 // DataTable.type('num', 'className', '');
 
+/**
+ * 김수정, 2024
+ * dataTable 라이브러리 공통 초기화
+ */
 $.extend($.fn.dataTable.defaults, {
     select: true,
     dom: '<"d-none"B><"mb-2 right"f>t<"mt-2 center"p>',
@@ -30,11 +34,21 @@ $.extend($.fn.dataTable.defaults, {
     scrollY: true
 })
 
+/**
+ * 김수정, 2024
+ * DOM 로드 공통
+ * loading 이미지, 폼 유효성 검사 추가
+ */
 document.addEventListener('DOMContentLoaded', function () {
     let loading = document.getElementById('loading');
     validate();
 })
 
+/**
+ * 김수정, 2024
+ * 추가.저장 버튼
+ * @type {URLSearchParams}
+ */
 const urlParam = new URLSearchParams(window.location.search);
 const mode = urlParam.get('mode');
 
@@ -44,16 +58,31 @@ if (mode === 'add') {
     hideElementsByID('btnSave');
 }
 
+/**
+ * 김수정, 2024
+ * classname으로 숨김 처리
+ * @param classname
+ */
 function hideElementesByClass(classname) {
     let icon = document.querySelectorAll(classname);
     icon.forEach(x => x.disabled = true);
 }
 
+/**
+ * 김수정, 2024
+ * classname으로 보임 처리
+ * @param classname
+ */
 function showElementsByClass(classname) {
     let icon = document.querySelectorAll(classname);
     icon.forEach(x => x.disabled = false);
 }
 
+/**
+ * 김수정, 2024
+ * ID로 보임 처리
+ * @param id
+ */
 function showElementsByID(...id) {
     id.forEach(x => {
         let btn = document.getElementById(x);
@@ -61,6 +90,11 @@ function showElementsByID(...id) {
     })
 }
 
+/**
+ * 김수정, 2024
+ * ID로 숨김 처리
+ * @param id
+ */
 function hideElementsByID(...id) {
     id.forEach(x => {
         let btn = document.getElementById(x);
@@ -68,6 +102,12 @@ function hideElementsByID(...id) {
     })
 }
 
+/**
+ * 김수정, 2024
+ * ID로 체크여부 가져오기
+ * @param id
+ * @returns {boolean|boolean|*}
+ */
 function getChecked(id) {
     let isChecked;
     let ele = document.getElementById(id);
@@ -75,26 +115,35 @@ function getChecked(id) {
     return isChecked;
 }
 
-function readOnly(classname) {
-    let lst = document.querySelectorAll(classname);
-    lst.forEach(x => x.disabled = true);
-}
-
-function writeOnly(classname) {
-    let lst = document.querySelectorAll(classname);
-    lst.forEach(x => x.disabled = false);
-}
-
+/**
+ * 김수정, 2024
+ * classname으로 input 초기화 하기
+ * @param classname
+ */
 function initInput(classname) {
     let lst = document.querySelectorAll(classname);
     lst.forEach(x => x.value = '');
 }
 
+/**
+ * 김수정, 2024
+ * ID로 콤보박스 선택된 인덱스 가져오기 -> return 값의 text,value로 활용
+ * @param id
+ * @returns {*}
+ */
 function getCombo(id) {
     let obj = id.options[id.selectedIndex];
     return obj;
 }
 
+/**
+ * 김수정, 2024
+ * pop up post형식으로 열기
+ * @param popName
+ * @param url
+ * @param param
+ * @param option
+ */
 function openForm(popName, url, param, option) {
     if (option === '') option = 'width=950 height=700';
 
@@ -119,6 +168,10 @@ function openForm(popName, url, param, option) {
 
 }
 
+/**
+ * 김수정, 2024
+ * 유효성 검사 (부트스트랩 참조)
+ */
 function validate() {
     'use strict'
 
@@ -135,6 +188,33 @@ function validate() {
     })
 }
 
+/**
+ * 김수정, 2024
+ * 유효성검사 제거
+ */
+function refreshForm() {
+    form.classList.remove('was-validated');
+}
+
+/**
+ * 김수정, 2024
+ * string null, 공백, undefined 체크
+ * @param str
+ * @returns {boolean}
+ */
+function isEmpty(str){
+    return !str || str.trim().length === 0;
+}
+
+/**
+ * 김수정, 2024
+ * 플러스파인더
+ * @param txtID
+ * @param txtName
+ * @param nLarge
+ * @param sMiddle
+ * @constructor
+ */
 //#region 플러스파인더
 function PlusFinder(txtID, txtName, nLarge, sMiddle) {
 
@@ -155,10 +235,6 @@ function PlusFinder(txtID, txtName, nLarge, sMiddle) {
 function setPlusFinderData(txtID, txtName, PfID, PfName) {
     document.getElementById(txtID).value = PfID;
     document.getElementById(txtName).value = PfName;
-}
-
-function refreshForm() {
-    form.classList.remove('was-validated');
 }
 
 //#endregion
