@@ -31,7 +31,7 @@ const articleTable = new DataTable('#articleTable', {
         {data: "productType", className: 'right', orderable: false},
         {data: "partType", className: 'right', orderable: false},
         {data: "labelPrintYN", className: 'right', orderable: false},
-        {data: "unitPrice", className: 'right', orderable: false},
+        {data: "buyUnitPrice", className: 'right', orderable: false},
 
         {data: "outUnitPrice", className: 'right', orderable: false},
         {data: "hsCode", className: 'right', orderable: false},
@@ -43,9 +43,9 @@ const articleTable = new DataTable('#articleTable', {
         {data: "length", className: 'right', orderable: false},
         {data: "freeStuffinYN", className: 'right', orderable: false},
         {data: "patternID", className: 'right', orderable: false},
-        {data: "fileName1", className: 'right', orderable: false},
+        {data: "imageFileName", className: 'right', orderable: false},
 
-        {data: "filePath1", className: 'right', orderable: false},
+        {data: "imageFilePath", className: 'right', orderable: false},
         {data: "comments", className: 'right', orderable: false},
         {data: "createUserID", className: 'right', orderable: false},
         {data: "createDate", className: 'right', orderable: false},
@@ -118,21 +118,21 @@ function Search() {
     })
         .then((response) => response.json())
         .then((data) => {
-            for(let i =0; i < data.length; i++){
-                data[i]['num'] = i+1;
-            }
+                for(let i =0; i < data.length; i++){
+                    data[i]['num'] = i+1;
+                }
                 articleTable.clear().rows.add(data).draw();
                 loading.invisible();
             }
         );
 }
 
-
 document.getElementById('btnExcel').addEventListener("click", function () {
 
     const dtExcel = document.querySelector('.dt-button.buttons-excel')
     dtExcel.click();
 });
+
 
 
 

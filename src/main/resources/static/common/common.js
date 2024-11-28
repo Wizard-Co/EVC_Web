@@ -26,7 +26,6 @@ $.extend($.fn.dataTable.defaults, {
                 if ($.isNumeric(data)) {
                     return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 }
-                console.log(type);
                 return data;
             }
         }

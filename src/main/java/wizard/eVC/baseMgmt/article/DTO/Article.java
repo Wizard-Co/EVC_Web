@@ -46,24 +46,30 @@ public class Article {
     public double prodQtyPerBox;
     public double outQtyPerBox;
     public String unitTypeID;
-    public String unitType;
-    public String fileName1;
+    public String unitType; // 그냥 단위
+    public String imageFileName;
 
-    public String filePath1;
-    public String fileName2;
-    public String filePath2;
-    public String fileName3;
-    public String filePath3;
+    public String imageFilePath;
+    public String sketch1File;
+    public String sketch1Path;
+    public String sketch2File;;
+    public String sketch2Path;
 
-    public String fileName4;
-    public String filePath4;
-    public String fileName5;
-    public String filePath5;
+    public String sketch3File;;
+    public String sketch3Path;
+    public String sketch4File;;
+    public String sketch4Path;
+    public String sketch5File;;
+
+    public String sketch5Path;
     public String labelPrintYN;
+    public String buyUnitTypeID;
+    public double buyUnitPrice; //매입단가
+    public String buyUnitType;
 
-    public double unitPrice;
-    public String unitPriceTypeID;
+    public String outUnitTypeID;
     public double outUnitPrice;
+    public String outUnitType;
     public String hsCode;
     public String freeStuffinYN;
 
@@ -71,17 +77,23 @@ public class Article {
     public String comments;
     public String patternID;
     public String inspectYN;
-    public String createDate;
+    public String ftaMgrYN;
 
+    public String coatingSpec;
+    public String part_attr;
+    public String createDate;
     public String createUserID;
     public String lastUpdateDate;
+
     public String lastUpdateUserID;
     public List<ArticleProcess> articleProcessList;
     public List<MultipartFile> fileList;
+    public List<String> deleteFileList;
 
     public List<String> getFileNameList() {
-        List<String> fileNames = Arrays.asList(fileName1, fileName2, fileName3, fileName4, fileName5);
+        List<String> fileNames = Arrays.asList(imageFileName, sketch1File, sketch2File, sketch3File, sketch4File, sketch5File);
         return fileNames;
     }
+
 }
 

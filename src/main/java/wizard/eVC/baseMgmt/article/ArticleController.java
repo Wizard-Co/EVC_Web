@@ -1,5 +1,6 @@
 package wizard.eVC.baseMgmt.article;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -72,6 +73,7 @@ public class ArticleController {
 
     @PostMapping("/detail")
     public String searchDetail(@RequestParam(name = "articleID", required = true) String articleID,
+                               @RequestParam(name = "mode", required = true) String mode,
                                Model model) {
 
         Article article = service.getArticleDetail(articleID);
@@ -80,7 +82,7 @@ public class ArticleController {
 
         model.addAttribute("article", article);
         model.addAttribute("apList", apList);
-        model.addAttribute("update", update);
+        model.addAttribute("mode", mode);
 
         return "/pages/baseMgmt/article/articleDetail";
     }
@@ -100,8 +102,11 @@ public class ArticleController {
     @PostMapping("/update")
     @ResponseBody
     public void update(@ModelAttribute Article article) {
-
-        service.updateArticle(article);
+        try {
+            service.updateArticle(article);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 
@@ -113,6 +118,16 @@ public class ArticleController {
             return ResponseEntity.ok().build();
         } catch (IOException ex) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex);
+        }
+    }
+
+    @GetMapping("/detail/image")
+    public void showImage(@RequestParam String filename, @RequestParam String filepath,
+                          HttpServletResponse response) {
+        try {
+            service.showImage(filename, filepath, response);
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 }

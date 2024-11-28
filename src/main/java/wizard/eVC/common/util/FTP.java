@@ -113,7 +113,7 @@ public class FTP {
             setFtp();
             ftp.changeWorkingDirectory(filepath);
 
-            String fullpath = filepath + "/" + filename;
+            String fullpath = filepath + filename;
             String local = localpath + filename;
             FileOutputStream fileOutputStream = new FileOutputStream(local);
 
@@ -185,7 +185,7 @@ public class FTP {
         response.setHeader("Content-Type", MediaType.APPLICATION_OCTET_STREAM_VALUE);
         response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(filename, "utf-8"));
 
-        String fullpath = filepath + "/" + filename;
+        String fullpath = filepath + filename;
 
         try {
             InputStream inputStream = ftp.retrieveFileStream(fullpath);
@@ -215,6 +215,24 @@ public class FTP {
         }
     }
 
+    public void deleteFile(String filename, String filepath) throws IOException {
+        open();
+        setFtp();
+
+        try {
+            String fullpath = filepath + filename;
+            boolean result = ftp.deleteFile(fullpath);
+            if (!result) {
+                log.error("FTP 파일 삭제 실패: " + fullpath);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (ftp.isConnected()) {
+                close();
+            }
+        }
+    }
 
     public void setFtp() throws IOException {
         ftp.enterLocalPassiveMode();

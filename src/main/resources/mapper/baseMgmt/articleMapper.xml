@@ -7,9 +7,9 @@
             parameterType="map">
         { call xp_Article_sArticle(
                 #{buyerArticleNo, javaType=String, jdbcType=VARCHAR, mode=IN}
-                , #{includeUseYN, javaType=String, jdbcType=CHAR, mode=IN}
-                , #{supplyTypeID, javaType=String,jdbcType=CHAR, mode=IN}
-                , #{articleTypeID, javaType=String,jdbcType=CHAR, mode=IN}
+            , #{includeUseYN, javaType=String, jdbcType=CHAR, mode=IN}
+            , #{supplyTypeID, javaType=String,jdbcType=CHAR, mode=IN}
+            , #{articleTypeID, javaType=String,jdbcType=CHAR, mode=IN}
                )}
     </select>
     <select id="getArticleDetail" statementType="CALLABLE" resultType="wizard.eVC.baseMgmt.article.DTO.Article"
@@ -56,24 +56,24 @@
                 #{prodQtyPerBox, javaType=double, jdbcType=NUMERIC, mode=IN},
                 #{outQtyPerBox, javaType=double, jdbcType=NUMERIC, mode=IN},
                 #{unitTypeID, javaType=String, jdbcType=VARCHAR, mode=IN},
-                #{fileName1, javaType=String, jdbcType=VARCHAR, mode=IN},
-                #{filePath1, javaType=String, jdbcType=VARCHAR, mode=IN},
-                #{fileName2, javaType=String, jdbcType=VARCHAR, mode=IN},
-                #{filePath2, javaType=String, jdbcType=VARCHAR, mode=IN},
-                #{fileName3, javaType=String, jdbcType=VARCHAR, mode=IN},
-                #{filePath3, javaType=String, jdbcType=VARCHAR, mode=IN},
-                #{fileName4, javaType=String, jdbcType=VARCHAR, mode=IN},
-                #{filePath4, javaType=String, jdbcType=VARCHAR, mode=IN},
-                #{fileName5, javaType=String, jdbcType=VARCHAR, mode=IN},
-                #{filePath5, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{imageFileName, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{imageFilePath, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{sketch1File, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{sketch1Path, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{sketch2File, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{sketch2Path, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{sketch3File, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{sketch3Path, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{sketch4File, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{sketch4Path, javaType=String, jdbcType=VARCHAR, mode=IN},
                 #{labelPrintYN, javaType=String, jdbcType=VARCHAR, mode=IN},
-                #{unitPrice, javaType=double, jdbcType=NUMERIC, mode=IN},
-                #{unitPriceTypeID, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{buyUnitPrice, javaType=double, jdbcType=NUMERIC, mode=IN},
+                #{buyUnitTypeID, javaType=String, jdbcType=VARCHAR, mode=IN},
                 #{outUnitPrice, javaType=double, jdbcType=NUMERIC, mode=IN},
+                #{outUnitTypeID, javaType=String, jdbcType=VARCHAR, mode=IN},
                 #{buySaleMainYN, javaType=String, jdbcType=VARCHAR, mode=IN},
                 #{comments, javaType=String, jdbcType=VARCHAR, mode=IN},
                 #{patternID, javaType=String, jdbcType=VARCHAR, mode=IN},
-                #{inspectYN, javaType=String, jdbcType=VARCHAR, mode=IN},
                 #{hsCode, javaType=String, jdbcType=VARCHAR, mode=IN},
                 #{freeStuffinYN, javaType=String, jdbcType=VARCHAR, mode=IN},
                 #{createUserID, javaType=String, jdbcType=VARCHAR, mode=IN}
@@ -96,38 +96,45 @@
                 #{article, javaType=String, jdbcType=VARCHAR, mode=IN},
                 #{buyerArticleNo, javaType=String, jdbcType=VARCHAR, mode=IN},
                 #{articleTypeID, javaType=String, jdbcType=VARCHAR, mode=IN},
+
                 #{productTypeID, javaType=String, jdbcType=VARCHAR, mode=IN},
                 #{supplyTypeID, javaType=String, jdbcType=VARCHAR, mode=IN},
                 #{partTypeID, javaType=String, jdbcType=VARCHAR, mode=IN},
                 #{exDiameter, javaType=double, jdbcType=NUMERIC, mode=IN},
                 #{inDiameter, javaType=double, jdbcType=NUMERIC, mode=IN},
+
                 #{width, javaType=double, jdbcType=NUMERIC, mode=IN},
                 #{weight, javaType=double, jdbcType=NUMERIC, mode=IN},
                 #{length, javaType=double, jdbcType=NUMERIC, mode=IN},
                 #{useYN, javaType=String, jdbcType=VARCHAR, mode=IN},
                 #{spec, javaType=String, jdbcType=VARCHAR, mode=IN},
+
                 #{needStockQty, javaType=double, jdbcType=NUMERIC, mode=IN},
                 #{prodQtyPerBox, javaType=double, jdbcType=NUMERIC, mode=IN},
                 #{outQtyPerBox, javaType=double, jdbcType=NUMERIC, mode=IN},
                 #{unitTypeID, javaType=String, jdbcType=VARCHAR, mode=IN},
-                #{fileName1, javaType=String, jdbcType=VARCHAR, mode=IN},
-                #{filePath1, javaType=String, jdbcType=VARCHAR, mode=IN},
-                #{fileName2, javaType=String, jdbcType=VARCHAR, mode=IN},
-                #{filePath2, javaType=String, jdbcType=VARCHAR, mode=IN},
-                #{fileName3, javaType=String, jdbcType=VARCHAR, mode=IN},
-                #{filePath3, javaType=String, jdbcType=VARCHAR, mode=IN},
-                #{fileName4, javaType=String, jdbcType=VARCHAR, mode=IN},
-                #{filePath4, javaType=String, jdbcType=VARCHAR, mode=IN},
-                #{fileName5, javaType=String, jdbcType=VARCHAR, mode=IN},
-                #{filePath5, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{imageFileName, javaType=String, jdbcType=VARCHAR, mode=IN},
+
+                #{imageFilePath, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{sketch1File, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{sketch1Path, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{sketch2File, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{sketch2Path, javaType=String, jdbcType=VARCHAR, mode=IN},
+
+                #{sketch3File, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{sketch3Path, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{sketch4File, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{sketch4Path, javaType=String, jdbcType=VARCHAR, mode=IN},
                 #{labelPrintYN, javaType=String, jdbcType=VARCHAR, mode=IN},
-                #{unitPrice, javaType=double, jdbcType=NUMERIC, mode=IN},
-                #{unitPriceTypeID, javaType=String, jdbcType=VARCHAR, mode=IN},
+
+                #{buyUnitPrice, javaType=double, jdbcType=NUMERIC, mode=IN},
+                #{buyUnitTypeID, javaType=String, jdbcType=VARCHAR, mode=IN},
                 #{outUnitPrice, javaType=double, jdbcType=NUMERIC, mode=IN},
+                #{outUnitTypeID, javaType=String, jdbcType=VARCHAR, mode=IN},
                 #{buySaleMainYN, javaType=String, jdbcType=VARCHAR, mode=IN},
+
                 #{comments, javaType=String, jdbcType=VARCHAR, mode=IN},
                 #{patternID, javaType=String, jdbcType=VARCHAR, mode=IN},
-                #{inspectYN, javaType=String, jdbcType=VARCHAR, mode=IN},
                 #{hsCode, javaType=String, jdbcType=VARCHAR, mode=IN},
                 #{freeStuffinYN, javaType=String, jdbcType=VARCHAR, mode=IN},
                 #{lastUpdateUserID, javaType=String, jdbcType=VARCHAR, mode=IN}
@@ -137,14 +144,16 @@
     <select id="updateArticleFtp" statementType="CALLABLE" parameterType="wizard.eVC.baseMgmt.article.DTO.ArticleProcess">
         { call xp_Article_uArticle_FTP(
                 #{articleID, javaType=String, jdbcType=VARCHAR, mode=IN},
-                #{fileName1, javaType=String, jdbcType=VARCHAR, mode=IN},
-                #{filePath1, javaType=String, jdbcType=VARCHAR, mode=IN},
-                #{fileName2, javaType=String, jdbcType=VARCHAR, mode=IN},
-                #{filePath2, javaType=String, jdbcType=VARCHAR, mode=IN},
-                #{fileName3, javaType=String, jdbcType=VARCHAR, mode=IN},
-                #{filePath4, javaType=String, jdbcType=VARCHAR, mode=IN},
-                #{fileName5, javaType=String, jdbcType=VARCHAR, mode=IN},
-                #{filePath5, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{imageFileName, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{imageFilePath, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{sketch1File, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{sketch1Path, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{sketch2File, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{sketch2Path, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{sketch3File, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{sketch3Path, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{sketch4File, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{sketch4Path, javaType=String, jdbcType=VARCHAR, mode=IN},
                 #{lastUpdateUserID, javaType=String, jdbcType=VARCHAR, mode=IN}
                )}
     </select>
