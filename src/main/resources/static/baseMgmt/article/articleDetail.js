@@ -164,3 +164,4 @@ function deleteValue(e) {
     del.value = input.value;
     input.value = '';
 }
+
