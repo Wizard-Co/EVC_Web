@@ -1,0 +1,179 @@
+<!--
+  *packageName      : templates.pages.infoMgmt.infoAddDetail
+  *fileName         : infoAddDetail.html
+  *author           : KDH
+  *date             : 2024-10-10
+  *======================================================
+  *DATE             AUTHOR               NOTE
+  *------------------------------------------------------
+  * 2024-10-10       KDH              공지사항 추가 상세
+ -->
+
+<!--
+id : 카멜케이스 ex) chkDate
+class : 하이픈 사용 ex) page-header
+-->
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/sublayout}" lang="ko">
+
+<th:block layout:fragment="css">
+    <link rel="stylesheet" type="text/css" th:href="@{/infoMgmt/infoAdd/infoAddDetail.css}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.12/themes/default/style.min.css" /> <!-- 트리구조에서 사용할 css -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"> <!-- 트리구조에서 사용할 css -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"> <!-- toastr 메시지 css -->
+</th:block>
+<th:block layout:fragment="script">
+    <script th:src="@{/infoMgmt/infoAdd/infoAddDetail.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.3.12/jstree.min.js"></script> <!-- 트리구조에서 사용할 js -->
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script> <!-- 트리구조에서 사용할 js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script> <!-- toastr 메시지 js -->
+</th:block>
+
+<!--content-->
+<section layout:fragment="content">
+    <body>
+        <loading-form id="loading" class="diplay-none"></loading-form>
+        <main>
+            <section id="contents">
+                <div class="menu">
+                    <div class="page-header">
+                        ■ 공지사항등록
+                    </div>
+                </div>
+                <div class = "menu">
+                    <div class="page-header">
+                        ■ [공지내용]
+                    </div>
+                    <div class = "page-header">
+                        <div class="icon">
+                            <button type="button" class="btn btn-info m-r-05" id="btnClear">초기화</button>
+                            <button type="submit" form="addForm" class="btn btn-success m-r-05" id="btnSave">저장</button>
+                            <button type="submit" form="addForm" class="btn btn-success m-r-05" id="btnUpdate">수정</button>
+                            <button type="submit" form="addForm" class="btn btn-success m-r-05" id="btnDelete" style="display: none">삭제</button>
+                            <button type="button" class="btn btn-success m-r-05" id="btnClose">닫기</button>
+                        </div>
+                    </div>
+                </div>
+                <section class="page-middle">
+                    <span class="form-notice float-end"><b>*</b> 표시는 필수 기입 사항 입니다</span>
+                    <form id = "addForm" th:object="${InfoAddDetailDto}" class="needs-validation" novalidate>
+                        <table id="formTable" class="table table-bordered text-center">
+                            <tbody>
+                                <span><input type="hidden" id="txtInfoID" th:field="*{infoID}"><input type="hidden" id="txtUserID" th:field="*{userID}"><input type="hidden" th:field="*{companyID}"></span>
+                                <tr>
+                                    <td class="col-md-2">
+                                        <label><span class="form-notice">*</span> 공지기간</label>
+                                    </td>
+                                    <td class="text-align text-xs-left" colspan = "3">
+                                        <div class="flx">
+                                            <input type="date" class="input-date" id="inputSDateSearch"  th:field="*{fromDate}"/>
+                                            ~
+                                            <input type="date" class="input-date" id="inputEDateSearch" th:field="*{toDate}"/>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-2">
+                                        <label><span class="form-notice">*</span> 공지대상</label>
+                                    </td>
+                                    <td class="text-align text-xs-left" colspan = "3">
+                                        <div class="flx">
+                                            <span>
+                                                <label class="lbl-check" for="chkAllGbn">
+                                                    <input class="checkbox" id="chkAllGbn" type="checkbox" th:field="*{allYN}" value="Y"> 전체
+                                                </label>
+                                                <label class="lbl-check" for="chkPersonGbn">
+                                                    <input class="checkbox" id="chkPersonGbn" type="checkbox" th:field="*{allYN}" value="N"> 개별
+                                                </label>
+                                            </span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class = "tr-height" >
+                                    <td class="col-md-2 text-align">
+                                        <label><span class="form-notice"></span> 공지대상자</label>
+                                    </td>
+                                    <td>
+                                        <div class="div-checkbox">
+                                            <span>
+                                                <label class="lbl-check" for="chkMain">
+                                                    <input class="checkbox" id="chkMain" type="checkbox"> 주강사
+                                                </label>
+                                            </span>
+                                        </div>
+                                        <div class="flx">
+                                            <div class = "div-scroll" style="width:30%">
+                                                <div class="flx" id ="tree"></div>
+                                            </div>
+                                            <div style="width:20%">
+                                                <div class="tr-height btn-align">
+                                                    <div></div>
+                                                    <button class="btn btn-primary btn-lg bi bi-caret-right-square-fill" id="btnRight"></button>
+                                                    <button class="btn btn-primary btn-lg bi bi-caret-left-square-fill" id="btnLeft"></button>
+                                                    <div></div>
+                                                </div>
+                                            </div>
+                                            <div style="width:50%">
+                                                <table id= "idRightPersonTable" class="table table-bordered text-center striped cell-border table-light-info text-align" style="table-layout:fixed">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>부서명</th>
+                                                        <th>사원명</th>
+                                                        <th class = "th-hidden">부서ID</th>
+                                                        <th class = "th-hidden">사원ID</th>
+                                                    </tr>
+                                                    </thead>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-2">
+                                        <label><span class="form-notice"></span> 상단게시글 여부</label>
+                                    </td>
+                                    <td class="text-align text-xs-left" colspan = "3">
+                                        <div class="flx">
+                                            <span>
+                                                <label class="lbl-check" for="chkUpGbn">
+                                                    <input class="checkbox" id="chkUpGbn" type="checkbox" th:field="*{topNotifyYNDetail}" value="true"> 상단 여부
+                                                </label>
+                                            </span>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr class = "tr-height" >
+                                    <td class="col-md-2  text-align">
+                                        <label><span class="form-notice">*</span> 공지내용</label>
+                                        <!--<label>(최대 글자수 : 1000자)</label>-->
+                                    </td>
+                                    <td colspan = "3">
+                                        <textarea class="textarea-size" id="taInf" th:field="*{info}" required></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="col-md-2 text-align">
+                                        <label>첨부문서</label>
+                                    </td>
+                                    <td class="text-xs-left" colspan = "3">
+                                        <div class="flx">
+                                            <!--파일이름 DB 저장은 string 타입, 파일 여부 및 파일 업로드는 file 타입-->
+                                            <input type="file" th:field="*{attachFileDetail}" id="uploadFile" style= "display:none">  <!--업로드, 여부 -->
+<!--                                            <input type="text" th:field="*{attachPath}">-->
+                                            <input type="text" th:field="*{attachFile}" id="saveFile" readonly> <!--저장-->
+                                            <input type="text" th:field="*{deleteAttachFile}" class="th-hidden" readonly> <!--삭제여부 판단-->
+                                            <button type="button" class="btn btn-success" id="fileDelete">삭제</button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </section>
+            </section>
+        </main>
+    </body>
+</section>
+</html>

@@ -234,6 +234,39 @@ public class FTP {
         }
     }
 
+    //2024-11-05 KDH FTP 파일삭제(데이터 삭제시 파일과 디렉토리도 같이 삭제)
+    public void deleteDirectory(String filePath) {
+        try {
+
+            open();
+            setFtp();
+
+            // 디렉토리 존재 여부 판단 true면 존재, false면 존재 하지 않음
+            if(ftp.changeWorkingDirectory(filePath)) {
+                // 디렉토리 내의 모든 파일 삭제
+                String[] files = ftp.listNames(filePath);
+                if (files != null) {
+                    for (String file : files) {
+                        ftp.deleteFile(file);
+                    }
+                }
+
+                boolean result = ftp.removeDirectory(filePath);
+
+                if (!result) {
+                    close();
+                    log.error("FTP 파일 삭제 실패");
+                }
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (ftp.isConnected()) {
+                close();
+            }
+        }
+    }
     public void setFtp() throws IOException {
         ftp.enterLocalPassiveMode();
         ftp.setFileTransferMode(ftp.BINARY_FILE_TYPE);
