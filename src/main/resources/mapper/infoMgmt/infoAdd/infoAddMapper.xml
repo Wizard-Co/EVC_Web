@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--    설명: 공지사항등록 맵퍼.xml
+        작성일: 2024.10.30
+        개발자: KDH
+        ********************************************************
+        수정일자       수정자          요청자     요청내용
+        ********************************************************
+
+
+
+-->
+
+<mapper namespace="wizard.eVC.infoMgmt.infoAdd.InfoAddMapper">
+
+    <!-- 공지사항등록 -->
+    <!--id 값과 call 값은 프로시저 이름으로 해야 됨-->
+    <select id="xp_info_sInfo" statementType="CALLABLE" resultType="wizard.eVC.infoMgmt.infoAdd.dto.InfoAddDto"
+            parameterType="map">
+        { call xp_info_sInfo(#{sDate, javaType=String, jdbcType=VARCHAR, mode=IN} <!--시작일-->
+                            ,#{eDate, javaType=String, jdbcType=VARCHAR, mode=IN} <!--종료일-->
+                            ,#{allGbn,javaType=String, jdbcType=VARCHAR, mode=IN}
+        )}
+    </select>
+
+    <!--공지사항 상세 조회-->
+    <select id="xp_info_sInfo_detail" statementType="CALLABLE" resultType="wizard.eVC.infoMgmt.infoAdd.dto.InfoAddDetailDto"
+            parameterType="String">
+        { call xp_info_sInfo_detail(#{infoID, javaType=String, jdbcType=VARCHAR, mode=IN} <!--infoID-->)}
+    </select>
+
+    <!--공지사항 삭제-->
+    <select id="xp_info_dInfo" statementType="CALLABLE" resultType="wizard.eVC.infoMgmt.infoAdd.dto.InfoAddDetailDto"
+            parameterType="String">
+        { call xp_info_dInfo(#{infoID, javaType=String, jdbcType=VARCHAR, mode=IN} <!--infoID-->)}
+    </select>
+
+    <!-- 공지사항 조회수 -->
+    <select id="xp_info_uinfo_hitCount" statementType="CALLABLE" resultType="wizard.eVC.infoMgmt.infoAdd.dto.InfoAddDetailDto"
+            parameterType="map">
+        { call xp_info_uinfo_hitCount(#{infoID, javaType=String, jdbcType=VARCHAR, mode=IN}
+                                     ,#{hitCount, javaType=Long, jdbcType=NUMERIC, mode=IN})}
+    </select>
+
+</mapper>

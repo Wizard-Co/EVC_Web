@@ -1,0 +1,92 @@
+/*
+설명: 공지사항 추가 상세 css
+작성일: 2024.10.08
+개발자: KDH
+********************************************************
+수정일자       수정자          요청자     요청내용
+********************************************************
+
+*/
+
+/*
+. class : 중복으로 같이 사용 가능, 하이픈 사용 ex) page-header
+# id : 중복으로 사용 불가능(id값 다르게 계속 생성), 카멜케이스 ex) chkDate
+*/
+
+/*textarea css resize = none;, 크기 조절 막기 */
+.textarea-size{
+    width : 100%;
+    height : 300px;
+    resize: none;
+    font-size: 20px; /* 글자 크기 설정 */
+}
+
+/*행 높이 조정 css*/
+.tr-height{
+    height: 250px; /* 행 높이 설정 */
+}
+
+/*세로 가운데 정렬 css*/
+.text-align{
+    vertical-align: middle; /* 셀의 세로 중앙에 배치 */
+}
+
+/*date css*/
+.input-date{
+    margin : 0px 4px;
+}
+
+/*해당 section 전체적 디자인*/
+.page-middle {
+    padding: 20px 20px;
+    border-bottom: 0px solid;
+    font-size: 14px;
+    font-weight: 400;
+    /*user-select: none;*/ /* 더블 클릭시 파란색 선택 방지 */
+}
+
+/*컬럼 숨기기*/
+.th-hidden{
+    display: none;
+}
+
+/*가운데 버튼 위아래좌우 가운데 정렬*/
+.btn-align{
+    display: grid;
+    place-items: center; /* 가로 및 세로 가운데 정렬 */
+}
+
+/*주강사 dic*/
+.div-checkbox{
+    display: flex;
+    justify-content: space-start;
+}
+
+/*div 스크롤바 생성*/
+.div-scroll{
+    overflow: auto;
+    height: 250px;
+}
+
+/*file text 크기*/
+#saveFile{
+    width : 100%;
+    margin-right : 10px;
+}
+
+/*테이블 상단 검색조건에 라벨 위치 공통과 위치가 다르게 처리되어 여기에 생성함*/
+table label {
+    vertical-align: middle;
+}
+
+/*테이블이 컬럼 hidden시 사용(이거 안 하면 뒤에 빈 공간 생성됨)*/
+table colgroup{
+    display: none;
+}
+
+table .disabled{
+            background-color: #f0f0f0; /* 비활성화된 행의 배경색 */
+            color: #aaa; /* 비활성화된 텍스트 색상 */
+            pointer-events: none; /* 클릭 이벤트 비활성화 */
+}
+

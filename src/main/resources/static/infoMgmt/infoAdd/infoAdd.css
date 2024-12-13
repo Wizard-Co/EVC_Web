@@ -1,0 +1,65 @@
+/*
+설명: 공지사항 추가 css
+작성일: 2024.10.08
+개발자: KDH
+********************************************************
+수정일자       수정자          요청자     요청내용
+********************************************************
+
+*/
+
+/*
+. class : 중복으로 같이 사용 가능, 하이픈 사용 ex) page-header
+# id : 중복으로 사용 불가능(id값 다르게 계속 생성), 카멜케이스 ex) chkDate
+*/
+
+/*전월, 전일, 금일, 당월 버튼 css*/
+.btn-date{
+    margin : 4px 1.5px;
+}
+
+/*체크박스 사용하는 라벨 css*/
+.lbl-check{
+    margin : 1px 1px;
+}
+
+/*체크박스*/
+.checkbox{
+    margin : 0px 1px;
+}
+
+/*date css*/
+.input-date{
+    margin : 0px 4px;
+}
+
+/*div icon css*/
+.icon{
+    padding: 20px 20px;
+}
+
+/*div 검색조건 css*/
+.search-data{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 45px;
+}
+
+/*상단 일자, 버튼, 검색조건 영역*/
+.page-middle {
+    padding: 20px 20px;
+    border-bottom: 0px solid;
+    font-size: 20px;
+    font-weight: 600;
+    /*user-select: none;*/ /* 더블 클릭시 파란색 선택 방지 */
+}
+
+/*세로 가운데 정렬 css*/
+.text-align{
+    vertical-align: middle; /* 셀의 세로 중앙에 배치 */
+}
+
+/*컬럼 숨기기*/
+.th-hidden{
+    display: none;
+}
