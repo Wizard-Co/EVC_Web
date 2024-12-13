@@ -42,10 +42,10 @@ const table = new DataTable('#table', {
         {data: "phone", className: 'right', orderable: false},
 
         {data: "zipCode", className: 'center', orderable: false},
-        {data: "address1", className: 'left', orderable: false},
-        {data: "address2", className: 'left', orderable: false},
-        {data: "addressJubun1", className: 'left', orderable: false},
-        {data: "addressJubun2", className: 'left', orderable: false},
+        {data: "address", className: 'left', orderable: false},
+        {data: "addressDetail", className: 'left', orderable: false},
+        {data: "addressJibun", className: 'left', orderable: false},
+        {data: "addressDetail", className: 'left', orderable: false},
 
         {data: "bankAccount", className: 'left', orderable: false},
         {data: "fileName", className: 'left', orderable: false},
@@ -64,7 +64,7 @@ tbody.ondblclick = function (event) {
     let param = {
         personID: selectedRow.personID
     }
-    openForm('articleDetail', '/baseMgmt/person/detail?mode=update', param, '');
+    openForm('personDetail', '/baseMgmt/person/detail?mode=update', param, '');
 }
 
 function mainBtnSetting() {
@@ -77,13 +77,17 @@ document.getElementById('btnAdd').addEventListener('click', function () {
 
 document.getElementById('btnDelete').addEventListener('click', function () {
     if (!!selectedRow) {
-        let baseUrl = '/baseMgmt/article/delete';
+        let baseUrl = '/baseMgmt/person/delete';
         let param = new URLSearchParams({
-            articleID: selectedRow.articleID
+            personID: selectedRow.personID
         });
         let urlWithParam = `${baseUrl}?${param}`
 
-        fetch(urlWithParam)
+        fetch('/baseMgmt/person/save', {
+            method: 'post',
+            body: formData,
+            headers: {},
+        })
             .then(response => {
                 if (!response.ok) console.log('http error: ', response);
             })

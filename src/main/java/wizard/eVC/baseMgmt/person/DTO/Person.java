@@ -3,6 +3,10 @@ package wizard.eVC.baseMgmt.person.DTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
+import wizard.eVC.common.dto.Menu;
+
+import java.util.List;
 
 /**
  * packageName      : wizard.eVC.baseMgmt.person.DTO
@@ -38,13 +42,12 @@ public class Person {
     public String insaAreaID;
     public String insaArea;
     public String zipCode;
-    public String zipCode_old;
-    public String address1;
-    public String address2;
-    public String addressJubun1;
-    public String addressJubun2;
+    public String address;
+    public String addressDetail;
+    public String addressJibun;
     public String fileName;
     public String filePath;
+    public MultipartFile file;
     public String remark;
     public String bankAccount;
     public String email;
@@ -58,10 +61,13 @@ public class Person {
     public String observeHistory;
     public String classHistory;
     public String useYN;
-    public String passwordChangedDate;
+    public String mainWorkYN;
+    public String passwordChangeDate;
     public String sexTypeID;
     public String createDate;
     public String createUserID;
     public String lastUpdateDate;
     public String lastUpdateUserID;
+
+    public List<Menu> menuList;
 }

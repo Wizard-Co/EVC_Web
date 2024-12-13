@@ -303,6 +303,9 @@ h1.light, h2.light, h3.light, h4.light, h5.light, h6.light {
 
 .display-inline-block {
     display: inline-block !important; }
+.display-none {
+    display: none;
+}
 
 /*loading-form style*/
 #loading {

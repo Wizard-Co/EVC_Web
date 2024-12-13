@@ -1,0 +1,105 @@
+form {
+    padding: 1rem;
+}
+
+label {
+    font-weight: normal;
+}
+
+.btn {
+    float: right;
+    margin-bottom: 10px;
+    margin-right: 5px;
+}
+
+.menu-tree {
+    width: 600px;
+    position: relative;
+    /*table-layout: fixed;*/
+}
+
+.menu-header {
+    /*width: 7%;*/
+    text-align: center;
+}
+
+.menu-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.checkbox-container {
+    position: absolute;
+    right: 0;
+    display: flex;
+    width: 40%;
+}
+
+.auth {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+}
+
+.child {
+    margin-left: 15px;
+}
+
+input[type="checkbox"]:not(.auth) {
+    display: none;
+}
+
+label {
+    cursor: pointer;
+}
+
+label:hover {
+    color: #9ec5fe;
+}
+
+/*큰 메뉴*/
+#menuIcon:before {
+    margin-right: 5px;
+    content: url('/lib/svg/list.svg');
+}
+
+/*부모메뉴 접기전에 */
+.fold + label:before {
+    margin-right: 5px;
+    content: url('/lib/svg/folder-minus.svg');
+}
+
+/*부모메뉴 접고 나서  */
+.fold:checked + label:before {
+    margin-right: 5px;
+    content: url('/lib/svg/folder-plus.svg');
+}
+
+.lvl0.nochild + label:before {
+    margin-right: -3px;
+    margin-left: 10px;
+    content: url('/lib/svg/info.svg');
+}
+
+.off {
+    display: none;
+}
+
+.lvl0.fold + label {
+    font-weight: bold;
+    /*background-color: #F9DEE6;*/
+}
+
+.lvl1.fold + label {
+    /*background-color: #FBEBF0;*/
+}
+
+.lvl1.nochild + label:before {
+    content: "●";
+    font-size: 0.3rem;
+    vertical-align: super;
+    margin-right: 0.3rem;
+}
+
+

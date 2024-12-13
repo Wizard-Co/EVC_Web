@@ -2,6 +2,8 @@ package wizard.eVC.baseMgmt.person;
 
 import org.apache.ibatis.annotations.Mapper;
 import wizard.eVC.baseMgmt.person.DTO.Person;
+import wizard.eVC.common.dto.CMCode;
+import wizard.eVC.common.dto.Menu;
 
 import java.util.List;
 import java.util.Map;
@@ -23,6 +25,13 @@ public interface PersonMapper {
     Person getPersonDetail(String personID);
     Person savePerson(Person person);
     Person updatePerson(Person person);
-    void updatePersonFtp(Person person);
+    void updatePersonFTP(Person person);
+    void deletePerson(String personID, String endDate);
+    void savePersonMenu(Map<String, Object> menu);
+    void deletePersonMenu(String personID, String pgGubun);
+    List<CMCode> getDepart();
+    List<CMCode> getPosition();
+    List<Menu> getMenuList(String sPgGubun);
+    List<Menu> getPersonMenu(String personID, String pgGubun);
 
 }

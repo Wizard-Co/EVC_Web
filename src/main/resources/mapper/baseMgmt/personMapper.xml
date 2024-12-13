@@ -17,14 +17,141 @@
 
     <select id="getPersonDetail" statementType="CALLABLE" resultType="wizard.eVC.baseMgmt.person.DTO.Person"
             parameterType="string">
-        { call xp_Person_sPerson(
-                #{depart, javaType=String, jdbcType=VARCHAR, mode=IN}
-            , #{name, javaType=String, jdbcType=CHAR, mode=IN}
-            , #{areaID, javaType=String,jdbcType=CHAR, mode=IN}
-            , #{licenseID, javaType=String,jdbcType=CHAR, mode=IN}
-            , #{includeAdminYN, javaType=String,jdbcType=CHAR, mode=IN}
-            , #{includeEndYN, javaType=String,jdbcType=CHAR, mode=IN}
+        { call xp_Person_sPersonDetail(#{personID, javaType=String, jdbcType=VARCHAR, mode=IN})}
+    </select>
+    <select id="getDepart" resultType="wizard.eVC.common.dto.CMCode">
+        select
+            codeID = departID,
+            codeName = depart
+        from mt_Depart
+        where UseClss <![CDATA[<> '*']]>
+    </select>
+
+    <select id="getPosition" resultType="wizard.eVC.common.dto.CMCode">
+        select
+            codeID = jobPsnID,
+            codeName = jobPsnName
+        from mt_JobPosition
+        where useYN <![CDATA[<> 'N']]>
+    </select>
+
+    <select id="savePerson" statementType="CALLABLE" resultType="wizard.eVC.baseMgmt.person.DTO.Person" parameterType="wizard.eVC.baseMgmt.person.DTO.Person">
+        { call xp_Person_iPerson(
+                #{personID, javaType=String, jdbcType=VARCHAR, mode=OUT},
+                #{name, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{loginID, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{password, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{departID, javaType=String, jdbcType=CHAR, mode=IN},
+                #{registNo, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{birth, javaType=String, jdbcType=CHAR, mode=IN},
+                #{solarTypeID, javaType=String, jdbcType=CHAR, mode=IN},
+                #{positionID, javaType=String, jdbcType=CHAR, mode=IN},
+                #{dutyID, javaType=String, jdbcType=NUMERIC, mode=IN},
+                #{insaDutyDTLID, javaType=String, jdbcType=NUMERIC, mode=IN},
+                #{insaAreaID, javaType=String, jdbcType=NUMERIC, mode=IN},
+                #{zipCode, javaType=String, jdbcType=NUMERIC, mode=IN},
+                #{address, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{addressDetail, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{addressJibun, javaType=String, jdbcType=NUMERIC, mode=IN},
+                #{fileName, javaType=String, jdbcType=NUMERIC, mode=IN},
+                #{filePath, javaType=String, jdbcType=NUMERIC, mode=IN},
+                #{remark, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{bankAccount, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{email, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{startDate, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{endDate, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{handPhone, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{phone, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{endReason, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{qualifyHistory, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{trainingHistory, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{observeHistory, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{classHistory, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{useYN, javaType=String, jdbcType=NUMERIC, mode=IN},
+                #{mainWorkYN, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{createUserID, javaType=String, jdbcType=VARCHAR, mode=IN}
                )}
     </select>
 
+    <select id="updatePerson" statementType="CALLABLE" resultType="wizard.eVC.baseMgmt.person.DTO.Person" parameterType="wizard.eVC.baseMgmt.person.DTO.Person">
+        { call xp_Person_uPerson(
+                #{personID, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{name, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{loginID, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{password, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{departID, javaType=String, jdbcType=CHAR, mode=IN},
+                #{registNo, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{birth, javaType=String, jdbcType=CHAR, mode=IN},
+                #{solarTypeID, javaType=String, jdbcType=CHAR, mode=IN},
+                #{positionID, javaType=String, jdbcType=CHAR, mode=IN},
+                #{dutyID, javaType=String, jdbcType=NUMERIC, mode=IN},
+                #{insaDutyDTLID, javaType=String, jdbcType=NUMERIC, mode=IN},
+                #{insaAreaID, javaType=String, jdbcType=NUMERIC, mode=IN},
+                #{zipCode, javaType=String, jdbcType=NUMERIC, mode=IN},
+                #{address, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{addressDetail, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{addressJibun, javaType=String, jdbcType=NUMERIC, mode=IN},
+                #{fileName, javaType=String, jdbcType=NUMERIC, mode=IN},
+                #{filePath, javaType=String, jdbcType=NUMERIC, mode=IN},
+                #{remark, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{bankAccount, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{email, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{startDate, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{endDate, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{handPhone, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{phone, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{endReason, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{qualifyHistory, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{trainingHistory, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{observeHistory, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{classHistory, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{useYN, javaType=String, jdbcType=NUMERIC, mode=IN},
+                #{mainWorkYN, javaType=String, jdbcType=VARCHAR, mode=IN},
+                #{lastUpdateUserID, javaType=String, jdbcType=VARCHAR, mode=IN}
+               )}
+    </select>
+
+    <select id="deletePerson" parameterType="String">
+        { call xp_Person_dPerson(
+                #{personID, javaType=String, jdbcType=VARCHAR, mode=IN}
+            , #{endDate, javaType=String, jdbcType=CHAR, mode=IN}
+               )}
+    </select>
+
+    <select id="updatePersonFTP" parameterType="wizard.eVC.baseMgmt.person.DTO.Person">
+        update mt_person
+        set fileName = #{fileName},
+            filePath = #{filePath}
+        where personID = #{personID}
+    </select>
+
+    <select id="getMenuList" statementType="CALLABLE" resultType="wizard.eVC.common.dto.Menu">
+        { call xp_Code_sMenu(#{sPgGubun, javaType=string,jdbcType=CHAR, mode=IN})}
+    </select>
+
+    <select id="getPersonMenu" statementType="CALLABLE" resultType="wizard.eVC.common.dto.Menu" parameterType="String">
+        { call xp_Menu_sUserMenu(#{personID, javaType=string,jdbcType=VARCHAR, mode=IN},
+                                 #{pgGubun, javaType=string,jdbcType=VARCHAR, mode=IN})}
+    </select>
+
+    <select id="savePersonMenu" statementType="CALLABLE" parameterType="map">
+        { call xp_Menu_iUserMenu(#{personID, javaType=string,jdbcType=CHAR, mode=IN},
+                                 #{pgGubun, javaType=string,jdbcType=CHAR, mode=IN},
+                                 #{menuID, javaType=string,jdbcType=VARCHAR, mode=IN},
+                                 #{seq, javaType=int,jdbcType=SMALLINT, mode=IN},
+                                 #{level, javaType=int,jdbcType=SMALLINT, mode=IN},
+                                 #{parentID, javaType=string,jdbcType=VARCHAR, mode=IN},
+                                 #{searchYN, javaType=string,jdbcType=CHAR, mode=IN},
+                                 #{addYN, javaType=string,jdbcType=CHAR, mode=IN},
+                                 #{updateYN, javaType=string,jdbcType=CHAR, mode=IN},
+                                 #{deleteYN, javaType=string,jdbcType=CHAR, mode=IN},
+                                 #{printYN, javaType=string,jdbcType=CHAR, mode=IN},
+                                 #{createUserID, javaType=string,jdbcType=VARCHAR, mode=IN}
+               )}
+    </select>
+
+    <select id="deletePersonMenu" statementType="CALLABLE" parameterType="String">
+        { call xp_Menu_dUserMenu(#{personID, javaType=string,jdbcType=CHAR, mode=IN},
+                                 #{pgGubun, javaType=string,jdbcType=CHAR, mode=IN})}
+    </select>
 </mapper>

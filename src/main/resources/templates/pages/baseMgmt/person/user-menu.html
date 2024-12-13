@@ -1,0 +1,113 @@
+<!--
+  *packageName      :
+  *fileName         : 
+  *author           : sooJeong
+  *date             : 2024.11.29
+  *======================================================
+  *DATE             AUTHOR               NOTE
+  *------------------------------------------------------
+  *2024.11.29          sooJeong             최초 생성
+-->
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <th:block th:replace="~{layout/config :: configFragment}"></th:block>
+    <link rel="stylesheet" th:href="@{/common/common.css}"/>
+    <link rel="stylesheet" href="/baseMgmt/person/menu.css"/>
+
+</head>
+<body>
+
+<th:block th:remove="all">
+    <tr th:fragment="menuItem(menu, level)">
+        <td>
+            <div class="menu-item">
+                <input type="checkbox" th:id="${menu.menuID}" th:attr="data-parentID=${menu.parentID}"
+                       th:class="'lvl'+${level}"
+                       th:classappend="${menu.subMenu.size() > 0 ? 'fold' : 'nochild'}">
+                <label th:for="${menu.menuID}" th:text="${menu.menu}">
+                </label>
+                <div class="checkbox-container">
+                    <input type="checkbox" class="auth" data-group="all">
+                    <input type="checkbox" class="auth" data-group="search"
+                           th:checked="${mode == 'update' and menuMap[menu.menuID] != null and menuMap[menu.menuID].searchYN == 'Y'}">
+                    <input type="checkbox" class="auth" data-group="add"
+                           th:checked="${mode == 'update' and menuMap[menu.menuID] != null and menuMap[menu.menuID].addYN == 'Y'}">
+                    <input type="checkbox" class="auth" data-group="update"
+                           th:checked="${mode == 'update' and menuMap[menu.menuID] != null and menuMap[menu.menuID].updateYN == 'Y'}">
+                    <input type="checkbox" class="auth" data-group="delete"
+                           th:checked="${mode == 'update' and menuMap[menu.menuID] != null and menuMap[menu.menuID].deleteYN == 'Y'}">
+                    <input type="checkbox" class="auth" data-group="print"
+                           th:checked="${mode == 'update' and menuMap[menu.menuID] != null and menuMap[menu.menuID].printYN == 'Y'}">
+                </div>
+            </div>
+
+            <table class="child" th:if="${menu.subMenu.size() > 0}">
+                <tbody>
+                <tr th:each="submenu : ${menu.subMenu}">
+                    <th:block th:replace="this :: menuItem(${submenu}, ${level} + 1)"></th:block>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+</th:block>
+
+<form id="addForm">
+    <span class="form-result float-start"></span>
+    <button type="button" class="btn btn-print" id="btnClose">닫기</button>
+    <button type="button" class="btn btn-success" id="btnSave">저장</button>
+    <table class="menu-tree">
+        <thead>
+        <tr>
+            <td style="width: 60%">
+                <input type="checkbox">
+                <label id="menuIcon">메뉴</label>
+            </td>
+            <td class="menu-header">사용</td>
+            <td class="menu-header">조회</td>
+            <td class="menu-header">추가</td>
+            <td class="menu-header">수정</td>
+            <td class="menu-header">삭제</td>
+            <td class="menu-header">인쇄</td>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <table class="child">
+                    <tbody>
+                    <tr>
+                        <div id="parent" class="menu-item">
+                            <input type="checkbox">
+                            <label> ■ 선택 </label>
+                            <div class="checkbox-container">
+                                <input type="checkbox" class="auth" id="btnAll" data-group="all">
+                                <input type="checkbox" class="auth" id="btnAllSearch" data-group="search">
+                                <input type="checkbox" class="auth" id="btnAllAdd" data-group="add">
+                                <input type="checkbox" class="auth" id="btnAllUpdate" data-group="update">
+                                <input type="checkbox" class="auth" id="btnAllDelete" data-group="delete">
+                                <input type="checkbox" class="auth" id="btnAllPrint" data-group="print">
+                            </div>
+                        </div>
+                    </tr>
+                    <tr th:each="menu : ${menuTree}">
+                        <th:block th:replace="this :: menuItem(${menu}, 0)"></th:block>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</form>
+<script src="/baseMgmt/person/menu.js"></script>
+</body>
+</html>

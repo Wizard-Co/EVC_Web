@@ -1,0 +1,125 @@
+<!--
+  *packageName      : templates.pages.basicMgmt
+  *fileName         : person
+  *author           : person
+  *date             : 2024-11-29
+  *======================================================
+  *DATE             AUTHOR               NOTE
+  *------------------------------------------------------
+  * 2024-11-29      sooJeong            최초 생성
+ -->
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}" lang="ko">
+
+<th:block layout:fragment="script">
+    <script th:src="@{/baseMgmt/person/person.js}"></script>
+</th:block>
+<!--content-->
+<section layout:fragment="content">
+    <body>
+    <loading-form id="loading" class="display-none"></loading-form>
+    <main>
+        <div class="menu">
+            <div class="page-header">
+                ■ 사원 코드 등록
+            </div>
+            <div class="icon">
+                <div class="flx">
+                    <button type="button" class="btn btn-info m-r-05" id="btnSearch">조회</button>
+                    <button type="button" class="btn btn-success m-r-05" id="btnAdd">등록</button>
+                    <button type="button" class="btn btn-success" id="btnDelete">삭제</button>
+                </div>
+                <div class="flx mt-05">
+                    <button type="button" id="btnExcel" class="btn btn-print m-r-05">엑셀</button>
+                    <button type="button" id="btnPrint" class="btn btn-print" onclick="window.print()">인쇄</button>
+                </div>
+            </div>
+        </div>
+        <condition class="panel">
+            <div class="panel-body">
+                <div class="flx">
+                    <div class="div-srh m-r-4">
+                        <label for="inputDepartSrh" class="lbl-srh">부서명</label>
+                        <input type="text" id="inputDepartSrh" class="form-control" placeholder="부서명 검색">
+                    </div>
+                    <div class="div-srh m-r-4">
+                        <label for="inputNameSrh" class="lbl-srh">사원명</label>
+                        <input type="text" id="inputNameSrh" class="form-control" placeholder="사원명 검색">
+                    </div>
+                    <div class="div-srh m-r-4">
+                        <label for="cboAreaSrh" class="lbl-srh">거주지역</label>
+                        <select id="cboAreaSrh" class="form-control w150px">
+                            <option value="">전체</option>
+                            <option th:each="option : ${cboArticleType}"
+                                    th:value="${option.codeID}" th:text="${option.codeName}">
+                            </option>
+                        </select>
+                    </div>
+                    <div class="div-srh m-r-4">
+                        <label for="cboQualifiedSrh" class="lbl-srh">자격취득명</label>
+                        <select id="cboQualifiedSrh" class="form-control w150px">
+                            <option value="">전체</option>
+                            </option>
+                        </select>
+                    </div>
+                    <div class="flxCol m-r-4">
+                        <div>
+                            <label class="form-check-label" for="chkIncludeAdminYN">
+                                관리자 포함
+                            </label>
+                            <input class="form-check-input lbl-srh" type="checkbox" value="Y" id="chkIncludeAdminYN">
+                        </div>
+                        <div>
+                            <label class="form-check-label" for="chkIncludeEndYN">
+                                퇴사자 포함
+                            </label>
+                            <input class="form-check-input lbl-srh" type="checkbox" value="Y" id="chkIncludeEndYN">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </condition>
+        <section>
+            <table id="table" class="striped cell-border table-light-info" style="width:100%">
+                <thead>
+                <tr>
+                    <th rowspan="2">순</th>
+                    <th rowspan="2">사원코드</th>
+                    <th rowspan="2">성명</th>
+                    <th rowspan="2">부서</th>
+                    <th rowspan="2">직책</th>
+
+                    <th rowspan="2">직무</th>
+                    <th rowspan="2">식별번호</th>
+                    <th rowspan="2">생년월일</th>
+                    <th rowspan="2">Email</th>
+                    <th rowspan="2">아이디</th>
+
+                    <th rowspan="2">입사일자</th>
+                    <th rowspan="2">퇴사일자</th>
+                    <th rowspan="2">휴대폰</th>
+                    <th rowspan="2">전화번호</th>
+
+                    <th colspan="5">주소</th>
+                    <th rowspan="2">은행계좌</th>
+                    <th rowspan="2">도장이미지파일명</th>
+                    <th rowspan="2">비고</th>
+                </tr>
+                <tr>
+                    <th>우편번호</th>
+                    <th>도로명주소</th>
+                    <th>도로명상세</th>
+                    <th>지번주소</th>
+                    <th>지번상세</th>
+                </tr>
+                </thead>
+            </table>
+        </section>
+    </main>
+    </body>
+
+</section>
+</html>
+

@@ -23,11 +23,11 @@ export class loadingForm extends HTMLElement {
                                 </button>`;
     }
     invisible() {
-        this.classList.add('invisible');
+        this.classList.add('display-none');
         this.isLoading = false;
     }
     visible() {
-        this.classList.remove('invisible');
+        this.classList.remove('display-inline-block');
         this.isLoading = true;
     }
 
