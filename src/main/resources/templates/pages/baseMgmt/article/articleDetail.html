@@ -23,6 +23,13 @@
             .table {
                 margin-bottom: 0;
             }
+            #divImage label {
+                font-size: 10px;
+                text-align: center;
+            }
+            #divImage button {
+                border: 1px solid #dee2e6;
+            }
         </style>
     </head>
     <body>
@@ -336,15 +343,15 @@
                                 <table class="table table-bordered text-center table-light-info">
                                     <tr>
                                         <td class="left flx">
-                                            <label for="realFile" class="form-control label-file">제품이미지</label>
+                                            <label for="realFile" class="form-control label-file">제품<br>이미지</label>
                                             <input type="text" th:field="*{imageFileName}" class="form-control"
                                                    th:attr="data-path=${article.imageFilePath}"
                                                    readonly>
                                             <div id="mypopover" popover>
                                                 <img>
                                             </div>
-                                            <button type="button" popovertarget="mypopover">보기</button>
-                                            <button type="button" class="btnImageDel">삭제</button>
+                                            <button type="button" class="bi bi-search" popovertarget="mypopover"></button>
+                                            <button type="button" class="btnImageDel bi bi-x-lg"></button>
 
                                             <input type="file" id="realFile" name="fileList[0]" class="fileList"
                                                    accept="image/*" hidden>
@@ -354,15 +361,15 @@
                                     </tr>
                                     <tr>
                                         <td class="left flx">
-                                            <label for="realFile2" class="form-control label-file">작업표준서1</label>
+                                            <label for="realFile2" class="form-control label-file">작업<br>표준서1</label>
                                             <input type="text" th:field="*{sketch1File}" class="form-control"
                                                    th:attr="data-path=${article.sketch1Path}"
                                                    readonly>
                                             <div id="mypopover2" popover>
                                                 <img>
                                             </div>
-                                            <button type="button" popovertarget="mypopover2">보기</button>
-                                            <button type="button" class="btnImageDel">삭제</button>
+                                            <button type="button" class="bi bi-search" popovertarget="mypopover2"></button>
+                                            <button type="button" class="btnImageDel bi bi-x-lg"></button>
 
                                             <input type="file" id="realFile2" name="fileList[1]" class="fileList"
                                                    accept="image/*" hidden>
@@ -371,22 +378,21 @@
                                     </tr>
                                     <tr>
                                         <td class="left flx">
-                                            <label for="realFile3" class="form-control label-file">작업표준서2</label>
+                                            <label for="realFile3" class="form-control label-file">작업<br>표준서2</label>
                                             <input type="text" th:field="*{sketch2File}" class="form-control"
                                                    th:attr="data-path=${article.sketch2Path}"
                                                    readonly>
                                             <div id="mypopover3" popover>
                                                 <img>
                                             </div>
-                                            <button type="button" popovertarget="mypopover3">보기</button>
-                                            <button type="button" class="btnImageDel">삭제</button>
+                                            <button type="button" class="bi bi-search" popovertarget="mypopover3"></button>
+                                            <button type="button" class="btnImageDel bi bi-x-lg"></button>
 
                                             <input type="file" id="realFile3" name="fileList[2]" class="fileList"
                                                    accept="image/*" hidden>
                                             <input type="text" name="deleteFileList[2]" data-group="delete" hidden>
                                         </td>
                                     </tr>
-
                                 </table>
                             </div>
                         </div>
