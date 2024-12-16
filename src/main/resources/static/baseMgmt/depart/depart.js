@@ -49,7 +49,6 @@ function initializeDataTable() {
 function attachTableEvents() {
     // DataTable이 초기화된 후 tbody 요소가 동적으로 생성되므로, rows().nodes()로 접근
     let tbody = document.querySelector('#departTable tbody');
-
     if (tbody) {
         tbody.onclick = function (event) {
             let rowElement = event.target.closest('tr');
@@ -69,7 +68,6 @@ function attachTableEvents() {
                 }
             }
         };
-
         // 상세 열기 (더블 클릭)
         tbody.ondblclick = function (event) {
             if (selectedRow) {
