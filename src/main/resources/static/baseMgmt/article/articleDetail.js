@@ -165,3 +165,22 @@ function deleteValue(e) {
     input.value = '';
 }
 
+document.getElementById('hsCode').addEventListener('click', function () {
+    hsFinder('hsCodeID', 'hsCode', 20, '');
+})
+
+function hsFinder(txtID, txtName, nLarge, sMiddle) {
+
+    let baseurl = "pages/article/hsFinder";
+    let url = baseurl + "?txtID=" + txtID + "&txtName=" + txtName + "&nLarge=" + nLarge + "&sMiddle=" + sMiddle;
+    let encodeUrl = encodeURI(url);
+    let name = "plusfinder";
+
+    let _width = 400;
+    let _height = 600;
+    let _left = Math.ceil((window.screen.width - _width) / 2);
+    let _top = Math.ceil((window.screen.height - _height) / 2);
+    let option = "width=" + _width + ", height=" + _height + ", top=" + _top + ", left=" + _left;
+    let openPf = window.open(encodeUrl, name, option);
+
+}

@@ -4,6 +4,8 @@ import org.apache.ibatis.annotations.Mapper;
 import wizard.eVC.baseMgmt.article.DTO.Article;
 import wizard.eVC.baseMgmt.article.DTO.ArticleProcess;
 
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,5 +33,6 @@ public interface ArticleMapper {
     List<ArticleProcess> getProcess(Map<String, String> params);
     List<Map<String, Object>> getProcessPattern(String sArticleGrpID);
     void saveArticleProcess(ArticleProcess articleProcess);
+    List<LinkedHashMap<String, Object>> gethsFinder(HashMap<String, Object> param);
 
 }
