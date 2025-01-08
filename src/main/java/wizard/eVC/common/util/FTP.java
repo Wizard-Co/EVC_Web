@@ -85,11 +85,7 @@ public class FTP {
 
             InputStream inputStream = file.getInputStream();
 
-            if (!ftp.changeWorkingDirectory(filePath)) {
-                ftp.makeDirectory(filePath);
-                ftp.changeWorkingDirectory(filePath);
-            }
-
+            changeDirectory(filePath);
             boolean result = ftp.storeFile(file.getOriginalFilename(), inputStream);
 
             if (!result) {
@@ -241,4 +237,18 @@ public class FTP {
         ftp.setFileType(ftp.BINARY_FILE_TYPE);
     }
 
+    private void changeDirectory(String filePath) throws IOException {
+        String[] directory = filePath.split("/");
+        String newDir = "";
+
+        for (int i = 0; i < directory.length; i++) {
+            newDir += "/" + directory[i];
+
+            if (!ftp.changeWorkingDirectory(newDir)) {
+                ftp.makeDirectory(newDir);
+                ftp.changeWorkingDirectory(newDir);
+            }
+
+        }
+    }
 }
