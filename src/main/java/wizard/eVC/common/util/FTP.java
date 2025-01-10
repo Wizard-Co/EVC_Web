@@ -86,7 +86,6 @@ public class FTP {
             InputStream inputStream = file.getInputStream();
 
             changeDirectory(filePath);
-
             boolean result = ftp.storeFile(file.getOriginalFilename(), inputStream);
 
             if (!result) {
@@ -286,5 +285,4 @@ public class FTP {
 
         }
     }
-
 }

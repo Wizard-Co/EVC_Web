@@ -1,3 +1,11 @@
+/**
+ 작성자:    김수정
+ 작성일:    2024-10-10
+ 내용:
+ **********************************************
+ 변경일자        변경자         요청자
+ **********************************************
+ **/
 @import url(https://fonts.googleapis.com/css?family=Roboto:400,700);
 
 html,
@@ -106,7 +114,7 @@ input:-webkit-autofill:active {
     box-shadow: transparent;
     transition: background-color 5000s ease-in-out 0s;
 }
-.input-readOnly {
+.input-auto {
     background-color: #c2fdc3;
 }
 .input-necessary {
@@ -210,7 +218,7 @@ input:-webkit-autofill:active {
 }
 
 .btn {
-    width: 70px;
+    min-width: 70px;
     border-radius: 30px;
 }
 
@@ -263,6 +271,13 @@ select.form-control.input-necessary {
     box-shadow: none !important;
 }
 
+.form-border {
+    border: solid 1px #dee2e6;
+    padding: 0.5rem;
+    min-height: 280px;
+    font-size: 13px;
+}
+
 .page-header h1,
 .page-header h2,
 .page-header h3,
@@ -288,6 +303,9 @@ h1.light, h2.light, h3.light, h4.light, h5.light, h6.light {
 
 .display-inline-block {
     display: inline-block !important; }
+.display-none {
+    display: none;
+}
 
 /*loading-form style*/
 #loading {
@@ -448,9 +466,9 @@ table.dataTable.cell-border > tbody > tr > td {
     border-color: #e8e8e8;
 }
 
-table.dataTable > tbody > tr > td {
-    padding: 4px 8px;
-}
+/*table.dataTable > tbody > tr > td {*/
+/*    padding: 4px 8px;*/
+/*}*/
 
 table.dataTable > tbody > tr.selected > * {
     box-shadow: inset 0 0 0 9999px #f5f5f5; !important;
@@ -484,6 +502,7 @@ table.dataTable thead {
 /*popUp style*/
 #addPop {
     width: 100%;
+    font-size: small;
 }
 
 #addPop .page-header {

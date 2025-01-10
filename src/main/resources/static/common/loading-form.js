@@ -1,3 +1,11 @@
+/**
+ 작성자:    김수정
+ 작성일:    2024-10-10
+ 내용:
+ **********************************************
+ 변경일자        변경자         요청자
+ **********************************************
+ **/
 export class loadingForm extends HTMLElement {
     constructor() {
         super();
@@ -15,11 +23,11 @@ export class loadingForm extends HTMLElement {
                                 </button>`;
     }
     invisible() {
-        this.classList.add('invisible');
+        this.classList.add('display-none');
         this.isLoading = false;
     }
     visible() {
-        this.classList.remove('invisible');
+        this.classList.remove('display-inline-block');
         this.isLoading = true;
     }
 

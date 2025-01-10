@@ -6,7 +6,8 @@
  변경일자        변경자         요청자
  **********************************************
  **/
-
+const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl))
 let form = document.getElementById('addForm');
 let realFileList = document.querySelectorAll('.fileList');
 
@@ -16,11 +17,11 @@ form.addEventListener('submit', (e) => {
 document.getElementById('btnSave').addEventListener('click', function () {
 
     if (form.checkValidity()) {
-        const payload = new FormData(form);
+        const formData = new FormData(form);
 
         fetch('/baseMgmt/article/save', {
             method: 'post',
-            body: payload,
+            body: formData,
             headers: {},
         })
             .then(res => {
@@ -48,12 +49,12 @@ document.getElementById('btnUpdate').addEventListener('click', function () {
         });
 
         if (isValid) {
-            const payload = new FormData(form);
+            const formData = new FormData(form);
             const result = document.querySelector('.form-result');
 
             fetch('/baseMgmt/article/update', {
                 method: 'post',
-                body: payload,
+                body: formData,
                 headers: {},
             })
                 .then(res => {
@@ -75,7 +76,7 @@ document.getElementById('btnUpdate').addEventListener('click', function () {
                 });
         }
 
-     }
+    }
 })
 
 document.getElementById('btnDelete').addEventListener('click', function () {
@@ -120,7 +121,6 @@ function checkImageValidity(realFile) {
 
 function checkImage(file, realFile, input) {
     let maxsize = 1024 * 1024; // 1MB
-
     if (!file.type.match("image/.*")) {
         alert('이미지 파일만 업로드가 가능합니다.');
         return;
@@ -132,3 +132,36 @@ function checkImage(file, realFile, input) {
     input.value = file.name;
     return true;
 }
+
+document.querySelectorAll('[popover]').forEach((pop) => {
+    pop.addEventListener('beforetoggle', showImage);
+});
+
+document.querySelectorAll('.btnImageDel').forEach((btn) => {
+    btn.addEventListener('click', deleteValue);
+});
+
+function showImage(e) {
+    let btn = e.currentTarget;
+    let input = btn.previousElementSibling;
+    let path = input.dataset.path;
+    let filename = input.value;
+
+    if (!isEmpty(path)) {
+        console.log(path);
+        if (event.newState === "open") {
+            let location = '/baseMgmt/article/detail/image?filename=' + filename + '&filepath=' + path;
+            let child = btn.firstElementChild;
+            child.src = location;
+        }
+    }
+}
+
+function deleteValue(e) {
+    let btn = e.currentTarget;
+    let input = btn.closest('td').querySelector('input[type="text"]');
+    let del = btn.parentNode.querySelector('[data-group="delete"]');
+    del.value = input.value;
+    input.value = '';
+}
+

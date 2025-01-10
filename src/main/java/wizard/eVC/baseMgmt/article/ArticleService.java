@@ -1,5 +1,6 @@
 package wizard.eVC.baseMgmt.article;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -58,8 +59,6 @@ public class ArticleService {
     }
 
     public void saveArticle(Article article) {
-        if (article.articleID == null || article.articleID.isBlank()) return;
-
         article.setCreateUserID("admin");  // 로그인한 userID 로 바꾸기
 
         mapper.saveArticle(article);
@@ -70,7 +69,7 @@ public class ArticleService {
 
     }
 
-    public void updateArticle(Article article) {
+    public void updateArticle(Article article) throws IOException {
         if (article.articleID == null || article.articleID.isBlank()) return;
 
         String articleID = article.getArticleID();
@@ -79,18 +78,35 @@ public class ArticleService {
         Article oldArticle = mapper.getArticleDetail(articleID);
 
         List<MultipartFile> newOne = article.getFileList();
-        List<String> oldfileNames =  oldArticle.getFileNameList();
+        List<String> oldfileNames = oldArticle.getFileNameList();
 
         for (int i = 0; i < newOne.size(); i++) {
             MultipartFile file = newOne.get(i);
+            String delFilename = article.getDeleteFileList().get(i);
+
+            String filePath = IMAGEPATH.ARTICLE.getPath() + articleID + "/";
+
+            // 실체 파일이 있는 경우
             if (!file.isEmpty()) {
+                // 기존것과 파일명이 다를때 => 저장
                 if (!file.getOriginalFilename().equals(oldfileNames.get(i))) {
-                    String filePath = IMAGEPATH.ARTICLE.getPath() + articleID + "/";
                     ftp.uploadFile(file, filePath);
                     setArticleFile(i, article, file.getOriginalFilename(), filePath);
                 } else {
+                    // 기존것과 파일명이 같을때 => 기존것으로 저장
                     setArticleOldFile(i, article, oldArticle);
                 }
+                // 실체 파일이 없는 경우 (텍스트만 수정하는 경우 or 삭제하는 경우)
+            } else { // 기존거 그대로 가는 경우
+                // 삭제리스트의 이름과 기존것의 이름이 같을 때 삭제한다.
+                if(delFilename.equals(oldfileNames.get(i))){
+                    ftp.deleteFile(delFilename, filePath);
+                    setArticleFile(i, article, "", "");
+                } else {
+                    //삭제 x, 텍스트 수정만 한 경우
+                    setArticleOldFile(i, article, oldArticle);
+                }
+
             }
         }
         mapper.updateArticle(article);
@@ -116,16 +132,16 @@ public class ArticleService {
     private void setArticleOldFile(int index, Article article, Article oldArticle) {
         switch (index) {
             case 0:
-                article.setFileName1(oldArticle.getFileName1());
-                article.setFilePath1(oldArticle.getFilePath1());
+                article.setImageFileName(oldArticle.getImageFileName());
+                article.setImageFilePath(oldArticle.getImageFilePath());
                 break;
             case 1:
-                article.setFileName2(oldArticle.getFileName2());
-                article.setFilePath2(oldArticle.getFilePath2());
+                article.setSketch1File(oldArticle.getSketch1File());
+                article.setSketch1Path(oldArticle.getSketch1Path());
                 break;
             case 2:
-                article.setFileName3(oldArticle.getFileName3());
-                article.setFilePath3(oldArticle.getFilePath3());
+                article.setSketch2File(oldArticle.getSketch2File());
+                article.setSketch2Path(oldArticle.getSketch2Path());
                 break;
         }
     }
@@ -133,16 +149,16 @@ public class ArticleService {
     private void setArticleFile(int index, Article article, String fileName, String filePath) {
         switch (index) {
             case 0:
-                article.setFileName1(fileName);
-                article.setFilePath1(filePath);
+                article.setImageFileName(fileName);
+                article.setImageFilePath(filePath);
                 break;
             case 1:
-                article.setFileName2(fileName);
-                article.setFilePath2(filePath);
+                article.setSketch1File(fileName);
+                article.setSketch1Path(filePath);
                 break;
             case 2:
-                article.setFileName3(fileName);
-                article.setFilePath3(filePath);
+                article.setSketch2File(fileName);
+                article.setSketch2Path(filePath);
                 break;
         }
     }
@@ -178,5 +194,11 @@ public class ArticleService {
     public List<Map<String, Object>> getProcessPattern(String articleTypeID) {
         return mapper.getProcessPattern(articleTypeID);
     }
+
+    public void showImage(String filename, String filepath, HttpServletResponse response)
+            throws IOException {
+        ftp.showImage(filename, filepath, response);
+    }
 }
+
 
