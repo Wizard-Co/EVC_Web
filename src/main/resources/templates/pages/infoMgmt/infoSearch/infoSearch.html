@@ -1,0 +1,92 @@
+<!--
+  *packageName      : templates.pages.infoMgmt.infoSearch
+  *fileName         : infoSearch.html
+  *author           : KDH
+  *date             : 2024-10-08
+  *======================================================
+  *DATE             AUTHOR               NOTE
+  *------------------------------------------------------
+  * 2024-10-30       KDH              공지사항 조회
+ -->
+
+<!--
+id : 카멜케이스 ex) chkDate
+class : 하이픈 사용 ex) page-header
+-->
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}" lang="ko">
+
+    <th:block layout:fragment="css">
+        <link rel="stylesheet" type="text/css" th:href="@{/infoMgmt/infoSearch/infoSearch.css}"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"> <!-- toastr 메시지 css -->
+    </th:block>
+    <th:block layout:fragment="script">
+        <script th:src="@{/infoMgmt/infoSearch/infoSearch.js}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script> <!-- toastr 메시지 js -->
+    </th:block>
+
+
+    <!--content-->
+    <section layout:fragment="content">
+        <body>
+        <loading-form id="loading" class="display-none"></loading-form>
+        <main>
+<!--            <div id="contents">-->
+                <div class="menu">
+                    <div class="page-header">
+                        ■ 공지사항조회
+                    </div>
+                    <div class="page-middle">
+                        <div class="flx">
+                            <span id="hiddenTimer" style= "display:none">
+                                <div class="flx" id="updateInfoText">
+                                    수정된 공지사항이 있습니다. 다시 조회를 클릭해주세요.
+                                </div>
+                                <div id="timer" hidden="hidden"> <!--자동조회 안 해서 시간을 안 보이게 함-->
+                                    남은 시간 : 30초
+                                </div>
+                           </span>
+                        </div>
+                    </div>
+                    <div class="icon">
+<!--                        <div class="flx">-->
+                            <button type="button" class="btn btn-info m-r-05" id="btnSearch">조회</button>
+                            <button type="button" class="btn btn-print m-r-05" id="btnExcel">엑셀</button>
+<!--                        </div>-->
+                    </div>
+                </div>
+                <section id="infoContent">
+                    <div class="infoData">
+                        <div class="flx">
+                            전체 공지
+                        </div>
+                        <textarea class="textarea-size" id="allText" readonly></textarea>
+                    </div>
+                    <div class="infoData">
+                        <div class="flx">
+                            개별 공지
+                        </div>
+                        <textarea class="textarea-size" id="personText" readonly></textarea>
+                    </div>
+
+                    <table id="infoAttachFileTable" class="table table-bordered text-center striped cell-border table-light-info text-align">
+                        <thead>
+                        <tr>
+                            <th>순</th>
+                            <th>공지번호</th>
+                            <th>구분</th> <!--전체, 개별-->
+                            <th>시작일</th>
+                            <th>종료일</th>
+                            <th>첨부문서</th>
+                            <th>첨부문서경로</th> <!-- class ="th-hidden" -->
+                        </tr>
+                        </thead>
+                    </table>
+                </section>
+<!--            </div>-->
+        </main>
+        </body>
+    </section>
+</html>

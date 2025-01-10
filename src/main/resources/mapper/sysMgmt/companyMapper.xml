@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="wizard.eVC.sysMgmt.company.company.companyMapper">
+
+    <select id="getCompanyList" statementType="CALLABLE" resultType="wizard.eVC.sysMgmt.company.company.dto.companyDTO"
+            parameterType="map">
+        { call xp_Info_GetCompanyInfo(#{sCompanyID, javaType=String, jdbcType=CHAR, mode=IN},
+                                      #{sRPYN, javaType=String, jdbcType=SMALLINT, mode=IN},
+                                      #{sUseYN, javaType=String, jdbcType=SMALLINT, mode=IN})
+        }
+    </select>
+
+    <select id="getCompanyDetail" statementType="CALLABLE" resultType="wizard.eVC.sysMgmt.company.company.dto.companyDTO"
+            parameterType="map">
+        { call xp_Info_GetCompanyInfo(#{sCompanyID, javaType=String, jdbcType=CHAR, mode=IN},
+                                      #{sRPYN, javaType=String, jdbcType=SMALLINT, mode=IN},
+                                      #{sUseYN, javaType=String, jdbcType=SMALLINT, mode=IN})
+            }
+    </select>
+
+    <select id="saveCompanyDetail" statementType="CALLABLE" resultType="wizard.eVC.sysMgmt.company.company.dto.companyDTO"
+            parameterType="wizard.eVC.sysMgmt.company.company.dto.companyDTO">
+        { call xp_Info_UpdateCompanyInfo(#{companyID, javaType=String, jdbcType=CHAR, mode=IN},
+                                #{eCompany, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{kCompany, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{shortCompany, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{companyNo, javaType=String, jdbcType=CHAR, mode=IN},
+                                #{registID, javaType=String, jdbcType=CHAR, mode=IN},
+                                #{chief, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{condition, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{category, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{zipcode, javaType=String, jdbcType=CHAR, mode=IN},
+                                #{gunMoolMngNo, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{address1, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{address2, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{addressAssist, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{addressJiBun1, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{addressJiBun2, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{phone1, javaType=String, jdbcType=CHAR, mode=IN},
+                                #{phone2, javaType=String, jdbcType=CHAR, mode=IN},
+                                #{faxNo, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{eMail, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{homePage, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{webPortFrom, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{webPortTo, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{webID1, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{webPass1, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{webAuthCode1, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{webID2, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{webPass2, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{webAuthCode2, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{ftpPage, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{ftpPortFrom, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{ftpPortTo, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{ftpID1, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{ftpPass1, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{ftpAuthCode1, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{ftpID2, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{ftpPass2, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{ftpAuthCode2, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{smsURL1, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{smsPortFrom1, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{smsPortTo1, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{smsID1, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{smsPass1, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{smsAuthCode1, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{smsURL2, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{smsPortFrom2, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{smsPortTo2, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{smsID2, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{smsPass2, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{smsAuthCode2, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{bank1, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{bank2, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{bank3, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{cmpnCD, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                #{rpYN, javaType=String, jdbcType=CHAR, mode=IN},
+                                #{useYN, javaType=String, jdbcType=CHAR, mode=IN}
+               )}
+    </select>
+
+
+    <select id="deleteCompanyDetail" statementType="CALLABLE" parameterType="String">
+        { call xp_Info_deleteCompanyInfo(#{sCompanyID, javaType=String, jdbcType=CHAR, mode=IN}
+
+               )}
+    </select>
+
+</mapper>

@@ -37,7 +37,7 @@ public class FTP {
     private String localpath;
     private FTPClient ftp;
 
-    public void open() {
+    private void open() {
         ftp = new FTPClient();
         ftp.setControlEncoding("euc-kr");
         try {
@@ -67,7 +67,7 @@ public class FTP {
         }
     }
 
-    public void close() {
+    private void close() {
         try {
             ftp.logout();
             ftp.disconnect();
@@ -85,10 +85,7 @@ public class FTP {
 
             InputStream inputStream = file.getInputStream();
 
-            if (!ftp.changeWorkingDirectory(filePath)) {
-                ftp.makeDirectory(filePath);
-                ftp.changeWorkingDirectory(filePath);
-            }
+            changeDirectory(filePath);
 
             boolean result = ftp.storeFile(file.getOriginalFilename(), inputStream);
 
@@ -113,7 +110,7 @@ public class FTP {
             setFtp();
             ftp.changeWorkingDirectory(filepath);
 
-            String fullpath = filepath + "/" + filename;
+            String fullpath = filepath + filename;
             String local = localpath + filename;
             FileOutputStream fileOutputStream = new FileOutputStream(local);
 
@@ -156,7 +153,7 @@ public class FTP {
         response.setContentType("image/*");
         response.setHeader("Content-Disposition", "inline;");
 
-        String fullpath = filepath + "/" + filename;
+        String fullpath = filepath + filename;
         FTPFile[] files = ftp.listFiles();
 
         boolean exist = false;
@@ -185,7 +182,7 @@ public class FTP {
         response.setHeader("Content-Type", MediaType.APPLICATION_OCTET_STREAM_VALUE);
         response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(filename, "utf-8"));
 
-        String fullpath = filepath + "/" + filename;
+        String fullpath = filepath + filename;
 
         try {
             InputStream inputStream = ftp.retrieveFileStream(fullpath);
@@ -215,12 +212,79 @@ public class FTP {
         }
     }
 
+    public void deleteFile(String filename, String filepath) throws IOException {
+        open();
+        setFtp();
 
-    public void setFtp() throws IOException {
+        try {
+            String fullpath = filepath + filename;
+            boolean result = ftp.deleteFile(fullpath);
+            if (!result) {
+                log.error("FTP 파일 삭제 실패: " + fullpath);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (ftp.isConnected()) {
+                close();
+            }
+        }
+    }
+
+    //2024-11-05 KDH FTP 파일삭제(데이터 삭제시 파일과 디렉토리도 같이 삭제)
+    public void deleteDirectory(String filePath) {
+        try {
+
+            open();
+            setFtp();
+
+            // 디렉토리 존재 여부 판단 true면 존재, false면 존재 하지 않음
+            if(ftp.changeWorkingDirectory(filePath)) {
+                // 디렉토리 내의 모든 파일 삭제
+                String[] files = ftp.listNames(filePath);
+                if (files != null) {
+                    for (String file : files) {
+                        ftp.deleteFile(file);
+                    }
+                }
+
+                boolean result = ftp.removeDirectory(filePath);
+
+                if (!result) {
+                    close();
+                    log.error("FTP 파일 삭제 실패");
+                }
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (ftp.isConnected()) {
+                close();
+            }
+        }
+    }
+
+    private void setFtp() throws IOException {
         ftp.enterLocalPassiveMode();
         ftp.setFileTransferMode(ftp.BINARY_FILE_TYPE);
         ftp.setAutodetectUTF8(true);
         ftp.setFileType(ftp.BINARY_FILE_TYPE);
+    }
+
+    private void changeDirectory(String filePath) throws IOException {
+        String[] directory = filePath.split("/");
+        String newDir = "";
+
+        for (int i = 0; i < directory.length; i++) {
+            newDir += "/" + directory[i];
+
+            if (!ftp.changeWorkingDirectory(newDir)) {
+                ftp.makeDirectory(newDir);
+                ftp.changeWorkingDirectory(newDir);
+            }
+
+        }
     }
 
 }

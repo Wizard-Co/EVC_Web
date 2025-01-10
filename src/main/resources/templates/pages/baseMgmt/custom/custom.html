@@ -1,0 +1,181 @@
+<!--
+패키지명 : templates\pages\baseMgmt\company\custom.html
+파일명: custom.html
+작성일: 2024-11-22
+개발자: daehyun
+***************************************************
+변경일자            변경자             변경내용
+***************************************************
+-->
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}" lang="ko">
+
+<th:block layout:fragment="css">
+    <link rel="stylesheet" type="text/css" th:href="@{/baseMgmt/custom/custom.css}"/>
+</th:block>
+<th:block layout:fragment="script">
+    <script th:src="@{/baseMgmt/custom/custom.js}"></script>
+</th:block>
+<!--content-->
+<section layout:fragment="content">
+    <body>
+        <main>
+            <loading-form id="loading" class="display-none"></loading-form>
+                <div id="contents">
+                    <div class="menu">
+                        <div class="page-header">
+                            ■ 거래처 코드 등록
+                        </div>
+<!--                        <div class="icon">-->
+<!--                            <div class="flx">-->
+<!--                                <button type="button" id="btnSearch" class="btn btn-info m-r-05">조회</button>-->
+<!--                                <button type="button" id="btnDelete" class="btn btn-success m-r-05">삭제</button>-->
+<!--                                <button type="button" id="btnClose" class="btn btn-success m-r-05">닫기</button>-->
+<!--                            </div>-->
+<!--                            <div class="flx mt-05">-->
+<!--                                <button type="button" id="btnDetail" class="btn btn-print m-r-05">상세</button>-->
+<!--                                <button type="button" id="btnAdd" class="btn btn-print m-r-05">추가</button>-->
+<!--                                <button type="button" id="btnExcel" class="btn btn-print m-r-05">엑셀</button>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                        <div class="icon">
+                            <div class="flx">
+                                <button type="button" id="btnSearch" class="btn btn-info m-r-05">조회</button>
+                                <button type="button" id="btnDelete" class="btn btn-success m-r-05">삭제</button>
+                                <button type="button" id="btnClose" class="btn btn-success m-r-05">닫기</button>
+                            </div>
+                            <div class="flx mt-05">
+                                <button type="button" id="btnAdd" class="btn btn-print m-r-05">추가</button>
+                                <button type="button" id="btnDetail" class="btn btn-print m-r-05">상세</button>
+                                <button type="button" id="btnExcel" class="btn btn-print m-r-05">엑셀</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-body">
+                            <table id="srhTable" style="width: 60%">
+                                <tbody>
+                                <tr class="v-middle">
+                                    <!--거래처-->
+                                    <td class="w11">
+                                        <input type="checkbox" id="chkKCustom">
+                                        <label for="chkKCustom">상호명</label>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="srhControl" id="inputKCustom">
+                                    </td>
+                                    <!--담당자-->
+                                    <td>
+                                        <input type="checkbox" id="chkDamdangName">
+                                        <label for="chkDamdangName">담당자</label>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="srhControl" id="inputDamdangName">
+                                    </td>
+                                    <!--거래처 사용안함-->
+                                    <td>
+                                        <input type="checkbox" id="chkUseYN">
+                                        <label for="chkUseYN">거래안함 포함</label>
+                                    </td>
+                                </tr>
+                                <tr class="v-middle">
+                                    <!--기관구분-->
+                                    <td class="w11">
+                                        <input type="checkbox" id="chkOrganGbn">
+                                        <label for="chkOrganGbn">기관구분</label>
+                                    </td>
+                                    <td>
+                                        <select class="form-control w100px display-inline-block ct srhControl" id="cboOrganGbn">
+                                            <option th:each="option : ${cboOrgGbn}"
+                                                    th:value="${option.codeID}" th:text="${option.codeName}">
+                                        </select>
+                                    </td>
+                                    <!--담당자비고-->
+                                    <td class="w11">
+                                        <input type="checkbox" id="chkDamdangComment">
+                                        <label for="chkDamdangComment">담당비고</label>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="srhControl" id="inputDamdangComment">
+                                    </td>
+                                </tr>
+                                <tr class="v-middle">
+                                    <!--거래구분-->
+                                    <td class="w11">
+                                        <input type="checkbox" id="chkTradeID">
+                                        <label for="chkTradeID">거래구분</label>
+                                    </td>
+                                    <td>
+                                        <select class="form-control w150px display-inline-block ct srhControl" id="cboTradeID">
+                                            <option th:each="option : ${cboTradeID}"
+                                                    th:value="${option.codeID}" th:text="${option.codeName}">
+                                        </select>
+                                    </td>
+                                    <!--통합메모-->
+                                    <td class="w11">
+                                        <input type="checkbox" id="chkComments">
+                                        <label for="chkComments">통합메모</label>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="srhControl" id="inputComments">
+                                    </td>
+                                </tr>
+
+                                <tr class="v-middle">
+                                    <!--대표자명-->
+                                    <td class="w11">
+                                        <input type="checkbox" id="chkChief">
+                                        <label for="chkChief">대표자명</label>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="srhControl" id="inputChief">
+                                    </td>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <section>
+                        <table id="customTable" class="striped cell-border table-light-info" style="width:100%">
+                            <thead>
+                            <tr>
+                                <th>순</th>
+                                <th>거래처코드</th>
+                                <th>상호</th>
+                                <th>상호약어</th>
+                                <th>상호영문</th>
+                                <th>업태</th>
+                                <th>업종</th>
+                                <th>대표자</th>
+                                <th>사업자번호</th>
+                                <th>거래구분</th>
+                                <th>대표전화</th>
+                                <th>전화번호</th>
+                                <th>팩스번호</th>
+                                <th>담당자명1</th>
+                                <th>담당자1전화번호</th>
+                                <th>담당자1비고</th>
+                                <th>담당자명2</th>
+                                <th>담당자2전화번호</th>
+                                <th>담당자2비고</th>
+                                <th>우편번호</th>
+                                <th>주소</th>
+                                <th>홈페이지</th>
+                                <th>eMail</th>
+                                <th>지연건수</th>
+                                <th>불량건수</th>
+                                <th>비고</th>
+                                <th>생성자</th>
+                                <th>생성일자</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </section>
+                </div>
+        </main>
+    </body>
+
+</section>
+</html>
+

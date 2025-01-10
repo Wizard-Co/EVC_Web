@@ -1,0 +1,83 @@
+/*
+설명: 공지사항 조회 css
+작성일: 2024.10.31
+개발자: KDH
+********************************************************
+수정일자       수정자          요청자     요청내용
+********************************************************
+
+*/
+
+/*
+. class : 중복으로 같이 사용 가능, 하이픈 사용 ex) page-header
+# id : 중복으로 사용 불가능(id값 다르게 계속 생성), 카멜케이스 ex) chkDate
+*/
+
+/*체크박스 사용하는 라벨 css*/
+.lbl-check{
+    margin : 1px 1px;
+}
+
+/*체크박스*/
+.checkbox{
+    margin : 0px 1px;
+}
+
+/*div icon css*/
+.icon{
+    padding: 20px 20px;
+}
+
+/*상단 새로고침, 버튼, 검색조건 영역*/
+.page-middle {
+    padding: 20px 20px;
+    border-bottom: 0px solid;
+    font-size: 20px;
+    font-weight: 600;
+    user-select: none; /* 더블 클릭시 파란색 선택 방지 */
+}
+
+/*전체, 개별 공지사항 div*/
+.infoData {
+    border: solid 1px #dee2e6;
+    height: 300px;
+    padding: 0.5rem;
+    margin: 0.5rem;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+/*textarea css resize = none;, 크기 조절 막기 */
+.textarea-size{
+    width : 100%;
+    height : 250px;
+    resize: none;
+    font-size: 20px; /* 글자 크기 설정 */
+}
+
+/*컬럼 숨기기*/
+.th-hidden{
+    display: none;
+}
+
+/*데이터테이블 다운로드 버튼 움직임 css*/
+.btn-download:hover {
+    animation: jelly 0.5s;
+}
+
+/*데이터테이블 다운로드 버튼 css*/
+.btn-download{
+        display:flex;
+        justify-content: left;   /* 수평 중앙 정렬 */
+        align-items: left;       /* 수직 중앙 정렬 */
+        margin-right: 5px;
+        color: #fff;
+        background: #78bd5d;
+        border-color: #78bd5d;
+        border-radius: 30px;
+}
+
+/*변경시 메세지창*/
+#updateInfoText{
+        color : red;
+}
