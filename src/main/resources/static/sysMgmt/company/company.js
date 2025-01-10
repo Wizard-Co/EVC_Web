@@ -54,13 +54,18 @@ const table = new DataTable('#companyTable', {
         },
         {data: "companyID", className: 'left'},
         {data: "companyNo", className: 'left'},
-        {data: "cmpnCD", className: 'left'},
+        {data: "registID", className: 'left'},
         {data: "kCompany", className: 'right' },
         {data: "eCompany", className: 'left'},
         {data: "chief", className: 'left'},
         {data: "category", className: 'left'},
         {data: "condition", className: 'left'}
     ],
+    columnDefs: [
+        {
+            targets: 1,
+            type: 'string'
+        }],
     scrollX: true,
     rowCallback: function (row, data, index) {
         if (index === 0) {

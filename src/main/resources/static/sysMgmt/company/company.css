@@ -62,3 +62,28 @@ tr {
 .pt-e-none{
     pointer-events: none;
 }
+
+.collapse{
+    visibility: collapse;
+}
+
+.hidden{
+    visibility: hidden;
+}
+
+.hidden-bn{
+    visibility: hidden;
+    border: none;
+}
+
+.hidden-bnl{
+    visibility: hidden;
+    border-left: none;
+}
+
+.hidden-bnr{
+    visibility: hidden;
+    border-right: none;
+}
+
+

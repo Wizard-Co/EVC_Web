@@ -34,7 +34,7 @@
     border: solid 1px #dee2e6;
     padding: 0.5rem;
     font-size: 13px;
-    max-height: 330px;
+    max-height: 100%;
 }
 
 .visible {

@@ -55,17 +55,17 @@
                                     <input type="text" id="customID" class="form-control input-auto subtle-input pt-e-none"
                                            th:field="*{customID}" readonly placeholder="자동 생성">
                                 </td>
-                                <td class="v-middle" colspan="1">
+                                <td class="v-middle collapse" colspan="1">
                                     <label>국가</label>
                                 </td>
-                                <td class="left" colspan="1">
+                                <td class="left collapse" colspan="1">
                                     <input type="text" id="countryName" name="countryName" class="form-control subtle-input"
                                             th:field="*{countryName}" placeholder="EnterKey를 눌러 검색"
                                            onkeyup="if(event.key === 'Enter')PlusFinder('countryCode','countryName',55,this.value)">
                                     <input type="hidden" id="countryCode" name="countryCode"
                                            th:field="*{countryCode}">
                                 </td>
-                                <td class="left align-center b-style"colspan="1">
+                                <td class="left align-center b-style collapse"colspan="1">
                                     <button type="button" onclick="PlusFinder('countryCode','countryName',55,getElementById('countryName').value)">
                                         <img src="../../img/search6.png" class="search-icon">
                                     </button>
@@ -128,10 +128,10 @@
                                     <input type="text" id="shortCustom" class="form-control subtle-input"
                                            th:field="*{shortCustom}" placeholder="상호명(약칭) 입력">
                                 </td>
-                                <td class="v-middle" colspan="1">
+                                <td class="v-middle hidden-bnr" colspan="1">
                                     <label>기관구분</label>
                                 </td>
-                                <td class="left" colspan="1">
+                                <td class="left hidden-bnl" colspan="1">
                                     <select class="form-control w200px display-inline-block ct" id="cboOrgGbn" th:field="*{organBnID}">
                                         <option th:each="option : ${cboOrgGbn}"
                                                 th:value="${option.codeID}" th:text="${option.codeName}">
@@ -271,17 +271,17 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="v-middle" colspan="1">
+                                <td class="v-middle hidden-bnr" colspan="1">
                                     <label>지연건</label>
                                 </td>
-                                <td class="left" colspan="1">
+                                <td class="left hidden-bn" colspan="1">
                                     <input type="text" id="delayedCount" class="form-control subtle-input"
                                            th:field="*{delayedCount}" placeholder="지연 발생 건수 입력">
                                 </td>
-                                <td class="v-middle" colspan="1">
+                                <td class="v-middle hidden-bn" colspan="1">
                                     <label>불량건</label>
                                 </td>
-                                <td class="left" colspan="2">
+                                <td class="left hidden-bn" colspan="2">
                                     <input type="text" id="defectCount" class="form-control subtle-input"
                                            th:field="*{defectCount}" placeholder="불량 발생 건수 입력">
                                 </td>
@@ -298,9 +298,9 @@
                         </table>
                     </div>
                     <div id="divForm2" style="width: 28%; padding-left: 0.5rem;">
-                        <div id="divDamdang" style="height: 50%; margin-bottom: 0.5rem">
+                        <div id="divDamdang" style="margin-bottom: 0.5rem">
                             <div class="form-notice">※담당자</div>
-                            <div class="form-border" style="overflow-y: auto">
+                            <div class="form-border">
                                 <span class="mb-1"><b>담당자1</b></span>
                                 <table class="table table-bordered text-center">
                                     <tbody>
@@ -391,8 +391,8 @@
                             </div>
                         </div>
 
-                        <div id="divZone" style="height: 50%">
-                            <div class="form-border" style="overflow-y: auto">
+                        <div id="divZone" style="height: 50%" class="collapse">
+                            <div class="form-border" >
                                 <table class="table table-bordered text-center">
                                     <tbody>
                                     <tr>
