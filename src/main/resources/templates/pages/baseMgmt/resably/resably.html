@@ -1,0 +1,72 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}" lang="ko">
+
+<th:block layout:fragment="script">
+    <script th:src="@{/baseMgmt/resably/resably.js}"></script>
+</th:block>
+
+<selection layout:fragment="content">
+    <body>
+    <loading-form id="loading" class="invisible"></loading-form>
+   <main>
+       <div class="menu">
+           <div class="page-header">
+               ■ 직위 등록
+           </div>
+           <div class="icon">
+               <div class="flx">
+                   <button type="button" class="btn btn-info m-r-05" id="btnSearch">조회</button>
+                   <button type="button" class="btn btn-success m-r-05" id="btnAdd">등록</button>
+                   <button type="button" class="btn btn-success" id="btnDelete">삭제</button>
+               </div>
+               <div class="flx mt-05">
+                   <button type="button" id="btnExcel" class="btn btn-print m-r-05">엑셀</button>
+                   <button type="button" id="btnPrint" class="btn btn-print" onclick="window.print()">인쇄</button>
+               </div>
+           </div>
+       </div>
+       <condition class="panel">
+           <div class="panel-body">
+               <div class="flx">
+                   <div class="div-srh m-r-4">
+                       <label for="inputResablySrh" class="lbl-srh">직책</label>
+                       <input type="text" id="inputResablySrh" class="form-control" placeholder="직책 검색">
+                   </div>
+
+                   <div class="div-srh m-r-4">
+                       <label class="form-check-label" for="chkIncludeUseYN">
+                           사용안함 포함
+                       </label>
+                       <input class="form-check-input lbl-srh" type="checkbox" value="0" id="chkIncludeUseYN">
+                   </div>
+               </div>
+           </div>
+       </condition>
+
+       <section>
+           <table id="resablyTable" class="striped cell-border table-light-info" style="width:100%">
+               <thead>
+               <tr>
+                   <th>순</th>
+                   <th>직위코드</th>
+                   <th>직위명</th>
+                   <th>사용여부</th>
+                   <th>관리순서</th>
+                   <th>비고</th>
+                   <th>생성자</th>
+                   <th>생성일자</th>
+               </tr>
+               </thead>
+           </table>
+       </section>
+
+
+
+
+   </main>
+
+    </body>
+
+
+</selection>

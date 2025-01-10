@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--    설명: 공지사항조회 맵퍼.xml
+        작성일: 2024.10.31
+        개발자: KDH
+        ********************************************************
+        수정일자       수정자          요청자     요청내용
+        ********************************************************
+
+
+
+-->
+
+<mapper namespace="wizard.eVC.infoMgmt.infoSearch.InfoSearchMapper">
+
+    <!-- 공지사항 전체 조회 -->
+    <!--id 값과 call 값은 프로시저 이름으로 해야 됨-->
+    <select id="xp_info_sinfo_all" statementType="CALLABLE" resultType="wizard.eVC.infoMgmt.infoSearch.dto.InfoSearchDto"
+            parameterType="map">
+        { call xp_info_sinfo_all()}
+    </select>
+    <!-- 공지사항 개별 조회 -->
+    <select id="xp_info_sinfo_person" statementType="CALLABLE" resultType="wizard.eVC.infoMgmt.infoSearch.dto.InfoSearchDto"
+            parameterType="map">
+        { call xp_info_sinfo_person(#{userID, javaType=String, jdbcType=VARCHAR, mode=IN})}
+    </select>
+    <!-- 공지사항 첨부문서 조회 -->
+    <select id="xp_info_sinfo_attachFile" statementType="CALLABLE" resultType="wizard.eVC.infoMgmt.infoSearch.dto.InfoSearchDto"
+            parameterType="map">
+        { call xp_info_sinfo_attachFile(#{userID, javaType=String, jdbcType=VARCHAR, mode=IN})}
+    </select>
+    <!-- 공지사항 조회수 -->
+    <select id="xp_info_uinfo_hitCount" statementType="CALLABLE" resultType="wizard.eVC.infoMgmt.infoSearch.dto.InfoSearchDto"
+            parameterType="map">
+        { call xp_info_uinfo_hitCount(#{infoID, javaType=String, jdbcType=VARCHAR, mode=IN}
+                                     ,#{hitCount, javaType=Long, jdbcType=NUMERIC, mode=IN})}
+    </select>
+    <!-- 공지사항 조회 후 수정사항 여부 확인 -->
+    <select id="xp_info_sinfo_log" statementType="CALLABLE" resultType="wizard.eVC.infoMgmt.infoSearch.dto.InfoSearchDto"
+            parameterType="map">
+        { call xp_info_sinfo_log(#{Date, javaType=String, jdbcType=VARCHAR, mode=IN})}
+    </select>
+</mapper>

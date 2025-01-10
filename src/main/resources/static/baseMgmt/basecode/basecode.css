@@ -1,0 +1,36 @@
+/*DataTable CDN 행의 셀 편집시 기존 스타일 최대한 유지 버전으로 선택시*/
+.custom-table-input {
+    border: 1px solid #dee2e6;  !important;
+    background: transparent; !important;
+    box-sizing: border-box; !important;
+    font-size: inherit; !important;
+    font-family: inherit;  !important;
+}
+
+.custom-table-input:focus {
+    outline: 2px solid #0d6efd; !important;
+    border-color: transparent; !important;
+}
+
+/* 셀 패딩 조정 */
+#basecodeDetailTable td {
+    padding: 4px 8px; !important;
+}
+
+
+.hide-column{
+    padding: 0 !important;
+    width: 0 !important;
+    max-width: 0 !important;
+    overflow: hidden !important;
+    border: 0 !important;
+}
+
+.cursor{
+    cursor: pointer;
+
+}
+
+.cl-useYn{
+    user-select: none;
+}
