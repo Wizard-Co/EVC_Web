@@ -1,4 +1,4 @@
-// DataTable.type('num', 'className', '');
+/*DataTable.type('num', 'className', '');*/
 
 /**
  * 김수정, 2024
@@ -216,7 +216,7 @@ function isEmpty(str){
  */
 //#region 플러스파인더
 function PlusFinder(txtID, txtName, nLarge, sMiddle) {
-
+    console.log('PlusFinder 호출됨');
     let baseurl = "/pages/common/plusFinder";
     let url = baseurl + "?txtID=" + txtID + "&txtName=" + txtName + "&nLarge=" + nLarge + "&sMiddle=" + sMiddle;
     let encodeUrl = encodeURI(url);
@@ -228,6 +228,7 @@ function PlusFinder(txtID, txtName, nLarge, sMiddle) {
     let _top = Math.ceil((window.screen.height - _height) / 2);
     let option = "width=" + _width + ", height=" + _height + ", top=" + _top + ", left=" + _left;
     let openPf = window.open(encodeUrl, name, option);
+
 
 }
 

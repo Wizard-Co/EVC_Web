@@ -1,10 +1,10 @@
-package wizard.eVC.baseMgmt.basecode.dto;
+package wizard.eVC.baseMgmt.customArticle.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
+import wizard.eVC.baseMgmt.basecode.dto.tableDataDTO;
 
 import java.math.BigDecimal;
-
 import java.util.List;
 
 @Data
@@ -31,7 +31,7 @@ public class basecodeDTO {
 
     public String PersonId;
 
-    public int mode; // 수정 시 =2 추가시 =1  로직 을다르게 하기위한 코드
+    public int iMode; // 수정 시 =2 추가시 =1  로직 을다르게 하기위한 코드
 
     @JsonProperty("InvestmentUnitPrice")
     private BigDecimal InvestmentUnitPrice = BigDecimal.ZERO;

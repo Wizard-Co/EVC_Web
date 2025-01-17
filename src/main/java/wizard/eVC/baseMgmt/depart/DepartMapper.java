@@ -8,6 +8,7 @@ import java.util.Map;
 
 @Mapper
 public interface DepartMapper {
+
     List<Depart> getDepartList (Map<String, Object> params);
     Depart saveDepart(Depart depart);
     Depart updateDepart(Depart depart);
