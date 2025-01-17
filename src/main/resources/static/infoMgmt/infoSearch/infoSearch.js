@@ -360,9 +360,9 @@ const infoAttachFileTable = $('#infoAttachFileTable').DataTable({
     columns: [
         {data: "rn", className:'center'} ,                      /*순번*/
         {data: "infoID", className: 'center'},                  /*공지번호*/
-        {data: "allYNName", className: 'center'},               /*구분이름*/
-        {data: "fromDate", className: 'center'},                /*시작일*/
-        {data: "toDate", className: 'center'},                  /*종료일*/
+        {data: "allYNName", className: 'left'},               /*구분이름*/
+        {data: "fromDate", className: 'left'},                /*시작일*/
+        {data: "toDate", className: 'left'},                  /*종료일*/
         {data: "attachFile",  //버튼과 데이터 같이 생성
             defaultContent: '',
             render: function(data, type, row, meta) {

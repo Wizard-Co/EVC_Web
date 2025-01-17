@@ -15,17 +15,13 @@
 
 /*전월, 전일, 금일, 당월 버튼 css*/
 .btn-date{
+    display:flex;
+    justify-content: left;
+    color: #fff;
+    background: #59c4e4;
+    border-color: #59c4e4;
+    border-radius: 30px;
     margin : 4px 1.5px;
-}
-
-/*체크박스 사용하는 라벨 css*/
-.lbl-check{
-    margin : 1px 1px;
-}
-
-/*체크박스*/
-.checkbox{
-    margin : 0px 1px;
 }
 
 /*date css*/
@@ -33,33 +29,18 @@
     margin : 0px 4px;
 }
 
-/*div icon css*/
-.icon{
-    padding: 20px 20px;
-}
-
-/*div 검색조건 css*/
-.search-data{
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 45px;
-}
-
-/*상단 일자, 버튼, 검색조건 영역*/
-.page-middle {
-    padding: 20px 20px;
-    border-bottom: 0px solid;
-    font-size: 20px;
-    font-weight: 600;
-    /*user-select: none;*/ /* 더블 클릭시 파란색 선택 방지 */
-}
-
 /*세로 가운데 정렬 css*/
 .text-align{
     vertical-align: middle; /* 셀의 세로 중앙에 배치 */
+}
+
+/*헤더 세로 가운데 정렬*/
+.label-align{
+    align-items: center; /* 세로 가운데 정렬 */
 }
 
 /*컬럼 숨기기*/
 .th-hidden{
     display: none;
 }
+

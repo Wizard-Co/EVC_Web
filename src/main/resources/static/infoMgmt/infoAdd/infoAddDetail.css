@@ -21,9 +21,23 @@
     font-size: 20px; /* 글자 크기 설정 */
 }
 
+/*화살표 버튼 css*/
+.btn-way{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    background: #59c4e4;
+    border-color: #59c4e4;
+    border-radius: 30px;
+    margin : 4px 1.5px;
+    min-width: 30px;
+    min-height: 30px;
+}
+
 /*행 높이 조정 css*/
 .tr-height{
-    height: 250px; /* 행 높이 설정 */
+    height: 300px; /* 행 높이 설정 */
 }
 
 /*세로 가운데 정렬 css*/
@@ -34,15 +48,6 @@
 /*date css*/
 .input-date{
     margin : 0px 4px;
-}
-
-/*해당 section 전체적 디자인*/
-.page-middle {
-    padding: 20px 20px;
-    border-bottom: 0px solid;
-    font-size: 14px;
-    font-weight: 400;
-    /*user-select: none;*/ /* 더블 클릭시 파란색 선택 방지 */
 }
 
 /*컬럼 숨기기*/
@@ -65,7 +70,7 @@
 /*div 스크롤바 생성*/
 .div-scroll{
     overflow: auto;
-    height: 250px;
+    height: 300px;
 }
 
 /*file text 크기*/

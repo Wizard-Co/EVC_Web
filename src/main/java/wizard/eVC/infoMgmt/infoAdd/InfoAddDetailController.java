@@ -44,7 +44,7 @@ public class InfoAddDetailController {
         // attachFile string 타입 DB 저장
         // attachPath string 타입 DB 저장
         //파일이름 입력 안 하면 true, 파일이름 입력하면 false
-        if(!infoAddDetailDto.getAttachFileDetail().isEmpty()){
+        if(!infoAddDetailDto.getAttachFile().isEmpty()){
             infoAddDetailDto.setAttachFile(infoAddDetailDto.getAttachFileDetail().getOriginalFilename());
             infoAddDetailDto.setAttachPath(FTPPATH + "/");
         }
@@ -137,8 +137,8 @@ public class InfoAddDetailController {
     //왼쪽 그리드
     @PostMapping("/infoLeftPersonData")
     @ResponseBody
-    public List<InfoAddDetailDto> getInfoLeftPersonData(@RequestBody Map<String, Object> param) {
-        List<InfoAddDetailDto> getInfoLeftPersonData = ifadService.getInfoLeftPersonDataList(param);
+    public List<InfoAddDetailDto> getInfoLeftPersonData() {
+        List<InfoAddDetailDto> getInfoLeftPersonData = ifadService.getInfoLeftPersonDataList();
         return getInfoLeftPersonData;
     }
 
