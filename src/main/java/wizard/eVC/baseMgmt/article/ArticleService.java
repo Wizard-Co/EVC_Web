@@ -11,6 +11,7 @@ import wizard.eVC.common.util.FTP;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -199,6 +200,11 @@ public class ArticleService {
             throws IOException {
         ftp.showImage(filename, filepath, response);
     }
+
+    public List<LinkedHashMap<String, Object>> gethsFinder(HashMap<String, Object> param) {
+        return mapper.gethsFinder(param);
+    }
+
 }
 
 

@@ -126,7 +126,7 @@
                                 </td>
                                 </td>
                                 <td class="col-md-2">
-                                    <label>부품분류</label>
+                                    <label>품목분류</label>
                                 </td>
                                 <td colspan="2" class="left">
                                     <select class="form-control display-inline-block" th:field="*{partTypeID}">
@@ -169,7 +169,8 @@
                                     <label>hs코드</label>
                                 </td>
                                 <td colspan="2" class="left">
-                                    <input type="text" class="form-control" th:field="*{hsCode}">
+                                    <input type="text" class="form-control" th:field="*{hsCode}" readonly>
+                                    <input type="text" class="form-control" id="hsCodeID" hidden>
                                 </td>
                             </tr>
                             <tr>
@@ -312,35 +313,35 @@
                         </table>
                         <span class="form-result float-start"></span>
                     </div>
-                    <div style="width: 25%;">
-                        <div id="divProcess" class="mb-1" style="height: 50%">
-                            <div class="form-notice"><b>*</b>생산공정 선택</div>
-                            <div class="form-border">
-                                <table class="table table-bordered text-center table-light-info">
-                                    <thead>
-                                    <th>No</th>
-                                    <th>선택</th>
-                                    <th>공정</th>
-                                    </thead>
-                                    <tbody>
-                                    <tr th:each="option,i : ${cboProcess}">
-                                        <td th:text="${i.index}"></td>
-                                        <td>
-                                            <input type="checkbox" class="v-middle" th:value="${option.processID}"
-                                                   th:name="|articleProcessList[${i.index}].processID|"
-                                                   th:checked=" ${mode == 'update'} ? ${#lists.contains(apList, option.processID)}">
-                                        </td>
-                                        <td th:text="${option.process}"></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                    <div style="width: 30%;">
+                        <!--                        <div id="divProcess" class="mb-1" style="height: 50%">-->
+                        <!--                            <div class="form-notice"><b>*</b>생산공정 선택</div>-->
+                        <!--                            <div class="form-border">-->
+                        <!--                                <table class="table table-bordered text-start table-light-info">-->
+                        <!--                                    <thead>-->
+                        <!--                                    <th>No</th>-->
+                        <!--                                    <th>선택</th>-->
+                        <!--                                    <th>공정</th>-->
+                        <!--                                    </thead>-->
+                        <!--                                    <tbody>-->
+                        <!--                                    <tr th:each="option,i : ${cboProcess}">-->
+                        <!--                                        <td th:text="${i.index}"></td>-->
+                        <!--                                        <td>-->
+                        <!--                                            <input type="checkbox" class="v-middle" th:value="${option.processID}"-->
+                        <!--                                                   th:name="|articleProcessList[${i.index}].processID|"-->
+                        <!--                                                   th:checked=" ${mode == 'update'} ? ${#lists.contains(apList, option.processID)}">-->
+                        <!--                                        </td>-->
+                        <!--                                        <td th:text="${option.process}"></td>-->
+                        <!--                                    </tr>-->
+                        <!--                                    </tbody>-->
+                        <!--                                </table>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
 
                         <div id="divImage" style="height: 50%">
                             <div class="form-notice"><b>*</b>첨부파일 선택</div>
                             <div class="form-border">
-                                <table class="table table-bordered text-center table-light-info">
+                                <table class="table table-bordered text-start table-light-info">
                                     <tr>
                                         <td class="left flx">
                                             <label for="realFile" class="form-control label-file">제품<br>이미지</label>
