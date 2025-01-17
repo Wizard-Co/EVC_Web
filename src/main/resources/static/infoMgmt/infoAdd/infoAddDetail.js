@@ -123,7 +123,9 @@ function formLoad(gbn){
             textarea.value = '';
 
             //첨부문서
-            $('#saveFile').val('');
+
+            //2024-10-23 TODO
+
 
     }else{
         const infoData = new FormData(form);
@@ -147,6 +149,9 @@ function formLoad(gbn){
             let textarea = document.getElementById('taInf');
             textarea.value = '';
 
+            //첨부문서
+            //2024-10-23 TODO
+
         }
         else{
             //기본 전체 선택, 기본 상단 게시글 선택 안 함
@@ -161,6 +166,9 @@ function formLoad(gbn){
                 const row = document.querySelector('tbody tr:nth-child(3)'); // 세번째 행 선택
                 row.classList.add('disabled'); // 'disabled' 클래스 토글
             }
+
+            //첨부문서
+            //2024-10-23 TODO
 
         }
     }
@@ -228,11 +236,6 @@ function leftPersonDataTree(){
              var treeData = new Array();
              $.each(data, function(idx, item) {
 
-                 /*부서 말고 사원만*/
-                 if(item.dpParentID !== "#"){
-                    item.dpName = "&nbsp;&nbsp;&nbsp;&nbsp;" + item.dpName; /*좀더 안쪽에서 보이기 위해 공백추가해서 처리*/
-                 }
-
                  treeData[idx] = {
                      id: item.dpID.trim(),
                      parent: item.dpParentID, // 부모 노드 ID, 루트 노드는 '#'로 설정
@@ -248,11 +251,15 @@ function leftPersonDataTree(){
                  plugins: ['wholerow','types'], // 사용할 플러그인
              })
              .bind('select_node.jstree', function(event, treeData) {
-                   // 노드 선택 이벤트
-                   // 사원 노드
-                   personNode = treeData.node;
-                   // 부모 노드
-                   departNode = $('#tree').jstree().get_node(personNode.parent)
+
+                 // 노드 선택 이벤트
+                 // 사원 노드
+                 personNode = treeData.node;
+
+                 // 부모 노드
+                 departNode = $('#tree').jstree().get_node(personNode.parent)
+
+
              });
          },
          error: function(xhr, status, error) {
@@ -387,16 +394,6 @@ function save(gbn){
     if (form.checkValidity()) {
         const infoSave = new FormData(form);
 
-        //파일 크기 확인
-        if(infoSave.get('attachFileDetail').name != ''){
-            //업로드 파일 최대 용량
-            let maxSize = 1024 * 1024; // 1MB
-            let file = infoSave.get('attachFileDetail');
-            if (file.size > maxSize) {
-                alert("파일 용량은 1MB 이내로 등록 가능합니다.");
-                return;
-            }
-        }
 
         //데이터타입을 String으로 수정
         //allYN 전체 개별 체크박스
@@ -555,7 +552,7 @@ function Move(ButtonGbn){
 /*오른쪽 사원 명단*/
 const rightPersonTable = $('#idRightPersonTable').DataTable({
     select: true,
-    dom: '<"d-none"B><"mb-2 right"f>t<"mt-2 center"p>',
+
     language: {
         zeroRecords: "검색된 항목이 없습니다.",
         infoEmpty: "검색된 항목이 없습니다.",
@@ -568,7 +565,8 @@ const rightPersonTable = $('#idRightPersonTable').DataTable({
     paging: false, //페이지 사용 안 함
     searching: false, //검색 기능 사용 안 함
     ordering: false, //자동정렬 사용 안 함
-    scrollY: true,
+    scrollY: '250px', //250px보다 커지면 스크롤 생성
+
     columns: [
         {data: "depart", className:'center'},                  /*부서*/
         {data: "person", className: 'center'},                  /*사원*/

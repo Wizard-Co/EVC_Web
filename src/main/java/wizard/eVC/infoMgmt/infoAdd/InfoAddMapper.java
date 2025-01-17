@@ -13,6 +13,8 @@ package wizard.eVC.infoMgmt.infoAdd;
 import org.apache.ibatis.annotations.Mapper;
 import wizard.eVC.infoMgmt.infoAdd.dto.InfoAddDetailDto;
 import wizard.eVC.infoMgmt.infoAdd.dto.InfoAddDto;
+import wizard.eVC.infoMgmt.infoSearch.dto.InfoSearchDto;
+
 
 import java.util.List;
 import java.util.Map;

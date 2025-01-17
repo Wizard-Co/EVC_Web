@@ -263,8 +263,7 @@ public class FTP {
             }
         }
     }
-
-    private void setFtp() throws IOException {
+    public void setFtp() throws IOException {
         ftp.enterLocalPassiveMode();
         ftp.setFileTransferMode(ftp.BINARY_FILE_TYPE);
         ftp.setAutodetectUTF8(true);

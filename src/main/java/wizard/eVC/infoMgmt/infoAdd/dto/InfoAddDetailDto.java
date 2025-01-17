@@ -16,6 +16,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 
+import java.util.Date;
+
 @Data
 public class InfoAddDetailDto {
     //js, mapper, 프로시저 조회 값과 같아야 됨
