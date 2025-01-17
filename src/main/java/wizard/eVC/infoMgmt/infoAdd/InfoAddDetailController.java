@@ -44,7 +44,6 @@ public class InfoAddDetailController {
 
         // attachFileDetail file 타입 file upload 저장
         // attachFile string 타입 DB 저장
-        // attachPath string 타입 DB 저장
         //파일이름 입력 안 하면 true, 파일이름 입력하면 false
         if(!infoAddDetailDto.getAttachFile().isEmpty()){
             infoAddDetailDto.setAttachFile(infoAddDetailDto.getAttachFileDetail().getOriginalFilename());
@@ -97,18 +96,11 @@ public class InfoAddDetailController {
         else{
             //수정 안 했으면 삭제 여부 확인
             //빈칸이면 삭제로 판단
-            if(infoAddDetailDto.attachFile.isEmpty()){
-
-                if(infoAddDetailDto.deleteAttachFile.isEmpty()){
-                    infoAddDetailDto.setAttachFile("");
-                    infoAddDetailDto.setAttachPath("");
-                }else{
-                    //파일 삭제 TODO
-                    infoAddDetailDto.setAttachFile("");
-                    infoAddDetailDto.setAttachPath("");
-                    ftp.deleteFile(infoAddDetailDto.getDeleteAttachFile(),FTPPATH + "/" + infoID + "/");
-                }
-
+            if(infoAddDetailDto.getAttachFile().isEmpty() && !infoAddDetailDto.getDeleteAttachFile().isEmpty()){
+                //파일 삭제
+                infoAddDetailDto.setAttachFile("");
+                infoAddDetailDto.setAttachPath("");
+                ftp.deleteFile(infoAddDetailDto.getDeleteAttachFile(),FTPPATH + "/" + infoID + "/");
             }
             else{
                 //수정 안 했으면 기존값 저장

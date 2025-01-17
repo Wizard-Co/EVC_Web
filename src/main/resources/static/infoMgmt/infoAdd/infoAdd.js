@@ -84,9 +84,6 @@ document.getElementById('btnDetail').addEventListener('click', function () {
     //선택한 행이 없는 경우 메세지창
 
     if(infoTable.rows(".selected").data().length == 0){
-
-    if(selectedRow == null){
-
         alert('선택한 데이터가 없습니다. \r\n데이터를 선택한 후에 진행 해주세요.');
     }
     else{
@@ -104,8 +101,6 @@ document.getElementById('btnDetail').addEventListener('click', function () {
 document.getElementById('btnDelete').addEventListener('click', function () {
     //선택한 행이 없는 경우 메세지창
     if(infoTable.rows(".selected").data().length == 0){
-
-    if(selectedRow == null){
         alert('선택한 데이터가 없습니다. \r\n데이터를 선택한 후에 진행 해주세요.');
     }
     else{
@@ -133,7 +128,6 @@ document.getElementById('btnDelete').addEventListener('click', function () {
                            }
             );
     }
-
 })
 
 /*엑셀 이벤트*/
@@ -322,8 +316,6 @@ function getDate(gbn){
             document.querySelector("#inputEDateSearch").value = formattedLastDay;
 
         }
-
-
 }
 
 /*로드시 전체 자동 체크표시*/
@@ -333,7 +325,7 @@ function checkboxGbn(){
     let chkAll = document.querySelector("#chkAllGbn");
     let chkPerson = document.querySelector("#chkPersonGbn");
     chkDate.checked = true;
-    chkAll.checked = true;
+    chkAll.checked = false;
     chkPerson.checked = false;
 }
 
@@ -437,15 +429,6 @@ const infoTable = $('#infoTable').DataTable({
     columns: [
         {data: "rn", className:'center'} ,                      /*순번*/
         {data: "infoID", className: 'center'},                  /*공지번호*/
-        {data: "allYNName", className: 'left'},               /*구분이름*/
-        {data: "fromDate", className: 'left'},                /*시작일*/
-        {data: "toDate", className: 'left'},                  /*종료일*/
-        {data: "info", className: 'left'},                    /*공지내용*/
-        {data: "personName", className: 'left'},              /*공지대상자*/
-        {data: "attachFile", className: 'left'},              /*첨부문서*/
-        {data: "attachPath", className: 'left'},              /*첨부문서경로*/
-        {data: "hitCount", className: 'right'},                /*조회수*/
-        {data: "createUser", className: 'left'},              /*작성자*/
         {data: "allYNName", className: 'center'},               /*구분이름*/
         {data: "fromDate", className: 'center'},                /*시작일*/
         {data: "toDate", className: 'center'},                  /*종료일*/

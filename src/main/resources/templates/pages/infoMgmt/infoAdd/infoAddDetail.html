@@ -16,7 +16,7 @@ class : 하이픈 사용 ex) page-header
 
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout/sublayout}" lang="ko">
+      layout:decorate="~{layout/subLayout}" lang="ko">
 
 <th:block layout:fragment="css">
     <link rel="stylesheet" type="text/css" th:href="@{/infoMgmt/infoAdd/infoAddDetail.css}"/>
@@ -150,7 +150,6 @@ class : 하이픈 사용 ex) page-header
                                                 <div class="flx">
                                                     <!--파일이름 DB 저장은 string 타입, 파일 여부 및 파일 업로드는 file 타입-->
                                                     <input type="file" th:field="*{attachFileDetail}" id="uploadFile" style= "display:none">  <!--업로드, 여부 -->
-        <!--                                            <input type="text" th:field="*{attachPath}">-->
                                                     <input type="text" th:field="*{attachFile}" id="saveFile" readonly> <!--저장-->
                                                     <input type="text" th:field="*{deleteAttachFile}" class="th-hidden" readonly> <!--삭제여부 판단-->
                                                     <button type="button" class="btn btn-success" id="fileDelete">삭제</button>

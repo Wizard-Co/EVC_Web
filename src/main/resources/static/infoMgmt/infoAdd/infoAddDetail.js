@@ -551,8 +551,6 @@ const rightPersonTable = $('#idRightPersonTable').DataTable({
     searching: false, //검색 기능 사용 안 함
     ordering: false, //자동정렬 사용 안 함
     scrollY: true,
-    scrollY: '250px', //250px보다 커지면 스크롤 생성
-
     columns: [
         {data: "depart", className:'center'},                  /*부서*/
         {data: "person", className: 'center'},                  /*사원*/
