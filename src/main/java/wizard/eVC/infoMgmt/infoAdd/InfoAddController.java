@@ -51,6 +51,7 @@ public class InfoAddController {
     public String infoAdd() throws UnknownHostException {
         //로그 남기기
         logService.logSave("xp_info_sInfo", "S", "Win_com_InfoSet", "");
+
         return "/pages/infoMgmt/infoAdd/infoAdd";
     }
 
@@ -77,6 +78,7 @@ public class InfoAddController {
         InfoAddDetailDto infoAddDetailDto = new InfoAddDetailDto();
         infoAddDetailDto.setUserID("admin"); //TODO 로그인한 personID
         model.addAttribute("InfoAddDetailDto", infoAddDetailDto);
+ 
         return "/pages/infoMgmt/infoAdd/infoAddDetail";
     }
 
@@ -95,7 +97,9 @@ public class InfoAddController {
         infoAddDetailDto.setDeleteAttachFile(infoAddDetailDto.getAttachFile());
         //TODO 로그인한 personID
         model.addAttribute("InfoAddDetailDto", infoAddDetailDto);
+
         return "/pages/infoMgmt/infoAdd/infoAddDetail";
+
     }
 
     //삭제
@@ -105,7 +109,9 @@ public class InfoAddController {
         //TODO 로그 남길 경우 로그인한 personID
         ifaService.deleteInfo(infoID);
         ftp.deleteDirectory(FTPPATH + infoID);
+
         return "/pages/infoMgmt/infoAdd/infoAdd";
+
     }
 
     //TODO 정리

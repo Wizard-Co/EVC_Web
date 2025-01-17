@@ -1,0 +1,94 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}" lang="ko">
+
+<th:block layout:fragment="script">
+    <script th:src="@{/sysMgmt/userlog/userlog.js}"></script>
+</th:block>
+
+<section layout:fragment="content">
+    <body>
+    <loading-form id="loading" class="invisible"></loading-form>
+    <main>
+        <div class="menu">
+            <div class="page-header">
+                ■ 사용자로그조회
+            </div>
+            <div class="icon">
+                <div class="flx">
+                    <button type="button" class="btn btn-info m-r-05" id="btnSearch">조회</button>
+                    <button type="button" class="btn btn-success m-r-05" id="btnAdd">등록</button>
+                    <button type="button" class="btn btn-success" id="btnDelete">삭제</button>
+                </div>
+                <div class="flx mt-05">
+                    <button type="button" id="btnExcel" class="btn btn-print m-r-05">엑셀</button>
+                    <button type="button" id="btnPrint" class="btn btn-print" onclick="window.print()">인쇄</button>
+
+
+                </div>
+
+
+            </div>
+        </div>
+        <condition class="panel">
+            <div class="panel-body">
+                <div class="flx">
+                    <div class="div-srh m-r-2">
+                        <label class="form-check-label" for="chkDate" >
+                            사용일자
+                        </label>
+                        <input class="form-check-input lbl-srh " type="checkbox" id="chkDate" >
+                    </div>
+
+                    <div id="dateFields" class="date-fields">
+                        <input type="date" id="inputFromDate" class="form-control srhControl" >
+                        <input type="date" id="inputToDate" class="form-control srhControl" >
+
+                        <div class="flx" style="margin-top: 5px">
+                            <button type="button" class="btn btn-primary btn-date" id="preMonth">전월</button>
+                            <button type="button" class="btn btn-primary btn-date" id="preDay" style="margin-left: 1px">전일</button>
+                            <button type="button" class="btn btn-primary btn-date" id="month" style="margin-left: 1px">당월</button>
+                            <button type="button" class="btn btn-primary btn-date" id="today" style="margin-left: 1px">금일</button>
+                        </div>
+
+
+                    </div>
+
+                    <div class="div-srh m-r-4" style="margin-left: 20px">
+                        <label class="form-check-label" for="inputPersonSrh" >
+                            사원명
+                        </label>
+                        <input class="form-check-input lbl-srh" type="checkbox" value="0" id="inputPersonSrh"  placeholder="사원 검색">
+                        <input type="text" class="srhControl" id="inputPersonName">
+                    </div>
+                </div>
+            </div>
+        </condition>
+
+        <section>
+            <table id="userlogTable" class="striped cell-border table-light-info" style="width:100%">
+                <thead>
+                <tr>
+                    <th>순</th>
+                    <th>일자</th>
+                    <th>사용자</th>
+                    <th>사용자</th>
+                    <th>메뉴</th>
+                    <th>시작일자</th>
+                    <th>시작시간</th>
+                    <th>종료일자</th>
+                    <th>로그인시간(분)</th>
+                    <th>입력</th>
+                    <th>조회</th>
+                    <th>수정</th>
+                    <th>삭제</th>
+                </tr>
+                </thead>
+            </table>
+        </section>
+
+
+    </main>
+    </body>
+</section>
+</html>

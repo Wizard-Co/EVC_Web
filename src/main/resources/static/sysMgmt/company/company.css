@@ -1,0 +1,89 @@
+.custom-field {
+    text-align: left;
+    border: 2px solid;
+    border-color: #808080 #0000000F rgba(0, 0, 0, 0.13) #808080 !important;
+    padding: 10px !important;
+    min-width: 0 !important;
+    flex: 1;
+    display: flex !important;
+    flex-direction: row !important;
+    gap: 5px !important;
+    height: 100% !important;
+    background-color: whitesmoke;
+}
+
+.custom-field legend {
+    float: none !important;
+    width: auto !important;
+    padding: 0 5px !important;
+    margin: 0 !important;
+    border: none !important;
+    font-size: 14px !important;
+    line-height: 1 !important;
+}
+
+.custom-field-wrapper{
+    padding: 10px;
+    display: flex;
+    gap: 10px;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+.custom-field input[type="radio"]{
+    margin-right: 1rem;
+}
+
+td {
+    vertical-align: top;
+    height: 100%;
+    position: relative;
+}
+
+tr {
+    height: 100%;
+}
+
+.subtle-input::placeholder {
+    color: #999;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+    transition: opacity 0.3s ease;
+    font-style: italic;
+}
+
+.subtle-input:focus::placeholder {
+    opacity: 0;
+}
+
+.pt-e-none{
+    pointer-events: none;
+}
+
+.collapse{
+    visibility: collapse;
+}
+
+.hidden{
+    visibility: hidden;
+}
+
+.hidden-bn{
+    visibility: hidden;
+    border: none;
+}
+
+.hidden-bnl{
+    visibility: hidden;
+    border-left: none;
+}
+
+.hidden-bnr{
+    visibility: hidden;
+    border-right: none;
+}
+
+

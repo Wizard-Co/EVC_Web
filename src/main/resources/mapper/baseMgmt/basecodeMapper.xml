@@ -3,4 +3,54 @@
 
 <mapper namespace="wizard.eVC.baseMgmt.basecode.basecodeMapper">
 
+    <select id="getBasecodeList" statementType="CALLABLE" resultType="wizard.eVC.baseMgmt.basecode.dto.basecodeDTO"
+            parameterType="map">
+        { call xp_Code_sCmCode_MainCategory(#{codeSrh, javaType=String, jdbcType=VARCHAR, mode=IN})}
+    </select>
+
+    <select id="getBasecodeDetail" statementType="CALLABLE" resultType="wizard.eVC.baseMgmt.basecode.dto.basecodeDTO"
+            parameterType="map">
+        { call xp_Code_sCmCode_SmallCategory(#{codeID, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                             #{checkTF, javaType=String, jdbcType=VARCHAR, mode=IN})}
+    </select>
+
+
+    <select id="updateBasecodeDetail" statementType="CALLABLE" resultType="wizard.eVC.baseMgmt.basecode.dto.basecodeDTO"
+            parameterType="map">
+        { call xp_Code_uCmCode(#{codeTypeID, javaType=String, jdbcType=VARCHAR, mode=IN},
+                               #{codeID, javaType=String, jdbcType=VARCHAR, mode=IN},
+                               #{codeName, javaType=String, jdbcType=VARCHAR, mode=IN},
+                               #{codeEName, javaType=String, jdbcType=VARCHAR, mode=IN},
+                               #{comments, javaType=String, jdbcType=VARCHAR, mode=IN},
+                               #{relation, javaType=String, jdbcType=VARCHAR, mode=IN},
+                               #{seq, javaType=INT, jdbcType=SMALLINT, mode=IN},
+                               #{useYN, javaType=String, jdbcType=VARCHAR, mode=IN},
+                               #{lastUpdateUser, javaType=String, jdbcType=VARCHAR, mode=IN})
+         }
+    </select>
+
+    <select id="addBasecodeDetail" statementType="CALLABLE" resultType="wizard.eVC.baseMgmt.basecode.dto.basecodeDTO"
+            parameterType="map">
+        { call xp_Code_iCmCode(#{codeTypeID, javaType=String, jdbcType=VARCHAR, mode=IN},
+                               #{codeID, javaType=String, jdbcType=VARCHAR, mode=IN},
+                               #{codeName, javaType=String, jdbcType=VARCHAR, mode=IN},
+                               #{codeEName, javaType=String, jdbcType=VARCHAR, mode=IN},
+                               #{comments, javaType=String, jdbcType=VARCHAR, mode=IN},
+                               #{seq, javaType=INT, jdbcType=SMALLINT, mode=IN},
+                               #{useYN, javaType=String, jdbcType=VARCHAR, mode=IN},
+                               #{codeSize, javaType=INT, jdbcType=SMALLINT, mode=IN},
+                               #{parentID, javaType=String, jdbcType=VARCHAR, mode=IN},
+                               #{level, javaType=String, jdbcType=VARCHAR, mode=IN},
+                               #{relation, javaType=String, jdbcType=VARCHAR, mode=IN},
+                               #{createUserID, javaType=String, jdbcType=VARCHAR, mode=IN})
+            }
+    </select>
+
+    <select id="deleteBasecodeDetail" statementType="CALLABLE" parameterType="String">
+        { call xp_Code_dCmCode(#{codeTypeID, javaType=String, jdbcType=CHAR, mode=IN},
+                               #{codeID, javaType=String, jdbcType=CHAR, mode=IN}
+
+       )}
+    </select>
+
 </mapper>

@@ -1,0 +1,153 @@
+<!--
+  *packageName      : templates.pages.baseMgmt
+  *fileName         : plusFinder.html
+  *author           : sooJeong
+  *date             : 2024-09-27
+  *======================================================
+  *DATE             AUTHOR               NOTE
+  *------------------------------------------------------
+  * 2024-09-27      sooJeong             최초 생성
+ -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>플러스파인더 </title>
+
+    <th:block th:replace="~{layout/config :: configFragment}"></th:block>
+    <link rel="stylesheet" href="/common/common.css">
+    <script th:src="@{/common/common.js}"></script>
+
+    <style>
+        html,
+        body {
+            font-size: 14px;
+        }
+
+        #main {
+            padding: 1rem;
+        }
+
+        a:link {
+            color: black;
+            text-decoration: none;
+        }
+
+        a:visited {
+            color: black;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: black;
+            text-decoration: underline;
+        }
+
+        a:active {
+            color: black;
+            text-decoration: none;
+        }
+
+        .plusFinder-Srh {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .plusFinder-Srh-input {
+            flex-grow: 1;
+        }
+
+        .plusFinder-Srh-button {
+            margin-left: 10px;
+        }
+    </style>
+
+</head>
+
+<body>
+<div id="main">
+    <div class="plusFinderBottom">
+        <div class="plusFinder-Srh">
+            <div class="plusFinder-Srh-input">
+                <label>통합검색</label>
+                <input type="text" id="inputPfSrh">
+            </div>
+            <div class="plusFinder-Srh-button">
+                <button type="button" id="btnSearch" class="btn btn-info button">조회</button>
+                <button type="button" id="btnClose" class="btn btn-info button">닫기</button>
+            </div>
+        </div>
+
+        <table id="PFtable" class="striped cell-border table-light-info">
+            <thead>
+            <tr>
+                <th th:each="colName : ${lstColName}" th:text="${colName}"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="rowData : ${lstpf}">
+                <td class="center" th:each="row, i : ${rowData}">
+                    <span th:if="${i.index == 0}" th:text="${row.value}"></span>
+                    <a th:if="${i.index > 0}" href="#" th:text="${row.value}" th:value="${rowData['0']}"
+                       th:onclick="sendParent([[${rowData.values().stream().findFirst().orElse('')}]],[[${row.value}]])"></a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- 스크립트 -->
+
+<script th:inline="javascript">
+    /**
+     * 2024.12.03, 김수정, 통합검색 추가
+     */
+    document.addEventListener('DOMContentLoaded', function () {
+        DataTable.type('num', 'className', '');
+
+        const url = window.location.search;
+        const urlParam = new URLSearchParams(url);
+        const txtID = urlParam.get('txtID') || '';
+        const txtName = urlParam.get('txtName') || '';
+
+        const PFtable = $('#PFtable').removeAttr('width').DataTable({
+            dom: '<"PFTop">t<"PFpaging"p>',
+            language: {
+                zeroRecords: "검색된 항목이 없습니다.",
+            },
+            lengthChange: false,
+            ordering: false,
+            info: false,
+            paging: true,
+            scrollX: false,
+            scrollY: true,
+        });
+
+        window.sendParent = function (PfID, PfName) {
+            const opener_txtID = opener.document.getElementById(txtID);
+            const opener_txtName = opener.document.getElementById(txtName);
+
+            if (!!opener_txtName && !!opener_txtName) {
+                opener_txtID.value = PfID;
+                opener_txtName.value = PfName;
+                window.close();
+            } else {
+                throw Error("부모 텍스트를 찾지 못했습니다");
+            }
+        };
+
+        document.getElementById('btnSearch').addEventListener('click', function (){
+
+            let input = document.getElementById('inputPfSrh').value;
+            //PFtable.column(1).search(input).draw();
+            PFtable.search(input).draw();
+        })
+    });
+</script>
+</body>
+
+</html>

@@ -50,6 +50,16 @@
     margin : 0px 4px;
 }
 
+/*해당 section 전체적 디자인*/
+.page-middle {
+    padding: 20px 20px;
+    border-bottom: 0px solid;
+    font-size: 14px;
+    font-weight: 400;
+    /*user-select: none;*/ /* 더블 클릭시 파란색 선택 방지 */
+}
+
+
 /*컬럼 숨기기*/
 .th-hidden{
     display: none;

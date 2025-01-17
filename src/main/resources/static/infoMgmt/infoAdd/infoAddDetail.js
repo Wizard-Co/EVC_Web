@@ -232,11 +232,19 @@ function leftPersonDataTree(){
                  plugins: ['wholerow','types'], // 사용할 플러그인
              })
              .bind('select_node.jstree', function(event, treeData) {
-                   // 노드 선택 이벤트
-                   // 사원 노드
-                   personNode = treeData.node;
-                   // 부모 노드
-                   departNode = $('#tree').jstree().get_node(personNode.parent)
+                 // 노드 선택 이벤트
+                 // 사원 노드
+                 personNode = treeData.node;
+                 // 부모 노드
+                 departNode = $('#tree').jstree().get_node(personNode.parent)
+
+                 // 노드 선택 이벤트
+                 // 사원 노드
+                 personNode = treeData.node;
+
+                 // 부모 노드
+                 departNode = $('#tree').jstree().get_node(personNode.parent)
+
              });
          },
          error: function(xhr, status, error) {
@@ -543,6 +551,8 @@ const rightPersonTable = $('#idRightPersonTable').DataTable({
     searching: false, //검색 기능 사용 안 함
     ordering: false, //자동정렬 사용 안 함
     scrollY: true,
+    scrollY: '250px', //250px보다 커지면 스크롤 생성
+
     columns: [
         {data: "depart", className:'center'},                  /*부서*/
         {data: "person", className: 'center'},                  /*사원*/
