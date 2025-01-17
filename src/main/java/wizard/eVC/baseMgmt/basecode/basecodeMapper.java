@@ -13,5 +13,3 @@ import java.util.Map;
 @Mapper
 public interface basecodeMapper {
 
-
-}

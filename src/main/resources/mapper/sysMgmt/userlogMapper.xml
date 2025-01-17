@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="wizard.eVC.sysMgmt.userlog.UserlogMapper">
+    <select id="getUserlogList" statementType="CALLABLE" resultType="wizard.eVC.sysMgmt.userlog.DTO.Userlog"
+            parameterType="map">
+        {call xp_Common_sLogData_New(
+                #{sCompanyID,javaType=String, jdbcType=VARCHAR, mode=IN }
+            ,#{chkDate, javaType=Int, jdbcType=SMALLINT, mode=IN}
+            ,#{sFromDate, javaType=String, jdbcType=VARCHAR, mode=IN}
+            ,#{sToDate, javaType=String, jdbcType=VARCHAR, mode=IN}
+            ,#{chkPerson, javaType=Int, jdbcType=SMALLINT, mode=IN}
+            ,#{sPerson, javaType=String, jdbcType=VARCHAR, mode=IN}
+              )}
+    </select>
+</mapper>

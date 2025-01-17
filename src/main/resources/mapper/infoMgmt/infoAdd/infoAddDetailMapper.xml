@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--    설명: 공지사항등록 상세 맵퍼.xml
+        작성일: 2024.10.30
+        개발자: KDH
+        ********************************************************
+        수정일자       수정자          요청자     요청내용
+        ********************************************************
+
+
+
+-->
+
+<mapper namespace="wizard.eVC.infoMgmt.infoAdd.InfoAddDetailMapper">
+    <!--id 값과 call 값은 프로시저 이름으로 해야 됨-->
+
+    <!-- 공지사항 개별 등록시 왼쪽 사원 그리드 -->
+    <select id="xp_person_sPerson_infoSave" statementType="CALLABLE" resultType="wizard.eVC.infoMgmt.infoAdd.dto.InfoAddDetailDto"
+            parameterType="map">
+        { call xp_person_sPerson_infoSave(#{mainWorkYN, javaType=String, jdbcType=VARCHAR, mode=IN})}
+    </select>
+
+    <!-- 공지사항 개별 등록시 오른쪽 사원 그리드 -->
+    <select id="xp_infoUS_sinfoUS_infoSave" statementType="CALLABLE" resultType="wizard.eVC.infoMgmt.infoAdd.dto.InfoAddDetailDto"
+            parameterType="map">
+        { call xp_infoUS_sinfoUS_infoSave(#{infoID, javaType=String, jdbcType=VARCHAR, mode=IN})}
+    </select>
+    
+    <!-- 공지사항 저장 -->
+    <select id="xp_info_iInfo" statementType="CALLABLE" resultType="wizard.eVC.infoMgmt.infoAdd.dto.InfoAddDetailDto"
+            parameterType="map">
+        {call xp_info_iInfo(#{infoID, javaType=String, jdbcType=VARCHAR, mode=OUT},     <!--공지사항번호-->
+                            #{fromDate, javaType=String, jdbcType=VARCHAR, mode=IN},    <!--시작일-->
+                            #{toDate, javaType=String, jdbcType=VARCHAR, mode=IN},      <!--종료일-->
+                            #{info, javaType=String, jdbcType=VARCHAR, mode=IN},        <!--공지사항내용-->
+                            #{userID, javaType=String, jdbcType=VARCHAR, mode=IN},      <!--작성자-->
+                            #{attachFile, javaType=String, jdbcType=VARCHAR, mode=IN},  <!--첨부문서-->
+                            #{attachPath, javaType=String, jdbcType=VARCHAR, mode=IN},  <!--첨부문서경로-->
+                            #{allYN, javaType=String, jdbcType=VARCHAR, mode=IN},       <!--구분-->
+                            #{topNotifyYN, javaType=String, jdbcType=VARCHAR, mode=IN}  <!--상단게시글여부-->
+        )}
+    </select>
+
+    <!-- 공지사항 수정 -->
+    <select id="xp_info_uInfo" statementType="CALLABLE" resultType="wizard.eVC.infoMgmt.infoAdd.dto.InfoAddDetailDto"
+            parameterType="map">
+        {call xp_info_uInfo(#{infoID, javaType=String, jdbcType=VARCHAR, mode=IN},     <!--공지사항번호-->
+        #{companyID, javaType=String, jdbcType=VARCHAR, mode=IN},   <!--회사ID-->
+        #{fromDate, javaType=String, jdbcType=VARCHAR, mode=IN},    <!--시작일-->
+        #{toDate, javaType=String, jdbcType=VARCHAR, mode=IN},      <!--종료일-->
+        #{info, javaType=String, jdbcType=VARCHAR, mode=IN},        <!--공지사항내용-->
+        #{userID, javaType=String, jdbcType=VARCHAR, mode=IN},      <!--작성자-->
+        #{attachFile, javaType=String, jdbcType=VARCHAR, mode=IN},  <!--첨부문서-->
+        #{attachPath, javaType=String, jdbcType=VARCHAR, mode=IN},  <!--첨부문서경로-->
+        #{allYN, javaType=String, jdbcType=VARCHAR, mode=IN},       <!--구분-->
+        #{topNotifyYN, javaType=String, jdbcType=VARCHAR, mode=IN}  <!--상단게시글여부-->
+        )}
+    </select>
+
+    <!-- 개별사원 저장 -->
+    <select id="xp_infoUS_iInfoUS" statementType="CALLABLE" resultType="wizard.eVC.infoMgmt.infoAdd.dto.InfoAddDetailDto"
+            parameterType="map">
+        {call xp_infoUS_iInfoUS(#{infoID, javaType=String, jdbcType=VARCHAR, mode=IN},     <!--공지사항번호-->
+                                #{personID, javaType=String, jdbcType=VARCHAR, mode=IN},    <!--사원ID-->
+                                #{userID, javaType=String, jdbcType=VARCHAR, mode=IN}       <!--작성자-->
+        )}
+    </select>
+
+</mapper>

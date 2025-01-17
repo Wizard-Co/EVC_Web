@@ -37,7 +37,7 @@ public class FTP {
     private String localpath;
     private FTPClient ftp;
 
-    public void open() {
+    private void open() {
         ftp = new FTPClient();
         ftp.setControlEncoding("euc-kr");
         try {
@@ -67,7 +67,7 @@ public class FTP {
         }
     }
 
-    public void close() {
+    private void close() {
         try {
             ftp.logout();
             ftp.disconnect();
@@ -85,11 +85,7 @@ public class FTP {
 
             InputStream inputStream = file.getInputStream();
 
-            if (!ftp.changeWorkingDirectory(filePath)) {
-                ftp.makeDirectory(filePath);
-                ftp.changeWorkingDirectory(filePath);
-            }
-
+            changeDirectory(filePath);
             boolean result = ftp.storeFile(file.getOriginalFilename(), inputStream);
 
             if (!result) {
@@ -234,6 +230,39 @@ public class FTP {
         }
     }
 
+    //2024-11-05 KDH FTP 파일삭제(데이터 삭제시 파일과 디렉토리도 같이 삭제)
+    public void deleteDirectory(String filePath) {
+        try {
+
+            open();
+            setFtp();
+
+            // 디렉토리 존재 여부 판단 true면 존재, false면 존재 하지 않음
+            if(ftp.changeWorkingDirectory(filePath)) {
+                // 디렉토리 내의 모든 파일 삭제
+                String[] files = ftp.listNames(filePath);
+                if (files != null) {
+                    for (String file : files) {
+                        ftp.deleteFile(file);
+                    }
+                }
+
+                boolean result = ftp.removeDirectory(filePath);
+
+                if (!result) {
+                    close();
+                    log.error("FTP 파일 삭제 실패");
+                }
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } finally {
+            if (ftp.isConnected()) {
+                close();
+            }
+        }
+    }
     public void setFtp() throws IOException {
         ftp.enterLocalPassiveMode();
         ftp.setFileTransferMode(ftp.BINARY_FILE_TYPE);
@@ -241,4 +270,18 @@ public class FTP {
         ftp.setFileType(ftp.BINARY_FILE_TYPE);
     }
 
+    private void changeDirectory(String filePath) throws IOException {
+        String[] directory = filePath.split("/");
+        String newDir = "";
+
+        for (int i = 0; i < directory.length; i++) {
+            newDir += "/" + directory[i];
+
+            if (!ftp.changeWorkingDirectory(newDir)) {
+                ftp.makeDirectory(newDir);
+                ftp.changeWorkingDirectory(newDir);
+            }
+
+        }
+    }
 }
