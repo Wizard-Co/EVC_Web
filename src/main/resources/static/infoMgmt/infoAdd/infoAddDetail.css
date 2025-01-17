@@ -21,6 +21,7 @@
     font-size: 20px; /* 글자 크기 설정 */
 }
 
+
 /*행 높이 조정 css*/
 .tr-height{
     height: 250px; /* 행 높이 설정 */
@@ -45,6 +46,7 @@
     /*user-select: none;*/ /* 더블 클릭시 파란색 선택 방지 */
 }
 
+
 /*컬럼 숨기기*/
 .th-hidden{
     display: none;
@@ -66,7 +68,7 @@
 .div-scroll{
     overflow: auto;
     height: 250px;
-}
+
 
 /*file text 크기*/
 #saveFile{

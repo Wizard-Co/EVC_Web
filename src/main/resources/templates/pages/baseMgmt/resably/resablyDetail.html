@@ -1,0 +1,103 @@
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/subLayout}" lang="ko">
+
+<th:block layout:fragment="script">
+    <script th:src="@{/baseMgmt/resably/resablyDetail.js}"></script>
+</th:block>
+
+<section layout:fragment="content">
+    <head>
+        <style>
+            .table {
+                margin-bottom: 0;
+            }
+
+            .form-border {
+                border: solid 1px #dee2e6;
+                padding: 0.5rem;
+                min-height: 280px;
+                font-size: 13px;
+            }
+
+        </style>
+    </head>
+    <body>
+    <div id="addPop">
+        <div class="menu">
+            <div class="page-header">
+                <h3>기준정보
+                    <span> /직책코드 등록</span>
+                </h3>
+            </div>
+            <div class="icon">
+                <button type="submit" id="btnUpdate" form="addForm" class="btn btn-success">수정</button>
+                <button type="submit" id="btnSave" form="addForm" class="btn btn-success">저장</button>
+                <button type="button" id="btnDelete" class="btn btn-success">삭제</button>
+                <button type="button" id="btnClose" class="btn btn-print">닫기
+                </button>
+            </div>
+        </div>
+        <div id="main">
+            <form id="addForm" th:object="${resably}" class="needs-validation" novalidate>
+                <div class="flx">
+                    <div id="divForm" style="width: 70%">
+                        <span class="form-notice float-start"><b>*</b> 표시는 필수 기입 사항 입니다</span>
+                        <table id="formTable" class="table table-bordered text-center">
+
+                            <tr>
+                                <td class="col-md-2">
+                                    <label><span class="form-notice">*</span>직책코드</label>
+                                </td>
+                                <td class="left">
+                                    <input type="text" class="form-control input-readOnly" th:field="*{resablyID}"
+                                           readonly >
+                                    <div class="invalid-feedback">
+                                        직책을 입력해주세요.
+                                    </div>
+                                </td>
+                                </td>
+                                <td class="col-md-2">
+                                    <label>부서</label>
+                                </td>
+                                <td class="left">
+                                    <input type="text" class="form-control input-necessary" th:field="*{resably}"
+                                           required>
+                                    <div class="invalid-feedback">
+                                        직책을 입력해주세요.
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="col-md-3">
+                                    <label><span class="form-notice">비고</span></label>
+                                </td>
+                                <td class="left">
+                                    <input type="text" class="form-control" th:field="*{comments}"
+                                           required>
+                                </td>
+
+                                <td class="col-md-4">
+                                    <label><span class="form-check-label">사용여부</span></label>
+                                </td>
+                                <td class="left">
+                                    <input type="checkbox" th:field="*{useYN}" th:value="Y" th:checked="*{useYN =='Y'}"
+                                    style="transform: scale(1.5);">
+                                </td>
+
+
+                            </tr>
+
+                        </table>
+                        <span class="form-result float-start"></span>
+
+
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+    </body>
+
+</section>

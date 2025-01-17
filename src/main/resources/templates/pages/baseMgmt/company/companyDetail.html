@@ -1,0 +1,292 @@
+<!--
+패키지명 : templates\pages\baseMgmt\company\companyDetail.html
+파일명: companyDetail.html
+작성일: 2024-11-22
+개발자: daehyun
+***************************************************
+변경일자            변경자             변경내용
+***************************************************
+-->
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/subLayout}" lang="ko">
+
+
+<th:block layout:fragment="css">
+    <link rel="stylesheet" type="text/css" th:href="@{/baseMgmt/company/company.css}"/>
+</th:block>
+<th:block layout:fragment="script">
+    <script th:src="@{/common/common.js}"></script>
+    <script th:src="@{/baseMgmt/company/companyDetail.js}"></script>
+</th:block>
+<!--content-->
+<section layout:fragment="content">
+<!--    <body>-->
+    <div id="addPop">
+        <div class="menu">
+            <div class="page-header">
+                <h3>기초코드
+                    <span> /자사정보 설정</span>
+                </h3>
+            </div>
+            <div class="icon">
+                <button type="submit" id="btnUpdate" form="addForm" class="btn btn-success" >수정</button>
+                <button type="submit" id="btnSave" form="addForm" class="btn btn-success" >저장</button>
+                <button type="button" id="btnDelete" class="btn btn-success" >삭제</button>
+                <button type="button" id="btnClose" class="btn btn-print">닫기
+                </button>
+            </div>
+        </div>
+        <div id="main">
+            <span class="form-notice float-end"><b>*</b> 표시는 필수 기입 사항 입니다</span>
+            <form id="addForm" th:object="${companydto}" class="needs-validation" novalidate method="post">
+                <table id="formTable" class="table table-bordered text-center">
+                    <tbody>
+                    <tr>
+                        <td class="col-md-2 v-middle" colspan="1">
+                            <label>코드</label>
+                        </td>
+                        <td class="col-md-2 right left" colspan="3">
+                            <input type="text" id="companyID" class="form-control input-auto subtle-input pt-e-none"
+                                   th:field="*{companyID}" readonly placeholder="자동 생성">
+                        </td>
+                        <td class="col-md-2 v-middle" colspan="1">
+                            <label>주민/법인 등록번호</label>
+                        </td>
+                        <td class="col-md-6 left" colspan="7">
+                            <input type="text" id="registID" class="form-control subtle-input"
+                                   th:field="*{registID}" placeholder="주민/법인 등록번호">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-2 v-middle" colspan="1">
+                            <label><span class="form-notice">*</span>상호(한글)</label>
+                        </td>
+                        <td class="col-md-4 right left" colspan="4">
+                            <input type="text" id="kCompany" class="form-control input-necessary subtle-input"
+                                   th:field="*{kCompany}" placeholder="한글 상호명(필수)" required>
+                            <div class="invalid-feedback">
+                                한글 상호명을 입력해주세요.
+                            </div>
+                        </td>
+                        <td class="col-md-2 v-middle" colspan="1">
+                            <label>상호(영문)</label>
+                        </td>
+                        <td class="col-md-4 left" colspan="6">
+                            <input type="text" id="eCompany" class="form-control subtle-input"
+                                   th:field="*{eCompany}" placeholder="영문 상호명" >
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-2 v-middle" colspan="1">
+                            <label>약어</label>
+                        </td>
+                        <td class="col-md-4 right left" colspan="4">
+                            <input type="text" id="shortCompany" class="form-control subtle-input"
+                                   th:field="*{shortCompany}" placeholder="회사명 약어" >
+                        </td>
+                        <td class="col-md-2 v-middle" colspan="1">
+                            <label>대표자</label>
+                        </td>
+                        <td class="col-md-4 left" colspan="6">
+                            <input type="text" id="chief" class="form-control subtle-input"
+                                   th:field="*{chief}" placeholder="대표자 성명">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-2 v-middle" colspan="1">
+                            <label><span class="form-notice">*</span>사업자번호</label>
+                        </td>
+                        <td class="col-md-11 right left" colspan="11">
+                            <input type="text" id="companyNo" class="form-control input-necessary subtle-input"
+                                   th:field="*{companyNo}" style="width: 30%" placeholder="사업자번호(필수)" required>
+                            <div class="invalid-feedback">
+                                사업자번호를 입력해주세요.
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-2 v-middle" colspan="1">
+                            <label>업태</label>
+                        </td>
+                        <td class="col-md-11 right left" colspan="11">
+                            <input type="text" id="condition" class="form-control subtle-input"
+                                   th:field="*{condition}" style="width: 30%" placeholder="업태">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-2 v-middle" colspan="1">
+                            <label>업종</label>
+                        </td>
+                        <td class="col-md-11 right left" colspan="11">
+                            <input type="text" id="category" class="form-control subtle-input"
+                                   th:field="*{category}" style="width: 30%" placeholder="업종">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-2 v-middle" colspan="1">
+                            <label><span class="form-notice">*</span>우편번호<button type="button" id="postBtn" >주소검색</button></label>
+                            <div class="mt-2">
+                                <input type="text" class="form-control center input-necessary subtle-input pt-e-none" name="zipcode" id="zipcode" placeholder="우편번호(검색 입력)(필수)" th:field="*{zipcode}"  readonly required/>
+                            </div>
+                        </td>
+                        <td class="col-md-10" colspan="11">
+                            <div class="row">
+                             <label class="left">도로명주소</label>
+                                <div class="mt-2">
+                                    <input type="text" class="form-control input-necessary subtle-input pt-e-none" name="address1" id="address1" placeholder="도로명 주소(검색 입력)(필수)" th:field="*{address1}"  readonly required/>
+                                    <div class="invalid-feedback">
+                                       주소 검색을 먼저 하세요.
+                                    </div>
+                                </div>
+                                <div class="mt-2">
+                                    <input type="text" class="form-control input-necessary subtle-input pt-e-none" name="address2" id="address2" placeholder="건물명, 나머지 주소(필수)" th:field="*{address2}" readonly required/>
+                                    <div class="invalid-feedback">
+                                        상세 주소를 입력 하세요.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <label class="left">지번주소</label>
+                                <div class="mt-2">
+                                    <input type="text" class="form-control input-necessary subtle-input pt-e-none" name="addressJiBun1" id="addressJiBun1" placeholder="지번 주소(검색 입력)(필수)" th:field="*{addressJiBun1}"  readonly required/>
+                                    <div class="invalid-feedback">
+                                        주소 검색을 먼저 하세요.
+                                    </div>
+                                </div>
+                                <div class="mt-2">
+                                    <input type="text" class="form-control input-necessary subtle-input pt-e-none" name="addressJiBun2" id="addressJiBun2" placeholder="건물명, 나머지 주소(필수)" th:field="*{addressJiBun2}"  readonly required/>
+                                    <div class="invalid-feedback">
+                                        상세 주소를 입력 하세요.
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-2 v-middle" colspan="1">
+                            <label>대표전화</label>
+                        </td>
+                        <td class="col-md-4 left" colspan="4">
+                            <input type="text" id="phone1" class="form-control input-necessary left subtle-input"
+                                   th:field="*{phone1}" placeholder="대표 전화번호 또는 전화번호(택1)" >
+                            <div class="invalid-feedback">
+                                대표전화나 전화번호 중 하나는 필수입니다.
+                            </div>
+                        </td>
+                        <td class="col-md-2 v-middle" colspan="1">
+                            <label>전화번호</label>
+                        </td>
+                        <td class="col-md-4 left" colspan="6">
+                            <input type="text" id="phone2" class="form-control input-necessary left subtle-input"
+                                   th:field="*{phone2}" placeholder="대표 전화번호 또는 전화번호(택1)">
+                            <div class="invalid-feedback">
+                                대표전화나 전화번호 중 하나는 필수입니다.
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-2 v-middle" colspan="1">
+                            <label>팩스번호</label>
+                        </td>
+                        <td class="col-md-11 right left" colspan="11">
+                            <input type="text" id="faxNo" class="form-control input-necessary subtle-input"
+                                   th:field="*{faxNo}" style="width: 38.78%" placeholder="팩스번호(필수)" required>
+                            <div class="invalid-feedback">
+                                팩스번호를 입력하세요
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-2 v-middle" colspan="1">
+                            <label>이메일</label>
+                        </td>
+                        <td class="col-md-5 right left" colspan="4">
+                            <input type="text" id="eMail" class="form-control subtle-input"
+                                   th:field="*{eMail}"  oninput="validateEmail(this)" placeholder="E-Mail">
+                            <div class="invalid-feedback" id="emailError">
+                                유효하지 않은 이메일 주소입니다.
+                            </div>
+                        </td>
+                        <td class="col-md-2 v-middle" colspan="1">
+                            <label>홈페이지</label>
+                        </td>
+                        <td class="col-md-5 left" colspan="6">
+                            <input type="text" id="homePage" class="form-control subtle-input"
+                                   th:field="*{homePage}" placeholder="홈페이지" >
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-2 v-middle" colspan="1">
+                            <label>계좌번호1</label>
+                        </td>
+                        <td class="col-md-6 right left" colspan="5">
+                            <input type="text" id="bank1" class="form-control subtle-input"
+                                   th:field="*{bank1}" style="width: 100%" placeholder="계좌번호1">
+                        </td>
+                        <td class="col-md-5" colspan="5" rowspan="3">
+                            <div class="custom-field-wrapper">
+                                <fieldset class="custom-field">
+                                        <legend>대표사용</legend>
+                                        <div class="radio-group">
+                                            <div>
+                                                <label for="rpY"><input type="radio" id="rpY" th:field="*{rpYN}" name="rpY" value="Y" >예</label>
+                                            </div>
+                                            <div>
+                                                <label for="rpN"><input type="radio" id="rpN" th:field="*{rpYN}" name="rpN" value="N" >아니오</label>
+                                            </div>
+                                        </div>
+                                </fieldset>
+                                <fieldset class="custom-field">
+                                    <legend>사용안함</legend>
+                                    <div class="radio-group">
+                                        <div>
+                                            <label for="useY"><input type="radio" id="useY" th:field="*{useYN}" name="useY" value="N" >예</label>
+                                        </div>
+                                        <div>
+                                            <label for="useN"><input type="radio" id="useN" th:field="*{useYN}" name="useN" value="Y" >아니오</label>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-2 v-middle" colspan="1">
+                            <label>계좌번호2</label>
+                        </td>
+                        <td class="col-md-6 right left" colspan="5">
+                            <input type="text" id="bank2" class="form-control subtle-input"
+                                   th:field="*{bank2}" style="width: 100%" placeholder="계좌번호2">
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td class="col-md-2 v-middle" colspan="1">
+                            <label>계좌번호3</label>
+                        </td>
+                        <td class="col-md-6 right left" colspan="5">
+                            <input type="text" id="bank3" class="form-control subtle-input"
+                                   th:field="*{bank3}" style="width: 100%" placeholder="계좌번호3">
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+
+<!--    </body>-->
+</section>
+</html>

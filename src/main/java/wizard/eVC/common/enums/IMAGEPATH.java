@@ -12,7 +12,8 @@ package wizard.eVC.common.enums;
  */
 public enum IMAGEPATH {
     DEFAULT("/ImageData"),
-    ARTICLE("/article/");
+    ARTICLE("/article/"),
+    PERSON("/person/");
 
     private String path;
 

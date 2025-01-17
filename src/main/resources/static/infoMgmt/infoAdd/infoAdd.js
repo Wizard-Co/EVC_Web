@@ -37,6 +37,7 @@ document.querySelector("#today").addEventListener("click", function() {getDate("
 
 /*행 클릭시 행 데이터 가져오기*/
 $('#infoTable').on('click', 'tr', function () {
+
     //선택한 행을 다시 선택하면 선택 해제
     if( $(this).hasClass('selected') ) {
         $(this).removeClass('selected');
@@ -47,6 +48,7 @@ $('#infoTable').on('click', 'tr', function () {
         $(this).addClass('selected');
         selectedRow = infoTable.row(this).data();
     }
+
 })
 
 //조회 클릭 이벤트
@@ -66,7 +68,9 @@ document.getElementById('btnAdd').addEventListener('click', function () {
 /*상세 클릭 이벤트*/
 document.getElementById('btnDetail').addEventListener('click', function () {
     //선택한 행이 없는 경우 메세지창
+
     if(selectedRow == null){
+
         alert('선택한 데이터가 없습니다. \r\n데이터를 선택한 후에 진행 해주세요.');
     }
     else{
@@ -83,7 +87,9 @@ document.getElementById('btnDetail').addEventListener('click', function () {
 /*삭제 클릭 이벤트*/
 document.getElementById('btnDelete').addEventListener('click', function () {
     //선택한 행이 없는 경우 메세지창
+
     if(selectedRow == null){
+
         alert('선택한 데이터가 없습니다. \r\n데이터를 선택한 후에 진행 해주세요.');
     }
     else{
@@ -424,6 +430,7 @@ const infoTable = $('#infoTable').DataTable({
         {data: "attachPath", className: 'center'},              /*첨부문서경로*/
         {data: "hitCount", className: 'center'},                /*조회수*/
         {data: "createUser", className: 'center'},              /*작성자*/
+
         {data: "createDate", className: 'center'},              /*작성일*/
     ],
 

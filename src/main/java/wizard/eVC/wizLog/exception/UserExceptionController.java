@@ -11,6 +11,7 @@
 
 package wizard.eVC.wizLog.exception;
 
+<
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ public class UserExceptionController {
 
     @ExceptionHandler(UserException.class)
     public ResponseEntity<UserException> handleUserNotFoundException(UserException e) throws JsonProcessingException {
+
         try {
             UserException errorResponse = new UserException(e.getUserMessage(),e.getMessage(), e.getMapping(), e.getComID(), e.getUserID(), e.getParam());
 
@@ -52,8 +54,10 @@ public class UserExceptionController {
             return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
         }
         catch (Exception ex){
+
             UserException exErrorResponse = new UserException("ERROR",ex.getMessage());
             System.out.println(exErrorResponse);
+
             return new ResponseEntity<>(exErrorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -61,7 +65,9 @@ public class UserExceptionController {
     // 기타 예외 처리
     @ExceptionHandler(Exception.class)
     public ResponseEntity<UserException> handleGeneralException(Exception e) {
+
         UserException exError = new UserException("ERROR","","","","",null);
         return new ResponseEntity<>(exError, HttpStatus.INTERNAL_SERVER_ERROR);
+
     }
 }

@@ -363,6 +363,7 @@ const infoAttachFileTable = $('#infoAttachFileTable').DataTable({
         {data: "allYNName", className: 'center'},               /*구분이름*/
         {data: "fromDate", className: 'center'},                /*시작일*/
         {data: "toDate", className: 'center'},                  /*종료일*/
+
         {data: "attachFile",  //버튼과 데이터 같이 생성
             defaultContent: '',
             render: function(data, type, row, meta) {

@@ -1,0 +1,110 @@
+<!--
+패키지명 : templates\pages\baseMgmt\basecode\basecodeDetail.html
+파일명: basecodeDetail.html
+작성일: 2024-10-15
+개발자: daehyun
+***************************************************
+변경일자            변경자             변경내용
+***************************************************
+2024-10-15        최대현            최초작성
+-->
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/subLayout}" lang="ko">
+
+<th:block layout:fragment="css">
+    <link th:href="@{/baseMgmt/basecode/basecode.css}" rel="stylesheet">
+</th:block>
+
+<th:block layout:fragment="script">
+    <script th:src="@{/baseMgmt/basecode/basecodeDetail.js}"></script>
+</th:block>
+<!--content-->
+<section layout:fragment="content">
+    <head>
+        <style>
+            .table {
+                margin-bottom: 0;
+            }
+
+            .form-border {
+                border: solid 1px #dee2e6;
+                padding: 0.5rem;
+                min-height: 280px;
+                font-size: 13px;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div id="addPop">
+            <div class="menu">
+                <div class="page-header">
+                    <h3>시스템관리
+                        <span> /공통코드관리</span>
+                    </h3>
+                </div>
+                <div class="icon">
+                    <button type="submit" id="btnReset"  class="btn btn-success display-none">초기화</button>
+                    <button type="submit" id="btnDelete"  class="btn btn-danger display-none">삭제</button>
+                    <button type="submit" id="btnSave"  class="btn btn-success">저장</button>
+                    <button type="button" id="btnAdd" class="btn btn-success m-r-05">추가</button>
+                    <button type="button" id="btnUpdate" class="btn btn-success m-r-05">수정</button>
+                    <button type="button" id="btnCancel" class="btn btn-print m-r-05 display-none">취소</button>
+                    <button type="button" id="btnClose" class="btn btn-print">닫기
+                    </button>
+                </div>
+            </div>
+            <div id="main">
+                <section>
+                    <span style="display: none" id="codeTypeID" th:text="${basecodeDetail[0].codeTypeID}"></span>
+                    <span id="codeSize" th:text="|코드사이즈는 [${basecodeDetail[0].codeSize}]입니다|"></span>
+                    <span style="display: none" id="level" th:text="${basecodeDetail[0].level}"></span>
+                    <span style="display: none" id="parentID" th:text="${basecodeDetail[0].parentID}"></span>
+                    <form id="addForm">
+                        <table id="basecodeDetailTable"class="striped cell-border table-light-info table-bordered"  style="width:100%">
+                            <thead>
+                            <tr>
+                                <th>순</th>
+                                <th>codeTypeID</th>
+                                <th>코드</th>
+                                <th>사용여부</th>
+                                <th>한글명칭</th>
+                                <th>영문명칭</th>
+                                <th>관리순서</th>
+                                <th>Relation</th>
+                                <th>비고</th>
+                                <th>codeSize</th>
+                                <th>level</th>
+                                <th>parentID</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="item, status : ${basecodeDetail}">
+                                <td id="count"></td>
+                                <td data-field="codeTypeID"th:text="${item.codeTypeID}"></td>
+                                <td data-field="codeID" th:text="${item.codeID}"></td>
+                                <td data-field="useYN" th:text="${item.useYN}"></td>
+                                <td data-field="codeName" th:text="${item.codeName}"></td>
+                                <td data-field="codeEName" th:text="${item.codeEName}"></td>
+                                <td data-field="seq"  th:text="${item.seq}"></td>
+                                <td data-field="relation" th:text="${item.relation}"></td>
+                                <td data-field="comments" th:text="${item.comments}"></td>
+                                <td data-field="codeSize" th:text="${item.codeSize}"></td>
+                                <td data-field="level" th:text="${item.level}"></td>
+                                <td data-field="parentID" th:text="${item.parentID}"></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </form>
+                </section>
+                <span class="cursor" id="spanUseYn">
+                    <input type="checkbox" id="chkUseYn" checked />
+                    <span class="cl-useYn">사용안함 포함</span>
+                </span>
+            </div>
+        </div>
+    </body>
+</section>
+</html>

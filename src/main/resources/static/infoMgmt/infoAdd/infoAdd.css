@@ -15,6 +15,7 @@
 
 /*전월, 전일, 금일, 당월 버튼 css*/
 .btn-date{
+
     margin : 4px 1.5px;
 }
 
@@ -28,10 +29,12 @@
     margin : 0px 1px;
 }
 
+
 /*date css*/
 .input-date{
     margin : 0px 4px;
 }
+
 
 /*div icon css*/
 .icon{
@@ -54,12 +57,20 @@
     /*user-select: none;*/ /* 더블 클릭시 파란색 선택 방지 */
 }
 
+
 /*세로 가운데 정렬 css*/
 .text-align{
     vertical-align: middle; /* 셀의 세로 중앙에 배치 */
+}
+
+
+/*헤더 세로 가운데 정렬*/
+.label-align{
+    align-items: center; /* 세로 가운데 정렬 */
 }
 
 /*컬럼 숨기기*/
 .th-hidden{
     display: none;
 }
+

@@ -123,7 +123,9 @@ function formLoad(gbn){
             textarea.value = '';
 
             //첨부문서
+
             //2024-10-23 TODO
+
 
     }else{
         const infoData = new FormData(form);
@@ -233,6 +235,7 @@ function leftPersonDataTree(){
          success: function(data) {
              var treeData = new Array();
              $.each(data, function(idx, item) {
+
                  treeData[idx] = {
                      id: item.dpID.trim(),
                      parent: item.dpParentID, // 부모 노드 ID, 루트 노드는 '#'로 설정
@@ -255,6 +258,7 @@ function leftPersonDataTree(){
 
                  // 부모 노드
                  departNode = $('#tree').jstree().get_node(personNode.parent)
+
 
              });
          },
@@ -389,6 +393,7 @@ function save(gbn){
 
     if (form.checkValidity()) {
         const infoSave = new FormData(form);
+
 
         //데이터타입을 String으로 수정
         //allYN 전체 개별 체크박스
@@ -547,6 +552,7 @@ function Move(ButtonGbn){
 /*오른쪽 사원 명단*/
 const rightPersonTable = $('#idRightPersonTable').DataTable({
     select: true,
+
     language: {
         zeroRecords: "검색된 항목이 없습니다.",
         infoEmpty: "검색된 항목이 없습니다.",
@@ -560,6 +566,7 @@ const rightPersonTable = $('#idRightPersonTable').DataTable({
     searching: false, //검색 기능 사용 안 함
     ordering: false, //자동정렬 사용 안 함
     scrollY: '250px', //250px보다 커지면 스크롤 생성
+
     columns: [
         {data: "depart", className:'center'},                  /*부서*/
         {data: "person", className: 'center'},                  /*사원*/

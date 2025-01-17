@@ -12,6 +12,7 @@ package wizard.eVC.infoMgmt.infoAdd;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import wizard.eVC.infoMgmt.infoAdd.dto.InfoAddDetailDto;
@@ -19,6 +20,7 @@ import wizard.eVC.common.util.FTP;
 
 import java.io.IOException;
 import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -96,6 +98,7 @@ public class InfoAddDetailController {
             //수정 안 했으면 삭제 여부 확인
             //빈칸이면 삭제로 판단
             if(infoAddDetailDto.attachFile.isEmpty()){
+
                 if(infoAddDetailDto.deleteAttachFile.isEmpty()){
                     infoAddDetailDto.setAttachFile("");
                     infoAddDetailDto.setAttachPath("");

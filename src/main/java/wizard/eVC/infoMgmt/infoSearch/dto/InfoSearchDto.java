@@ -12,7 +12,9 @@
 package wizard.eVC.infoMgmt.infoSearch.dto;
 
 import lombok.Data;
+
 import java.util.Date;
+
 
 
 @Data

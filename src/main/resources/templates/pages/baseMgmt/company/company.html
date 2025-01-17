@@ -1,0 +1,81 @@
+<!--
+패키지명 : templates\pages\baseMgmt\company\company.html
+파일명: company.html
+작성일: 2024-11-22
+개발자: daehyun
+***************************************************
+변경일자            변경자             변경내용
+***************************************************
+-->
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}" lang="ko">
+
+<th:block layout:fragment="css">
+    <link rel="stylesheet" type="text/css" th:href="@{/baseMgmt/company/company.css}"/>
+</th:block>
+<th:block layout:fragment="script">
+    <script th:src="@{/baseMgmt/company/company.js}"></script>
+</th:block>
+<!--content-->
+<section layout:fragment="content">
+    <body>
+        <main>
+            <loading-form id="loading" class="display-none"></loading-form>
+                <div id="contents">
+                    <div class="menu">
+                        <div class="page-header">
+                            ■ 자사정보 설정
+                        </div>
+                        <div class="icon">
+                            <div class="flx">
+                                <button type="button" id="btnSearch" class="btn btn-info m-r-05">조회</button>
+                                <button type="button" id="btnDelete" class="btn btn-success">삭제</button>
+                                <button type="button" id="btnClose" class="btn btn-success m-r-05">닫기</button>
+                            </div>
+                            <div class="flx mt-05">
+                                <button type="button" id="btnDetail" class="btn btn-print m-r-05">상세</button>
+                                <button type="button" id="btnAdd" class="btn btn-print">추가</button>
+                                <button type="button" id="btnExcel" class="btn btn-print m-r-05">엑셀</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel">
+                        <div class="panel-body">
+                            <div class="flx">
+                                <div class="div-srh m-r-4">
+                                    <input type="checkbox" id="inputUseYN" class="form-check-input">
+                                    <label for="inputUseYN" class="lbl-srh">사용안함 포함</label>
+                                </div>
+                                <div class="div-srh m-r-4">
+                                    <input type="checkbox" id="inputRpYN" class="form-check-input">
+                                    <label for="inputRpYN" class="lbl-srh">대표사만 조회</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <section>
+                        <table id="companyTable" class="striped cell-border table-light-info" style="width:100%">
+                            <thead>
+                            <tr>
+                                <th>순</th>
+                                <th>사업자코드</th>
+                                <th>사업자번호</th>
+                                <th>주민/법인번호</th>
+                                <th>상호(한글)</th>
+                                <th>상호(영문)</th>
+                                <th>대표자명</th>
+                                <th>업태</th>
+                                <th>업종</th>
+                            </tr>
+                            </thead>
+                        </table>
+                    </section>
+                </div>
+        </main>
+    </body>
+
+</section>
+</html>
+

@@ -9179,12 +9179,11 @@ textarea.form-control-lg {
 }
 
 .visible {
-  display: inline-block;
+  visibility: visible;
 }
 
 .invisible {
-  /*visibility: hidden*/
-  display: none;
+  visibility: hidden;
 }
 
 .z-n1 {
