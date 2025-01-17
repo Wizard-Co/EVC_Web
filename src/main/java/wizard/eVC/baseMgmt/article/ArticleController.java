@@ -38,7 +38,7 @@ public class ArticleController {
         List<CMCode> cboArticleType = cmService.getCmCode("ArticleType"); //품명그룹
         List<CMCode> cboProductType = cmService.getCmCode("CMPRDGRPID"); //제품군
         List<CMCode> cboSupplyType = cmService.getCmCode("CMMASPLTYPE"); //공급유형
-        List<CMCode> cboPartType = cmService.getCmCode("PARTGBNID"); //부품분류
+        List<CMCode> cboPartType = cmService.getCmCode("PARTGBNID"); //품목분류
         List<CMCode> cboUnitType = cmService.getCmCode("MTRUNIT"); //단위
 
         List<ArticleProcess> cboProcess = service.getProcess("", "");

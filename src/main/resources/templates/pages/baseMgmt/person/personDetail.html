@@ -50,7 +50,7 @@
             </div>
         </div>
         <div id="main">
-            <form id="addForm" th:object="${person}" class="form-border needs-validation" novalidate>
+            <form id="addForm" th:object="${person}" class="needs-validation" novalidate>
                 <span class="form-notice"><b>*</b> 표시는 필수 기입 사항 입니다</span>
                 <div class="flx gap-3">
                     <div style="width: 50%">
@@ -123,7 +123,7 @@
                                     </select>
                                 </td>
                                 <td class="col-md-2">
-                                    <label>강사구분</label>
+                                    <label>직위세분류</label>
                                 </td>
                                 <td class="left">
                                     <select class="form-control display-inline-block" th:field="*{insaDutyDTLID}">
@@ -288,41 +288,6 @@
                                 </td>
                                 <td colspan="3" class="left">
                                     <input type="text" class="form-control" th:field="*{remark}">
-                                </td>
-                            </tr>
-                        </table>
-                        <span class="form-notice"><b>*</b> 자격/연수관리</span>
-                        <table class="table table-bordered text-center">
-                            <tr>
-                                <td class="col-md-2">
-                                    <label>자격과정 이력</label>
-                                </td>
-                                <td colspan="3" class="left">
-                                    <input type="text" class="form-control" th:field="*{qualifyHistory}">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="col-md-2">
-                                    <label>연수이력</label>
-                                </td>
-                                <td class="left">
-                                    <input type="text" class="form-control" th:field="*{trainingHistory}">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="col-md-2">
-                                    <label>참관이력</label>
-                                </td>
-                                <td class="left">
-                                    <input type="text" class="form-control" th:field="*{observeHistory}">
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="col-md-2">
-                                    <label>강의이력</label>
-                                </td>
-                                <td class="left">
-                                    <input type="text" class="form-control" th:field="*{classHistory}">
                                 </td>
                             </tr>
                         </table>
