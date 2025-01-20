@@ -138,6 +138,12 @@ public class PersonService {
         return menuTree;
     }
 
+    public List<Menu> getPersonMenu(String personID){
+        String pgGubun = "7";
+        List<Menu> list = mapper.getPersonMenu(personID, pgGubun);
+        return setMenuTree(list);
+    }
+
     private void savePersonMenu(Person person) {
         if(CollectionUtils.isEmpty(person.getMenuList())) return;
 

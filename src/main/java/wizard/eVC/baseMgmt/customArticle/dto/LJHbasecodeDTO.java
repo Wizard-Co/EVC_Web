@@ -3,11 +3,12 @@ package wizard.eVC.baseMgmt.customArticle.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 
+
 import java.math.BigDecimal;
 import java.util.List;
 
 @Data
-public class basecodeDTO {
+public class LJHbasecodeDTO {
     public String departID;
     public String depart;
     public String useClss;
@@ -20,7 +21,7 @@ public class basecodeDTO {
 //    public String UnitPrice; // 단가
     public String BuyUnitPrice; //매입단가
     public String OutUnitPrice; //출하단가
-    public String BusinessTypeCode;
+    public String businessTypeCode;
     public String comments;
     public String CustomID;
 //    public String InvestmentUnitPrice;
@@ -41,6 +42,6 @@ public class basecodeDTO {
     @JsonProperty("BusinessCommission")
     private BigDecimal BusinessCommission = BigDecimal.ZERO;
 
-    private List<tableDataDTO> tableData;
+    private List<LJHtableDataDTO> tableData;
 
 }

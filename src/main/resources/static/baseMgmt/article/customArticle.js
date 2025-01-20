@@ -52,21 +52,21 @@ function initializeDataTable() {
     });
 }
 
-    function checkAndShowPersonIDInput() {
-        var sessionPersonID = $('#sessionPersonID').val().trim();
-
-        if (!sessionPersonID) {
-            console.log("세션 PersonID를 찾을 수 없습니다.");
-            window.location.href='/'
-            return ;
-        }
-        // User 객체 문자열에서 personID 값을 추출
-        var match = sessionPersonID.match(/personID=(\w+)\s*,/);
-        var extractedPersonID = match ? match[1].trim() : null;
-
-        console.log("추출된 PersonID:", extractedPersonID);
-    }
-    checkAndShowPersonIDInput();
+    // function checkAndShowPersonIDInput() {
+    //     var sessionPersonID = $('#sessionPersonID').val().trim();
+    //
+    //     if (!sessionPersonID) {
+    //         console.log("세션 PersonID를 찾을 수 없습니다.");
+    //         window.location.href='/'
+    //         return ;
+    //     }
+    //     // User 객체 문자열에서 personID 값을 추출
+    //     var match = sessionPersonID.match(/personID=(\w+)\s*,/);
+    //     var extractedPersonID = match ? match[1].trim() : null;
+    //
+    //     console.log("추출된 PersonID:", extractedPersonID);
+    // }
+    // checkAndShowPersonIDInput();
 
 function attachTableEvents() {
     // DataTable이 초기화된 후 tbody 요소가 동적으로 생성되므로, rows().nodes()로 접근
@@ -557,7 +557,6 @@ function Search() {
         KCustom: document.getElementById('KCustom').value,
         BusinessTypeCode: document.getElementById('BusinessTypeCode').value
     };
-
 
     // URL 설정 (토글 상태에 따라 변경)
     const currentURL = isToggled ? "/article/customArticle/allCustomArticle" : "/article/customArticle/search";

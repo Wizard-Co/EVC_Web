@@ -2,7 +2,8 @@ package wizard.eVC.baseMgmt.customArticle;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import wizard.eVC.baseMgmt.basecode.dto.basecodeDTO;
+import wizard.eVC.baseMgmt.customArticle.dto.LJHbasecodeDTO;
+
 
 import java.util.List;
 import java.util.Map;
@@ -10,20 +11,20 @@ import java.util.Map;
 @Mapper
 public interface customArticleMapper {
 
-    List<basecodeDTO> sCustomList (@Param("p") Map<String, Object> p);
+    List<LJHbasecodeDTO> sCustomList (@Param("p") Map<String, Object> p);
 
-    List<basecodeDTO> sCustomListALL(@Param("p")Map<String, Object> p);
+    List<LJHbasecodeDTO> sCustomListALL(@Param("p")Map<String, Object> p);
 
-    List<basecodeDTO> sArticle (@Param("p")Map<String, Object> p);
+    List<LJHbasecodeDTO> sArticle (@Param("p")Map<String, Object> p);
 
-    List<basecodeDTO> sArticleCustom (@Param("p")Map<String, Object> p);
+    List<LJHbasecodeDTO> sArticleCustom (@Param("p")Map<String, Object> p);
 
-    List<basecodeDTO> iArticle (basecodeDTO payload);
+    List<LJHbasecodeDTO> iArticle (LJHbasecodeDTO payload);
 
-    void dArticle(basecodeDTO p);
+    void dArticle(LJHbasecodeDTO p);
 
-    List<basecodeDTO> articleSearch(basecodeDTO p);
+    List<LJHbasecodeDTO> articleSearch(LJHbasecodeDTO p);
 
-    List<basecodeDTO> sCustomList(@Param("p")basecodeDTO p);
+    List<LJHbasecodeDTO> sCustomList(@Param("p")LJHbasecodeDTO p);
 
 }

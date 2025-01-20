@@ -3,14 +3,14 @@
 
 <mapper namespace="wizard.eVC.baseMgmt.customArticle.customArticleMapper">
     <!--첫번째 젤위에있는 select  관리품목 전체보기 클릭시 select -->
-    <select id="sCustomList" parameterType="wizard.eVC.baseMgmt.customArticle.dto.basecodeDTO" resultType="wizard.eVC.baseMgmt.customArticle.dto.basecodeDTO">
+    <select id="sCustomList" parameterType="wizard.eVC.baseMgmt.customArticle.dto.LJHbasecodeDTO" resultType="wizard.eVC.baseMgmt.customArticle.dto.LJHbasecodeDTO">
         {CALL xp_Article_sArticle_Custom_sales_Test(
                 #{p.KCustom , jdbcType=VARCHAR, mode=IN},
                 #{p.BusinessTypeCode ,jdbcType=VARCHAR, mode=IN}
               )}
     </select>
     <!--첫번째 젤위에있는 select  -->
-    <select id="sCustomListALL" parameterType="wizard.eVC.baseMgmt.customArticle.dto.basecodeDTO" resultType="wizard.eVC.baseMgmt.customArticle.dto.basecodeDTO">
+    <select id="sCustomListALL" parameterType="wizard.eVC.baseMgmt.customArticle.dto.LJHbasecodeDTO" resultType="wizard.eVC.baseMgmt.customArticle.dto.LJHbasecodeDTO">
         {CALL xp_Article_sArticle_sales_Test(
                 #{p.KCustom , jdbcType=VARCHAR, mode=IN},
                 #{p.BusinessTypeCode ,jdbcType=VARCHAR, mode=IN}
@@ -18,7 +18,7 @@
               )}
     </select>
     <!--두번째  순 품번 품명만 select -->
-    <select id="sArticle" parameterType="wizard.eVC.baseMgmt.customArticle.dto.basecodeDTO" resultType="wizard.eVC.baseMgmt.customArticle.dto.basecodeDTO" >
+    <select id="sArticle" parameterType="wizard.eVC.baseMgmt.customArticle.dto.LJHbasecodeDTO" resultType="wizard.eVC.baseMgmt.customArticle.dto.LJHbasecodeDTO" >
         {CALL xp_Article_sArticle_Custom_sales_article(
                 #{p.BusinessTypeCode ,jdbcType=VARCHAR, mode=IN},
                 #{p.ArticleID,jdbcType=VARCHAR, mode=IN}
@@ -27,7 +27,7 @@
     </select>
 
     <!--세번째  거래처 code 받아서 하는 마지막   select -->
-    <select id="sArticleCustom" parameterType="wizard.eVC.baseMgmt.customArticle.dto.basecodeDTO" resultType="wizard.eVC.baseMgmt.customArticle.dto.basecodeDTO">
+    <select id="sArticleCustom" parameterType="wizard.eVC.baseMgmt.customArticle.dto.LJHbasecodeDTO" resultType="wizard.eVC.baseMgmt.customArticle.dto.LJHbasecodeDTO">
         {CALL xp_Article_sArticle_Custom_sales_Detail_Test(
                 #{p.CustomID,jdbcType=VARCHAR, mode=IN}
               )}
@@ -35,7 +35,7 @@
     </select>
     <!--   저장하는로직-->
 
-    <select id="iArticle" parameterType="wizard.eVC.baseMgmt.customArticle.dto.basecodeDTO" resultType="wizard.eVC.baseMgmt.customArticle.dto.basecodeDTO" >
+    <select id="iArticle" parameterType="wizard.eVC.baseMgmt.customArticle.dto.LJHbasecodeDTO" resultType="wizard.eVC.baseMgmt.customArticle.dto.LJHbasecodeDTO" >
         {CALL xp_Article_iArticle_Custom_sales_Detail_Test(
                 #{CustomID, jdbcType=VARCHAR, mode=IN},
                 #{ArticleID, jdbcType=VARCHAR, mode=IN},
@@ -47,7 +47,7 @@
               )}
     </select>
 
-    <delete id ="dArticle" parameterType="wizard.eVC.baseMgmt.customArticle.dto.basecodeDTO">
+    <delete id ="dArticle" parameterType="wizard.eVC.baseMgmt.customArticle.dto.LJHbasecodeDTO">
         {CALL xp_Article_dArticle_Custom_sales_Detail_Test(
                 #{CustomID,jdbcType=VARCHAR, mode=IN },
                 #{ArticleID, jdbcType=VARCHAR, mode=IN}
@@ -55,7 +55,7 @@
 
     </delete>
 
-    <select id="articleSearch" parameterType="wizard.eVC.baseMgmt.customArticle.dto.basecodeDTO"  resultType= "wizard.eVC.baseMgmt.customArticle.dto.basecodeDTO" >
+    <select id="articleSearch" parameterType="wizard.eVC.baseMgmt.customArticle.dto.LJHbasecodeDTO" resultType= "wizard.eVC.baseMgmt.customArticle.dto.LJHbasecodeDTO" >
         {CALL xp_Article_sArticle_article (
                 #{ArticleID, jdbcType=VARCHAR , mode=IN}
               )}
