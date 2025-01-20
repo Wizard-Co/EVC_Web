@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import wizard.eVC.baseMgmt.basecode.dto.basecodeDTO;
-import wizard.eVC.baseMgmt.basecode.dto.tableDataDTO;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
@@ -42,11 +41,7 @@ public class basecodeController {
     @Autowired
     private basecodeService service;
 
-
-
-    @GetMapping("/basecode")
-//    public String basecode(Model model){
-
+    @GetMapping("")
     public String basecode() {
         return "pages/baseMgmt/basecode/basecode";
     }
