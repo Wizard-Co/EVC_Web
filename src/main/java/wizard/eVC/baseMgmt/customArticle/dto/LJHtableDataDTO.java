@@ -6,7 +6,7 @@ import lombok.Data;
 import java.math.BigDecimal;
 
 @Data
-public class tableDataDTO {
+public class LJHtableDataDTO {
     @JsonProperty("ArticleID")
     private String ArticleID;
 

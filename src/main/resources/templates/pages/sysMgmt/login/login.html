@@ -1,0 +1,67 @@
+<!--
+ * Date       : 2025.01.07
+ * Description: 로그인
+ * 작업자      : 이준협
+ *
+*****************************************************
+변경일자    변경자     요청자
+
+*****************************************************
+-->
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1 shrink-to-fit=no"/>
+    <meta name="description" content=""/>
+    <meta name="author" content=""/>
+    <title>나다음에듀</title>
+    <!--  css, js 입력 부분-->
+    <link rel="stylesheet" th:href="@{/sysMgmt/login/login.css}">
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sticky-footer-navbar/">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+
+</head>
+<body class="my-login-page d-flex justify-content-center align-items-center" style="margin: 0; height: 100vh;">
+
+<!-- 로고를 왼쪽 상단에 고정 -->
+<!--<div style="position: absolute; top: 20px; left: 20px;">-->
+<!--    <img alt="logo" id="loginLogo" src="/img/naDaum.png" style="width: 150px; height: 100px;">-->
+<!--</div>-->
+
+<!-- 중앙 박스 -->
+<div class="card fat" style="width: 400px; padding: 20px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); border-radius: 8px;">
+    <div class="card-body">
+<!--        <h4 class="card-title text-center" style="margin-bottom:40px;"><img alt="logo" id="loginLogo" src="/img/naDaum.png" style="height: 100px;"></h4>-->
+        <form id="loginForm" name="loginForm" method="post">
+            <div class="form-group">
+                <input type="text" class="form-control mb-3" id="userID" name="userID" placeholder="아이디">
+                <input type="password" class="form-control" id="password" name="password" placeholder="비밀번호">
+            </div>
+            <div class="form-group">
+                <div class="custom-checkbox custom-control">
+                    <input type="checkbox" id="saveIdChk" name="saveIdChk" class="custom-control-input">
+                    <label for="saveIdChk" class="custom-control-label">자동 로그인</label>
+                </div>
+            </div>
+        </form>
+        <div class="form-group m-0">
+            <button type="button" id="loginBtn" class="btn btn-primary btn-block">로그인</button>
+        </div>
+    </div>
+
+    <script defer src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+            integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+            crossorigin="anonymous"></script>
+    <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <script defer th:src="@{/sysMgmt/login/login.js}"></script>
+</div>
+</body>
+</html>

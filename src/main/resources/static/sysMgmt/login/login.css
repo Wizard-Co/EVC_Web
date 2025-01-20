@@ -1,0 +1,77 @@
+html,body {
+    height: 100%;
+}
+
+.navbar {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* 버튼들에 여백이 있으면 없애기 */
+.divButton {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+
+.my-login-page .brand {
+    width: auto;
+    height: auto;
+    overflow: hidden;
+    margin: 40px auto;
+    /*box-shadow: 0 4px 8px rgba(0,0,0,.05);*/
+    position: relative;
+    z-index: 1;
+}
+
+.my-login-page .brand img {
+    width: 100%;
+    padding: 70px;
+
+}
+
+.my-login-page .card-wrapper {
+    width: 400px;
+}
+
+.my-login-page .card {
+    border-color: transparent;
+    box-shadow: 0 4px 8px rgba(0,0,0,.05);
+}
+
+.my-login-page .card.fat {
+    background-color: transparent;
+    padding: 10px;
+}
+
+.my-login-page .card .card-title {
+    margin-bottom: 40px;
+}
+
+.my-login-page .form-control {
+    border-width: 2.3px;
+}
+
+.my-login-page .form-group label .label {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: fit-content;
+    font-size: 12px;
+    margin: 10px 10px 20px 10px;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+}
+
+.custom-control {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.my-login-page .btn.btn-block {
+    width: 100%;
+    padding: 8px 10px;
+    background: linear-gradient(45deg,  #5177a3,  #a8c5e6);
+    border: none;
+}
+

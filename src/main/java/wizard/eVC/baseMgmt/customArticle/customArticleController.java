@@ -6,7 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import wizard.eVC.baseMgmt.basecode.dto.basecodeDTO;
+import wizard.eVC.baseMgmt.customArticle.dto.LJHbasecodeDTO;
+
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -27,32 +28,27 @@ public class customArticleController {
     }
     @PostMapping(value = "/searchDetail")
     @ResponseBody
-    public List<basecodeDTO> sCustomList(@RequestBody Map<String, Object> p) {
-        List<basecodeDTO> dtoList = service.sCustomList(p);
+    public List<LJHbasecodeDTO> sCustomList(@RequestBody Map<String, Object> p) {
+        List<LJHbasecodeDTO> dtoList = service.sCustomList(p);
         return dtoList;
     }
-    @PostMapping(value = "/search")
-    @ResponseBody
-    public List<basecodeDTO> sCustomListALL(@RequestBody Map<String, Object> p) {
-        List<basecodeDTO> dtoList = service.sCustomListAll(p);
-        return dtoList;
-    }
+
     @PostMapping(value = "/article")
     @ResponseBody
-    public List<basecodeDTO> sArticle(@RequestBody Map<String, Object> p) {
-        List<basecodeDTO> dtoList = service.sArticle(p);
+    public List<LJHbasecodeDTO> sArticle(@RequestBody Map<String, Object> p) {
+        List<LJHbasecodeDTO> dtoList = service.sArticle(p);
         return dtoList;
     }
     @PostMapping(value = "/customArticle")
     @ResponseBody
-    public List<basecodeDTO> sArticleCustom(@RequestBody Map<String, Object> p) {
-        List<basecodeDTO> dtoList = service.sArticleCustom(p);
+    public List<LJHbasecodeDTO> sArticleCustom(@RequestBody Map<String, Object> p) {
+        List<LJHbasecodeDTO> dtoList = service.sArticleCustom(p);
         return dtoList;
     }
     @PostMapping(value = "/save")
     @ResponseBody
     @Transactional
-    public List<basecodeDTO> iArticle(@RequestBody basecodeDTO payload , HttpServletRequest request) {
+    public List<LJHbasecodeDTO> iArticle(@RequestBody LJHbasecodeDTO payload , HttpServletRequest request) {
         if (payload.getInvestmentUnitPrice() == null) {
             payload.setInvestmentUnitPrice(BigDecimal.ZERO);
         }
@@ -63,31 +59,44 @@ public class customArticleController {
             payload.setBusinessCommission(BigDecimal.ZERO);
         }
 
-        List<basecodeDTO> dtoList = service.iArticle(payload);
+        List<LJHbasecodeDTO> dtoList = service.iArticle(payload);
 
 
         return dtoList;
     }
     @GetMapping(value = "/delete")
     @ResponseBody
-    public void dArticle(@RequestParam basecodeDTO p){
+    public void dArticle(@RequestParam LJHbasecodeDTO p){
         service.dArticle(p);
     }
 
     @PostMapping(value = "/articleSearch")
     @ResponseBody
-    public List<basecodeDTO> articleSearch(@RequestBody basecodeDTO p){
+    public List<LJHbasecodeDTO> articleSearch(@RequestBody LJHbasecodeDTO p){
         System.out.println(p.getArticleID());
         System.out.println(p);
-        List<basecodeDTO> dtoList = service.articleSearch(p);
+
+        List<LJHbasecodeDTO> dtoList = service.articleSearch(p);
         return dtoList;
+    }
+    @PostMapping(value = "/search")
+    @ResponseBody
+    public List<LJHbasecodeDTO> sCustomListALL(@RequestBody Map<String, Object> p) {
+        try {
+            log.info("Received parameters: {}", p); // 요청 데이터 로깅
+            List<LJHbasecodeDTO> dtoList = service.sCustomListAll(p);
+            return dtoList;
+        } catch (Exception e) {
+            log.error("Error occurred in /search: ", e); // 에러 로깅
+            throw e; // 에러를 클라이언트로 전달 (또는 사용자 친화적인 메시지로 처리 가능)
+        }
     }
 
     @PostMapping(value ="/allCustomArticle")
     @ResponseBody
-    public List<basecodeDTO> sCustomList(@RequestBody basecodeDTO p){
+    public List<LJHbasecodeDTO> sCustomList(@RequestBody LJHbasecodeDTO p){
         System.out.println(p);
-        List<basecodeDTO> dtoList = service.sCustomList(p);
+        List<LJHbasecodeDTO> dtoList = service.sCustomList(p);
         return dtoList;
     }
 }

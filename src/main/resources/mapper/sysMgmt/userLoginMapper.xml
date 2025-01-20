@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="wizard.eVC.sysMgmt.login.UserLoginMapper">
+         <select id="xp_Common_Login" statementType="CALLABLE" parameterType="String" resultType="wizard.eVC.sysMgmt.login.Dto.LoginDto">
+            {CALL xp_Common_Login(
+                    #{userID, mode=IN, jdbcType=VARCHAR},
+                    #{password, mode=IN, jdbcType=NVARCHAR}
+                  )}
+        </select>
+</mapper>
