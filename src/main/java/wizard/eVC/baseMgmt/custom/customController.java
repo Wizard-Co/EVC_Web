@@ -54,7 +54,7 @@ public class customController {
 
     @PostMapping(value = "/search")
     @ResponseBody
-    public List<customDTO> getBasecodeList(@RequestBody Map<String, Object> param) {
+    public List<customDTO> getCustomList(@RequestBody Map<String, Object> param) {
         List<customDTO> data = service.getCustomList(param);
         return data;
     }
@@ -88,10 +88,10 @@ public class customController {
     public String searchDetail(@RequestParam Map<String, Object> param,
                                Model model) {
 
-        int regYear = 0;
-        if(param.containsKey("regYear")){
-            regYear = Integer.parseInt((String)param.get("regYear"));
-        }
+//        int regYear = 0;
+//        if(param.containsKey("regYear")){
+//            regYear = Integer.parseInt((String)param.get("regYear"));
+//        }
         String[] params = {"chkKCustom", "chkOrganGbn", "chkTradeID",
                 "chkChief", "chkDamdang", "chkDamdangComments", "chkComments", "chkUseYN"};
 
@@ -100,13 +100,13 @@ public class customController {
                 param.put(key, Integer.parseInt((String)param.get(key)));
             }
         }
-        List<CMCode> cboRegYear = getYearRange(regYear, 40 , 25);
+//        List<CMCode> cboRegYear = getYearRange(regYear, 40 , 25);
         customDTO customdto = service.getCustomDetail(param);
         if(customdto.customNo != null && !customdto.customNo.isEmpty()){
             customdto.setCustomNo(customdto.customNo.replaceAll("(\\d{3})(\\d{2})(\\d{5})", "$1-$2-$3"));
         }
         model.addAttribute("customdto", customdto);
-        model.addAttribute("cboRegYear", cboRegYear);
+//        model.addAttribute("cboRegYear", cboRegYear);
 
         return "pages/baseMgmt/custom/customDetail";
     }

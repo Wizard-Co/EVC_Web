@@ -12,4 +12,13 @@ import java.util.Map;
 
 @Mapper
 public interface basecodeMapper {
+    List<basecodeDTO> getBasecodeList(Map<String, Object> param);
+    List<basecodeDTO> getBasecodeDetail(String codeID, String checkTF);
+    void updateBasecodeDetail(basecodeDTO basecodeDTO);
+    void addBasecodeDetail(basecodeDTO basecodeDTO);
+    void deleteBasecodeDetail(String codeTypeID, String codeID);
+
+}
+
+
 

@@ -9,6 +9,7 @@ public class customDTO {
     public String eCustom;
     public String shortCustom;
     public String condition;
+    public String mainItem;
     public String category;
     public String customNo;
     public String registID;
@@ -24,6 +25,8 @@ public class customDTO {
     public String addressJibun2;
     public String repPhone;
     public String phone;
+//    public String phone1;
+//    public String phone2;
     public String faxNo;
     public String eMail;
     public String tradeID;
@@ -33,14 +36,17 @@ public class customDTO {
     public String zoneGbnID;
     public String zoneGbnName;
     public String firstContactPath;
+
     public String damdangName1;
     public String damdangPhone1;
     public String damdangDirectPhone1;
     public String damdangComments1;
+
     public String damdangName2;
     public String damdangPhone2;
     public String damdangDirectPhone2;
     public String damdangComments2;
+
     public String homepage;
     public String regYear;
     public String customHistory;
@@ -69,7 +75,6 @@ public class customDTO {
     public String bankNum;
     public String JiroCD;
     public String depositor;
-    public String phone1;
     public String createDate;
     public String createUserID = "admin";
     public String lastUpdateDate;

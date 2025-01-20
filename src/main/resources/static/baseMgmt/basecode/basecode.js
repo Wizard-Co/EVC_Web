@@ -117,6 +117,7 @@ tbody.onclick = function () {
 function  codeDetail(){
     let param = {
         codeID: selectedRow.codeID,
+        codeName : selectedRow.codeName,
     }
     openForm('basecodeDetail', '/baseMgmt/basecode/detail?mode=update', param, '');
 }

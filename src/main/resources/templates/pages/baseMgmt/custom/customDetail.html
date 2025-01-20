@@ -33,9 +33,9 @@
             </div>
             <div class="icon">
                 <button type="submit" id="btnReset"  class="btn btn-success">초기화</button>
-                <button type="submit" id="btnUpdate" class="btn btn-success" >수정</button>
-                <button type="submit" id="btnSave" form="addForm" class="btn btn-success" >저장</button>
-                <button type="button" id="btnDelete" class="btn btn-success" >삭제</button>
+                <button type="submit" id="btnUpdate" class="btn btn-success"  style="display: none;">수정</button>
+                <button type="submit" id="btnSave" form="addForm" class="btn btn-success" style="display: none;">저장</button>
+                <button type="button" id="btnDelete" class="btn btn-success"  style="display: none;">삭제</button>
                 <button type="button" id="btnClose" class="btn btn-print">닫기
                 </button>
             </div>
@@ -148,15 +148,22 @@
                                            th:field="*{condition}" placeholder="업태 입력">
                                 </td>
                                 <td class="v-middle" colspan="1">
-                                    <label>업태</label>
+                                    <label>종목</label>
                                 </td>
                                 <td class="left" colspan="2">
                                     <input type="text" id="category" class="form-control subtle-input"
                                            th:field="*{category}" placeholder="종목 입력">
                                 </td>
-                                <td class="v-middle" colspan="2">
-                                    <label class="collapse">FTA 중점 관리</label>
+                                <td class="v-middle" colspan="1">
+                                    <label>주력상품</label>
                                 </td>
+                                <td class="left" colspan="2">
+                                    <input type="text" id="mainItem" class="form-control subtle-input"
+                                           th:field="*{mainItem}" placeholder="주력상품 입력">
+                                </td>
+<!--                                <td class="v-middle" colspan="2">-->
+<!--                                    <label class="collapse">FTA 중점 관리</label>-->
+<!--                                </td>-->
 <!--                                <td class="left" colspan="1">-->
 <!--                                    <select class="form-control w200px display-inline-block ct collapse" id="cboFtaMgrYN" th:field="*{ftaMgrYN}">-->
 <!--                                        <option th:each="option : ${cboFtaMgrYN}"-->
@@ -391,90 +398,90 @@
                             </div>
                         </div>
 
-                        <div id="divZone" style="height: 50%" class="collapse">
-                            <div class="form-border" >
-                                <table class="table table-bordered text-center">
-                                    <tbody>
-                                    <tr>
-                                        <td class="v-middle" colspan="1">
-                                            <label>지역구분</label>
-                                        </td>
-                                        <td class="left" colspan="1">
-                                            <select class="form-control w200px display-inline-block ct" id="cboZoneGbn" th:field="*{zoneGbnID}">
-                                                <option th:each="option : ${cboZoneGbn}"
-                                                        th:value="${option.codeID}" th:text="${option.codeName}">
-                                            </select>
-                                        </td>
-                                    </tr>
+<!--                        <div id="divZone" style="height: 50%" class="collapse">-->
+<!--                            <div class="form-border" >-->
+<!--                                <table class="table table-bordered text-center">-->
+<!--                                    <tbody>-->
+<!--                                    <tr>-->
+<!--                                        <td class="v-middle" colspan="1">-->
+<!--                                            <label>지역구분</label>-->
+<!--                                        </td>-->
+<!--                                        <td class="left" colspan="1">-->
+<!--                                            <select class="form-control w200px display-inline-block ct" id="cboZoneGbn" th:field="*{zoneGbnID}">-->
+<!--                                                <option th:each="option : ${cboZoneGbn}"-->
+<!--                                                        th:value="${option.codeID}" th:text="${option.codeName}">-->
+<!--                                            </select>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
 
-                                    <tr>
-                                        <td class="v-middle" colspan="1">
-                                            <label>등록년도</label>
-                                        </td>
-                                        <td class="left" colspan="1">
-                                            <select class="form-control w150px display-inline-block ct" id="cboRegYear" th:field="*{regYear}" >
-                                                <option th:each="option : ${cboRegYear}"
-                                                        th:value="${option.codeID}" th:text="${option.codeName}">
-                                            </select>
-                                            <input type="number" class="w150px" th:field="*{regYear}" id="inputRegYear" style="display: none;"
-                                                   max="9999" min="1000">
-                                            <button id="btnRegYearModify" type="button" class="m-l-2">직접입력</button>
-                                            <button id="btnRegYearUpdate" type="button" class="m-l-2">변경</button>
-                                        </td>
-                                    </tr>
+<!--                                    <tr>-->
+<!--                                        <td class="v-middle" colspan="1">-->
+<!--                                            <label>등록년도</label>-->
+<!--                                        </td>-->
+<!--                                        <td class="left" colspan="1">-->
+<!--                                            <select class="form-control w150px display-inline-block ct" id="cboRegYear" th:field="*{regYear}" >-->
+<!--                                                <option th:each="option : ${cboRegYear}"-->
+<!--                                                        th:value="${option.codeID}" th:text="${option.codeName}">-->
+<!--                                            </select>-->
+<!--                                            <input type="number" class="w150px" th:field="*{regYear}" id="inputRegYear" style="display: none;"-->
+<!--                                                   max="9999" min="1000">-->
+<!--                                            <button id="btnRegYearModify" type="button" class="m-l-2">직접입력</button>-->
+<!--                                            <button id="btnRegYearUpdate" type="button" class="m-l-2">변경</button>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
 
-                                    <tr>
-                                        <td class="v-middle" colspan="1">
-                                            <label>상담경로</label>
-                                        </td>
-                                        <td class="left" colspan="1">
-                                            <select class="form-control w200px display-inline-block ct" id="" th:field="*{firstContactPath}" >
-                                                <option th:each="option : ${cboCtPath}"
-                                                        th:value="${option.codeID}" th:text="${option.codeName}">
-                                            </select>
-                                        </td>
-                                    </tr>
+<!--                                    <tr>-->
+<!--                                        <td class="v-middle" colspan="1">-->
+<!--                                            <label>상담경로</label>-->
+<!--                                        </td>-->
+<!--                                        <td class="left" colspan="1">-->
+<!--                                            <select class="form-control w200px display-inline-block ct" id="" th:field="*{firstContactPath}" >-->
+<!--                                                <option th:each="option : ${cboCtPath}"-->
+<!--                                                        th:value="${option.codeID}" th:text="${option.codeName}">-->
+<!--                                            </select>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
 
-                                    <tr>
-                                        <td class="v-middle" colspan="1">
-                                            <label>학교이력</label>
-                                        </td>
-                                        <td colspan="1">
-                                            <textarea class="form-control subtle-input"  placeholder="학교이력 및 특이사항 입력"
-                                                      style="resize: none" rows="3" id="customHistory" name="customHistory"
-                                                      th:field="*{customHistory}"  maxlength="2000"
-                                                      oninput="if(this.value.length >= 2000) alert('2000자까지만 입력 가능합니다.')"></textarea>
-                                        </td>
-                                    </tr>
+<!--                                    <tr>-->
+<!--                                        <td class="v-middle" colspan="1">-->
+<!--                                            <label>학교이력</label>-->
+<!--                                        </td>-->
+<!--                                        <td colspan="1">-->
+<!--                                            <textarea class="form-control subtle-input"  placeholder="학교이력 및 특이사항 입력"-->
+<!--                                                      style="resize: none" rows="3" id="customHistory" name="customHistory"-->
+<!--                                                      th:field="*{customHistory}"  maxlength="2000"-->
+<!--                                                      oninput="if(this.value.length >= 2000) alert('2000자까지만 입력 가능합니다.')"></textarea>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
 
-                                    <tr>
-                                        <td class="v-middle" colspan="1">
-                                            <label>교사이력</label>
-                                        </td>
-                                        <td colspan="1">
-                                            <textarea class="form-control subtle-input"  placeholder="교사이력 및 특이사항 입력"
-                                                      style="resize: none" rows="3" id="damdangHistory" name="damdangHistory"
-                                                      th:field="*{damdangHistory}" maxlength="2000"
-                                                      oninput="if(this.value.length >= 2000) alert('2000자까지만 입력 가능합니다.')"></textarea>
-                                        </td>
-                                    </tr>
+<!--                                    <tr>-->
+<!--                                        <td class="v-middle" colspan="1">-->
+<!--                                            <label>교사이력</label>-->
+<!--                                        </td>-->
+<!--                                        <td colspan="1">-->
+<!--                                            <textarea class="form-control subtle-input"  placeholder="교사이력 및 특이사항 입력"-->
+<!--                                                      style="resize: none" rows="3" id="damdangHistory" name="damdangHistory"-->
+<!--                                                      th:field="*{damdangHistory}" maxlength="2000"-->
+<!--                                                      oninput="if(this.value.length >= 2000) alert('2000자까지만 입력 가능합니다.')"></textarea>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
 
-                                    <tr>
-                                        <td class="v-middle" colspan="1">
-                                            <label>행정메모</label>
-                                        </td>
-                                        <td colspan="1">
-                                            <textarea class="form-control subtle-input"  placeholder="행정메모 및 특이사항 입력"
-                                                      style="resize: none" rows="3" id="customJobMemo" name="customJobMemo"
-                                                      th:field="*{customJobMemo}" maxlength="2000"
-                                                      oninput="if(this.value.length >= 2000) alert('2000자까지만 입력 가능합니다.')"></textarea>
-                                        </td>
-                                    </tr>
+<!--                                    <tr>-->
+<!--                                        <td class="v-middle" colspan="1">-->
+<!--                                            <label>행정메모</label>-->
+<!--                                        </td>-->
+<!--                                        <td colspan="1">-->
+<!--                                            <textarea class="form-control subtle-input"  placeholder="행정메모 및 특이사항 입력"-->
+<!--                                                      style="resize: none" rows="3" id="customJobMemo" name="customJobMemo"-->
+<!--                                                      th:field="*{customJobMemo}" maxlength="2000"-->
+<!--                                                      oninput="if(this.value.length >= 2000) alert('2000자까지만 입력 가능합니다.')"></textarea>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
 
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+<!--                                    </tbody>-->
+<!--                                </table>-->
+<!--                            </div>-->
+<!--                        </div>-->
                     </div>
 
                 </div>

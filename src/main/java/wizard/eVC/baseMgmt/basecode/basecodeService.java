@@ -16,7 +16,9 @@ public class basecodeService {
 
     private final  basecodeMapper mapper;
 
-
+    public void updateBasecodeDetail(basecodeDTO basecodedto) {mapper.updateBasecodeDetail(basecodedto);}
+    public void addBasecodeDetail(basecodeDTO basecodedto) {mapper.addBasecodeDetail(basecodedto);}
+    public void deleteBasecodeDetail(String codeTypeID, String codeID) {mapper.deleteBasecodeDetail(codeTypeID, codeID);}
 
 
 }
