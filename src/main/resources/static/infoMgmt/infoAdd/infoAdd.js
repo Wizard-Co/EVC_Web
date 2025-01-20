@@ -37,6 +37,20 @@ document.querySelector("#today").addEventListener("click", function() {getDate("
 
 /*행 클릭시 행 데이터 가져오기*/
 $('#infoTable').on('click', 'tr', function () {
+    infoTable.$('tr.selected').removeClass('selected');
+    $(this).addClass('selected');
+    selectedRow = infoTable.row(this).data();
+})
+
+/*행 더블 클릭시 상세 화면*/
+$('#infoTable').on('dblclick', 'tr', function () {
+    let param = {
+        infoID: selectedRow.infoID,
+        userID: 'admin',
+        companyID: ''
+    }
+
+    openForm('infoAddDetail', '/infoMgmt/infoAdd/update?mode=update', param, '');
 
     //선택한 행을 다시 선택하면 선택 해제
     if( $(this).hasClass('selected') ) {
@@ -69,8 +83,7 @@ document.getElementById('btnAdd').addEventListener('click', function () {
 document.getElementById('btnDetail').addEventListener('click', function () {
     //선택한 행이 없는 경우 메세지창
 
-    if(selectedRow == null){
-
+    if(infoTable.rows(".selected").data().length == 0){
         alert('선택한 데이터가 없습니다. \r\n데이터를 선택한 후에 진행 해주세요.');
     }
     else{
@@ -87,9 +100,7 @@ document.getElementById('btnDetail').addEventListener('click', function () {
 /*삭제 클릭 이벤트*/
 document.getElementById('btnDelete').addEventListener('click', function () {
     //선택한 행이 없는 경우 메세지창
-
-    if(selectedRow == null){
-
+    if(infoTable.rows(".selected").data().length == 0){
         alert('선택한 데이터가 없습니다. \r\n데이터를 선택한 후에 진행 해주세요.');
     }
     else{
@@ -117,7 +128,6 @@ document.getElementById('btnDelete').addEventListener('click', function () {
                            }
             );
     }
-
 })
 
 /*엑셀 이벤트*/
@@ -306,8 +316,6 @@ function getDate(gbn){
             document.querySelector("#inputEDateSearch").value = formattedLastDay;
 
         }
-
-
 }
 
 /*로드시 전체 자동 체크표시*/
@@ -317,7 +325,7 @@ function checkboxGbn(){
     let chkAll = document.querySelector("#chkAllGbn");
     let chkPerson = document.querySelector("#chkPersonGbn");
     chkDate.checked = true;
-    chkAll.checked = true;
+    chkAll.checked = false;
     chkPerson.checked = false;
 }
 
@@ -430,7 +438,6 @@ const infoTable = $('#infoTable').DataTable({
         {data: "attachPath", className: 'center'},              /*첨부문서경로*/
         {data: "hitCount", className: 'center'},                /*조회수*/
         {data: "createUser", className: 'center'},              /*작성자*/
-
         {data: "createDate", className: 'center'},              /*작성일*/
     ],
 

@@ -74,7 +74,7 @@ public class InfoAddController {
 
     //추가
     @PostMapping("/infoMgmt/infoAdd/add")
-    public String save(Model model) {
+    public String add(Model model) {
         InfoAddDetailDto infoAddDetailDto = new InfoAddDetailDto();
         infoAddDetailDto.setUserID("admin"); //TODO 로그인한 personID
         model.addAttribute("InfoAddDetailDto", infoAddDetailDto);

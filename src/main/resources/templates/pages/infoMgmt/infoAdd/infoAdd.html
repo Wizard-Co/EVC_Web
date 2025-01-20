@@ -30,90 +30,75 @@ class : 하이픈 사용 ex) page-header
 <!--content-->
 <section layout:fragment="content">
     <body>
-    <loading-form id="loading" class="diplay-none"></loading-form>
+    <loading-form id="loading" class="display-none"></loading-form>
     <main>
-        <div id="contents">
-            <div class="menu">
-                <div class="page-header">
-                    ■ 공지사항등록
+        <div class="menu">
+            <div class="page-header">
+                ■ 공지사항등록
+            </div>
+            <div class="icon">
+                <div class="flx">
+                    <button type="button" class="btn btn-success m-r-05" id="btnAdd">등록</button>
+                    <button type="button" class="btn btn-info m-r-05" id="btnDetail">상세</button>
+                    <button type="button" class="btn btn-success" id="btnDelete">삭제</button>
+                </div>
+                <div class="flx mt-05">
+                    <button type="button" class="btn btn-info m-r-05" id="btnSearch">조회</button>
+                    <button type="button" class="btn btn-print m-r-05" id="btnExcel">엑셀</button>
                 </div>
             </div>
-            <div class = "menu">
-                <div class="page-middle">
-                    <div class="flx">
-                    <span>
-                        <label class="lbl-check" for="chkDate">
-                            <input class="checkbox" id="chkDate" type="checkbox"> 공지일자
-                        </label>
-                    </span>
-                        <input class="input-date" id="inputSDateSearch" type="date">
-                        ~
-                        <input class="input-date" id="inputEDateSearch" type="date">
-                    </div>
-                    <div class="flx">
-                        <button type="button" class="btn btn-primary btn-date" id="preMonth">전월</button>
-                        <button type="button" class="btn btn-primary btn-date" id="preDay">전일</button>
-                        <button type="button" class="btn btn-primary btn-date" id="month">당월</button>
-                        <button type="button" class="btn btn-primary btn-date" id="today">금일</button>
-                    </div>
-                </div>
-                <div class="page-middle">
-                    <div class="search-data">
-                        <span>
-                            <label>구분 :</label>
-                            <label class="lbl-check" for="chkAllGbn">
-                                <input class="checkbox" id="chkAllGbn" type="checkbox">전체
-                            </label>
-                            <label class="lbl-check" for="chkPersonGbn">
-                                <input class="checkbox" id="chkPersonGbn" type="checkbox">개별
-                            </label>
-                       </span>
-                    </div>
-                </div>
-
-                <!--css justify-content: space-between 자식 요소를 균등분배해서, 구분을 왼쪽으로 이동하기 위해 빈 칸을 생성함-->
-                <div class="page-header">
-
-                </div>
-                <!--css justify-content: space-between 자식 요소를 균등분배해서, 구분을 왼쪽으로 이동하기 위해 빈 칸을 생성함-->
-                <div class="page-header">
-
-                </div>
-
-                <div class="icon">
-                    <div class="flx">
-                        <button type="button" class="btn btn-info m-r-05" id="btnSearch">조회</button>
-                        <button type="button" class="btn btn-success" id="btnDelete">삭제</button>
-                    </div>
-                    <div class="flx mt-05">
-                        <button type="button" class="btn btn-success m-r-05" id="btnAdd">추가</button>
-                        <button type="button" class="btn btn-info m-r-05" id="btnDetail">상세</button>
-                        <button type="button" class="btn btn-print m-r-05" id="btnExcel">엑셀</button>
-                    </div>
-                </div>
-            </div>
-            <section>
-                <table id="infoTable" class="table table-bordered text-center striped cell-border table-light-info text-align">
-                    <thead>
-                    <tr>
-                        <th>순</th>
-                        <th>공지번호</th>
-                        <th>구분</th> <!--전체, 개별-->
-                        <th>시작일</th>
-                        <th>종료일</th>
-                        <th>공지내용</th>
-                        <th>공지대상자</th>
-                        <th>첨부문서</th>
-                        <th class = "th-hidden">첨부문서경로</th>
-                        <th>조회수</th>
-                        <th>작성자</th>
-                        <th>작성일자</th>
-                    </tr>
-                    </thead>
-                </table>
-            </section>
         </div>
+        <condition class="panel">
+            <div class="panel-body">
+                <div class="flx label-align">
+                    <div class="div-srh m-r-4 label-align">
+                        <label class="form-check-label" for="chkDate">
+                            공지일자
+                        </label>
+                        <input class="form-check-input lbl-srh " id="chkDate" type="checkbox">
 
+                        <input class="input-date" id="inputSDateSearch" type="date">
+                        <label> ~ </label>
+                        <input class="input-date" id="inputEDateSearch" type="date">
+
+                        <button type="button" class="btn-primary btn-date" id="preMonth">전월</button>
+                        <button type="button" class="btn-primary btn-date" id="preDay">전일</button>
+                        <button type="button" class="btn-primary btn-date" id="month">당월</button>
+                        <button type="button" class="btn-primary btn-date" id="today">금일</button>
+                    </div>
+                    <div class="div-srh m-r-4">
+                        <label class="form-check-label" for="chkAllGbn">
+                            전체
+                        </label>
+                        <input class="form-check-input lbl-srh" id="chkAllGbn" type="checkbox">
+                        <label class="form-check-label" for="chkPersonGbn">
+                            개별
+                        </label>
+                        <input class="form-check-input lbl-srh" id="chkPersonGbn" type="checkbox">
+                    </div>
+                </div>
+            </div>
+        </condition>
+        <section>
+            <table id="infoTable" class="table table-bordered text-center striped cell-border table-light-info text-align">
+                <thead>
+                <tr>
+                    <th>순</th>
+                    <th>공지번호</th>
+                    <th>구분</th> <!--전체, 개별-->
+                    <th>시작일</th>
+                    <th>종료일</th>
+                    <th>공지내용</th>
+                    <th>공지대상자</th>
+                    <th>첨부문서</th>
+                    <th>첨부문서경로</th>
+                    <th>조회수</th>
+                    <th>작성자</th>
+                    <th>작성일자</th>
+                </tr>
+                </thead>
+            </table>
+        </section>
     </main>
     </body>
 </section>
