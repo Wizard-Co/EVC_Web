@@ -12,15 +12,31 @@ let year, customID, kCustom;
 
 let form = document.getElementById('addForm');
 const currentUrl = new URLSearchParams(window.location.search);
-let inputRegYear = document.getElementById('inputRegYear');
+// let inputRegYear = document.getElementById('inputRegYear');
 
 window.addEventListener('load', function() {
-    document.getElementById('btnRegYearUpdate').style.display = 'none'
-    if(currentUrl.get('mode') === 'add'){
-        document.getElementById('cboRegYear').value = new Date().getFullYear();
-    }
+    // document.getElementById('btnRegYearUpdate').style.display = 'none'
+    // if(currentUrl.get('mode') === 'add'){
+    //     document.getElementById('cboRegYear').value = new Date().getFullYear();
+    // }
     customID = document.getElementById('customID').value;
-    kCustom = document.getElementById('kCustom').value
+    kCustom = document.getElementById('kCustom').value;
+
+    if(currentUrl.get('mode') === 'add'){
+
+        const btnSave=  document.getElementById('btnSave');
+
+
+        btnSave.style.display = 'inline-block';
+    }
+    else{
+        const btnUpdate = document.getElementById('btnUpdate');
+        const btnDelete =document.getElementById('btnDelete');
+
+        btnUpdate.style.display = 'inline-block';
+        btnDelete.style.display = 'inline-block'
+    }
+
     mainBtnSetting();
 });
 
@@ -32,36 +48,36 @@ function mainBtnSetting(){
     document.getElementById('btnSave').addEventListener('click',()=>save("I"))
     document.getElementById('btnUpdate').addEventListener('click',()=>save("U"))
     document.getElementById('btnReset').addEventListener('click', inputTextReset)
-    document.getElementById('btnRegYearModify').addEventListener('click',modifyRegYear)
-    document.getElementById('btnRegYearUpdate').addEventListener('click',updateRegYear)
+    // document.getElementById('btnRegYearModify').addEventListener('click',modifyRegYear)
+    // document.getElementById('btnRegYearUpdate').addEventListener('click',updateRegYear)
     document.getElementById('btnDelete').addEventListener('click', ()=>deleteCustomDetail(customID,kCustom))
 
 }
 
 
-document.getElementById('inputRegYear').addEventListener('focus',function (){
-    year = document.getElementById('inputRegYear').value
-},{once:true})
+// document.getElementById('inputRegYear').addEventListener('focus',function (){
+//     year = document.getElementById('inputRegYear').value
+// },{once:true})
 
 
 //등록연도 수정시 사용 키제어
-window.addEventListener('keydown', function(e) {
-    if (document.activeElement === inputRegYear) {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            updateRegYear();
-        }
-        else if (e.key === 'Escape') {
-            e.preventDefault();
-            modifyRegYear();
-            const select = document.getElementById('cboRegYear');
-            select.value = year.toString();
-        }
-    }
-    else if(e.key === 'Enter'){
-        e.preventDefault();
-    }
-}, true);
+// window.addEventListener('keydown', function(e) {
+//     if (document.activeElement === inputRegYear) {
+//         if (e.key === 'Enter') {
+//             e.preventDefault();
+//             updateRegYear();
+//         }
+//         else if (e.key === 'Escape') {
+//             e.preventDefault();
+//             modifyRegYear();
+//             const select = document.getElementById('cboRegYear');
+//             select.value = year.toString();
+//         }
+//     }
+//     else if(e.key === 'Enter'){
+//         e.preventDefault();
+//     }
+// }, true);
 
 
 //다음 주소 API
@@ -137,6 +153,7 @@ function save(strFlag) {
         payload.set('useYN', useYN.checked ? 'N' : 'Y');
 
         const baseUrl = strFlag === "I" ? "/baseMgmt/custom/save" : "/baseMgmt/custom/update"
+
 
         fetch(baseUrl, {
             method: 'post',
@@ -241,52 +258,52 @@ function modifyRegYear() {
 }
 
 //등록연도 직접 수정(목록에 없을 경우)
-function updateRegYear() {
-    const select = document.getElementById('cboRegYear');
-    const input = document.getElementById('inputRegYear');
-    const modifyBtn = document.getElementById('btnRegYearModify');
-    const updateBtn = document.getElementById('btnRegYearUpdate');
-
-    const inputYear = parseInt(input.value);
-    const currentYear = new Date().getFullYear();
-
-    // 입력값 검증
-    if (isNaN(inputYear)) {
-        alert('올바른 숫자를 입력해주세요.');
-        input.value = year.toString();
-        input.select();
-        input.focus();
-        return;
-    }
-    if (inputYear < 1000 || inputYear > 9999) {
-        alert('년도는 4자리 숫자로 입력해주세요.');
-        input.value = year.toString();
-        input.select();
-        input.focus();
-        return;
-    }
-    if (Math.abs(currentYear - inputYear) > 100) {
-        alert('현재연도와 입력연도 기간차이가 너무 큽니다.');
-        input.value = year.toString();
-        input.select();
-        input.focus();
-        return;
-    }
-
-    // select에 해당 년도가 없는 경우 새로운 option 추가
-    if (!Array.from(select.options).some(option => option.value === inputYear.toString())) {
-        const newOption = new Option(inputYear.toString(), inputYear.toString());
-        select.add(newOption);
-    }
-
-    // 모든 검증을 통과하면 select 업데이트
-    select.style.display = 'inline';
-    input.style.display = 'none';
-    select.value = inputYear.toString();
-    modifyBtn.style.display = 'inline';
-    updateBtn.style.display = 'none';
-
-}
+// function updateRegYear() {
+//     const select = document.getElementById('cboRegYear');
+//     const input = document.getElementById('inputRegYear');
+//     const modifyBtn = document.getElementById('btnRegYearModify');
+//     const updateBtn = document.getElementById('btnRegYearUpdate');
+//
+//     const inputYear = parseInt(input.value);
+//     const currentYear = new Date().getFullYear();
+//
+//     // 입력값 검증
+//     if (isNaN(inputYear)) {
+//         alert('올바른 숫자를 입력해주세요.');
+//         input.value = year.toString();
+//         input.select();
+//         input.focus();
+//         return;
+//     }
+//     if (inputYear < 1000 || inputYear > 9999) {
+//         alert('년도는 4자리 숫자로 입력해주세요.');
+//         input.value = year.toString();
+//         input.select();
+//         input.focus();
+//         return;
+//     }
+//     if (Math.abs(currentYear - inputYear) > 100) {
+//         alert('현재연도와 입력연도 기간차이가 너무 큽니다.');
+//         input.value = year.toString();
+//         input.select();
+//         input.focus();
+//         return;
+//     }
+//
+//     // select에 해당 년도가 없는 경우 새로운 option 추가
+//     if (!Array.from(select.options).some(option => option.value === inputYear.toString())) {
+//         const newOption = new Option(inputYear.toString(), inputYear.toString());
+//         select.add(newOption);
+//     }
+//
+//     // 모든 검증을 통과하면 select 업데이트
+//     select.style.display = 'inline';
+//     input.style.display = 'none';
+//     select.value = inputYear.toString();
+//     modifyBtn.style.display = 'inline';
+//     updateBtn.style.display = 'none';
+//
+// }
 
 
 //이메일 형식 확인

@@ -25,6 +25,7 @@ public class basecodeDTO {
     public String lastUpdateUser;
 
 
+
     @Data
     public static class ListWrapper {
         private List<basecodeDTO> basecodelist = new ArrayList<>();

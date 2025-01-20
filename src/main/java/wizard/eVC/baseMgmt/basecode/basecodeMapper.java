@@ -23,4 +23,5 @@ public interface basecodeMapper {
     void updateBasecodeDetail(basecodeDTO basecodeDTO);
     void addBasecodeDetail(basecodeDTO basecodeDTO);
     void deleteBasecodeDetail(String codeTypeID, String codeID);
+
 }

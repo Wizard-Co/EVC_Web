@@ -43,6 +43,7 @@ public class basecodeController {
     @PostMapping("/detail")
     public String searchDetail(@RequestParam(name = "codeID", required = true) String codeID,
                                @RequestParam(name = "checkTF", defaultValue = "", required = true) String checkTF,
+                               @RequestParam(name = "codeName",required = false) String codeName,
                                Model model) {
 
         List<basecodeDTO> data = service.getBasecodeDetail(codeID, checkTF);
@@ -54,6 +55,7 @@ public class basecodeController {
             data = List.of(dto);
         }
         model.addAttribute("basecodeDetail", data);
+        model.addAttribute("codeName",codeName);
 
         return "pages/baseMgmt/basecode/basecodeDetail";
     }
@@ -87,5 +89,6 @@ public class basecodeController {
                          @RequestParam(name = "codeID") String codeID) {
         service.deleteBasecodeDetail(codeTypeID, codeID);
     }
+
 
 }

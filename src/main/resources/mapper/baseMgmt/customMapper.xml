@@ -31,43 +31,42 @@
                                      #{eCustom, javaType=String, jdbcType=VARCHAR, mode=IN},
                                      #{shortCustom, javaType=String, jdbcType=VARCHAR, mode=IN},
                                      #{condition, javaType=String, jdbcType=VARCHAR, mode=IN},
+
                                      #{category, javaType=String, jdbcType=VARCHAR, mode=IN},
                                      #{customNo, javaType=String, jdbcType=CHAR, mode=IN},
                                      #{registID, javaType=String, jdbcType=CHAR, mode=IN},
                                      #{chief, javaType=String, jdbcType=VARCHAR, mode=IN},
                                      #{zipcode, javaType=String, jdbcType=CHAR, mode=IN},
+
                                      #{address1, javaType=String, jdbcType=VARCHAR, mode=IN},
                                      #{address2, javaType=String, jdbcType=VARCHAR, mode=IN},
                                      #{addressJibun1, javaType=String, jdbcType=VARCHAR, mode=IN},
                                      #{addressJibun2, javaType=String, jdbcType=VARCHAR, mode=IN},
                                      #{repPhone, javaType=String, jdbcType=VARCHAR, mode=IN},
+
                                      #{phone, javaType=String, jdbcType=VARCHAR, mode=IN},
                                      #{faxNo, javaType=String, jdbcType=VARCHAR, mode=IN},
                                      #{eMail, javaType=String, jdbcType=VARCHAR, mode=IN},
                                      #{tradeID, javaType=String, jdbcType=CHAR, mode=IN},
                                      #{organBnID, javaType=String, jdbcType=CHAR, mode=IN},
-                                     #{zoneGbnID, javaType=String, jdbcType=CHAR, mode=IN},
-                                     #{firstContactPath, javaType=String, jdbcType=VARCHAR, mode=IN},
+
+                                     #{useYN, javaType=String, jdbcType=CHAR, mode=IN},
+                                     #{countryCode, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                     #{comments, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                     #{homepage, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                     #{mainItem, javaType=String, jdbcType=VARCHAR, mode=IN},
+
                                      #{damdangName1, javaType=String, jdbcType=VARCHAR, mode=IN},
                                      #{damdangPhone1, javaType=String, jdbcType=VARCHAR, mode=IN},
                                      #{damdangDirectPhone1, javaType=String, jdbcType=VARCHAR, mode=IN},
                                      #{damdangComments1, javaType=String, jdbcType=VARCHAR, mode=IN},
+
                                      #{damdangName2, javaType=String, jdbcType=VARCHAR, mode=IN},
                                      #{damdangPhone2, javaType=String, jdbcType=VARCHAR, mode=IN},
                                      #{damdangDirectPhone2, javaType=String, jdbcType=VARCHAR, mode=IN},
                                      #{damdangComments2, javaType=String, jdbcType=VARCHAR, mode=IN},
-                                     #{homepage, javaType=String, jdbcType=VARCHAR, mode=IN},
-                                     #{regYear, javaType=String, jdbcType=CHAR, mode=IN},
-                                     #{customHistory, javaType=String, jdbcType=VARCHAR, mode=IN},
-                                     #{damdangHistory, javaType=String, jdbcType=VARCHAR, mode=IN},
-                                     #{customJobMemo, javaType=String, jdbcType=VARCHAR, mode=IN},
-                                     #{loginID, javaType=String, jdbcType=VARCHAR, mode=IN},
-                                     #{password, javaType=String, jdbcType=VARCHAR, mode=IN},
-                                     #{useYN, javaType=String, jdbcType=CHAR, mode=IN},
-                                     #{countryCode, javaType=String, jdbcType=VARCHAR, mode=IN},
-                                     #{comments, javaType=String, jdbcType=VARCHAR, mode=IN},
-                                     #{defectCount, javaType=Int, jdbcType=NUMERIC, mode=IN},
-                                     #{delayedCount, javaType=Int, jdbcType=NUMERIC, mode=IN},
+
+
                                      #{createUserID, javaType=String, jdbcType=CHAR, mode=IN}
                    )}
     </select>
@@ -79,43 +78,42 @@
                                  #{eCustom, javaType=String, jdbcType=VARCHAR, mode=IN},
                                  #{shortCustom, javaType=String, jdbcType=VARCHAR, mode=IN},
                                  #{condition, javaType=String, jdbcType=VARCHAR, mode=IN},
+
                                  #{category, javaType=String, jdbcType=VARCHAR, mode=IN},
                                  #{customNo, javaType=String, jdbcType=CHAR, mode=IN},
                                  #{registID, javaType=String, jdbcType=CHAR, mode=IN},
                                  #{chief, javaType=String, jdbcType=VARCHAR, mode=IN},
                                  #{zipcode, javaType=String, jdbcType=CHAR, mode=IN},
+
                                  #{address1, javaType=String, jdbcType=VARCHAR, mode=IN},
                                  #{address2, javaType=String, jdbcType=VARCHAR, mode=IN},
                                  #{addressJibun1, javaType=String, jdbcType=VARCHAR, mode=IN},
                                  #{addressJibun2, javaType=String, jdbcType=VARCHAR, mode=IN},
                                  #{repPhone, javaType=String, jdbcType=VARCHAR, mode=IN},
+
                                  #{phone, javaType=String, jdbcType=VARCHAR, mode=IN},
                                  #{faxNo, javaType=String, jdbcType=VARCHAR, mode=IN},
                                  #{eMail, javaType=String, jdbcType=VARCHAR, mode=IN},
                                  #{tradeID, javaType=String, jdbcType=CHAR, mode=IN},
                                  #{organBnID, javaType=String, jdbcType=CHAR, mode=IN},
-                                 #{zoneGbnID, javaType=String, jdbcType=CHAR, mode=IN},
-                                 #{firstContactPath, javaType=String, jdbcType=VARCHAR, mode=IN},
+
+
+                                 #{useYN, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                 #{countryCode, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                 #{comments, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                 #{homepage, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                 #{mainItem, javaType=String, jdbcType=VARCHAR, mode=IN},
+
+
                                  #{damdangName1, javaType=String, jdbcType=VARCHAR, mode=IN},
                                  #{damdangPhone1, javaType=String, jdbcType=VARCHAR, mode=IN},
                                  #{damdangDirectPhone1, javaType=String, jdbcType=VARCHAR, mode=IN},
                                  #{damdangComments1, javaType=String, jdbcType=VARCHAR, mode=IN},
+
                                  #{damdangName2, javaType=String, jdbcType=VARCHAR, mode=IN},
                                  #{damdangPhone2, javaType=String, jdbcType=VARCHAR, mode=IN},
                                  #{damdangDirectPhone2, javaType=String, jdbcType=VARCHAR, mode=IN},
                                  #{damdangComments2, javaType=String, jdbcType=VARCHAR, mode=IN},
-                                 #{homepage, javaType=String, jdbcType=VARCHAR, mode=IN},
-                                 #{regYear, javaType=String, jdbcType=CHAR, mode=IN},
-                                 #{customHistory, javaType=String, jdbcType=VARCHAR, mode=IN},
-                                 #{damdangHistory, javaType=String, jdbcType=VARCHAR, mode=IN},
-                                 #{customJobMemo, javaType=String, jdbcType=VARCHAR, mode=IN},
-                                 #{loginID, javaType=String, jdbcType=VARCHAR, mode=IN},
-                                 #{password, javaType=String, jdbcType=VARCHAR, mode=IN},
-                                 #{useYN, javaType=String, jdbcType=CHAR, mode=IN},
-                                 #{countryCode, javaType=String, jdbcType=VARCHAR, mode=IN},
-                                 #{comments, javaType=String, jdbcType=VARCHAR, mode=IN},
-                                 #{defectCount, javaType=Int, jdbcType=NUMERIC, mode=IN},
-                                 #{delayedCount, javaType=Int, jdbcType=NUMERIC, mode=IN},
                                  #{lastUpdateUserID, javaType=String, jdbcType=CHAR, mode=IN}
                )}
     </select>

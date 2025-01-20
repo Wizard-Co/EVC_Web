@@ -18,11 +18,15 @@ window.addEventListener('load', function () {
     mainBtnSetting();
 });
 
+const preserveFormat = function(data) {
+    return data;
+};
 
 const table = new DataTable('#customTable', {
     searching : false,
     info : false,
     paging : false,
+    numberFormat: false,
     language: {
         emptyTable : "검색된 항목이 없습니다.",
         zeroRecords : "검색된 항목이 없습니다.",
@@ -53,17 +57,23 @@ const table = new DataTable('#customTable', {
             },
             className: 'center'
         },
-        {data: "customID", className: 'left'},
+        {
+            data: "customID",
+            className: 'center',
+            render: function(data, type, row) {
+                return data; // 데이터를 있는 그대로 반환
+            }
+        },
         {data: "kCustom", className: 'left'},
         {data: "shortCustom", className: 'left'},
         {data: "eCustom", className: 'left' },
         {data: "condition", className: 'left'},
         {data: "category", className: 'left'},
         {data: "chief", className: 'left'},
-        {data: "customNo", className: 'left'},
+        {data: "customNo",  className: 'left'},
         {data: "tradeName", className: 'left'},
-        {data: "repPhone", className: 'left'},
-        {data: "phone", className: 'left'},
+        {data: "repPhone",  className: 'left'},
+        {data: "phone", render : preserveFormat, className: 'left'},
         {data: "faxNo", className: 'left'},
         {data: "damdangName1", className: 'left'},
         {data: "damdangPhone1", className: 'left'},
@@ -90,7 +100,7 @@ function mainBtnSetting(){
     // document.querySelector("#btnPrint").style.display = 'none';
     document.querySelector("#btnSearch").addEventListener("click", search)
     document.querySelector('#btnAdd').addEventListener('click', function () {
-        openForm('customDetail', '/baseMgmt/custom/add?mode=update', '', 'width=1500, height=780');
+        openForm('customDetail', '/baseMgmt/custom/add?mode=add', '', 'width=1500, height=780');
     })
     tbody.addEventListener('dblclick',customDetail)
     document.querySelector('#btnDetail').addEventListener('click', customDetail)
@@ -104,6 +114,7 @@ function mainBtnSetting(){
     document.querySelector('#btnDelete').addEventListener('click',()=>{deleteCustomDetail(customID,kCustom)})
     document.getElementById('btnClose').addEventListener('click',()=>{window.location.href = "/"});
 }
+
 
 function pageFocused(){
     // 페이지 로드 시 바로 keydown 이벤트 리스너 추가
@@ -210,8 +221,9 @@ function deleteCustomDetail(customID, kCustom){
                 .then(responseMessage => {
                     alert(responseMessage);
                     if (responseMessage.includes("삭제 되었습니다.")) {
-                        window.open('', '_self').close();
-                        opener.search();
+                        search();
+                        // window.open('', '_self').close();
+                        // opener.search();
                     }
                     else{
                         window.scrollTo({
