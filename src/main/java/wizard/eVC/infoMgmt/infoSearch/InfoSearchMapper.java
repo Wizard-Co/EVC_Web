@@ -14,7 +14,11 @@ import org.apache.ibatis.annotations.Mapper;
 import wizard.eVC.infoMgmt.infoAdd.dto.InfoAddDetailDto;
 import wizard.eVC.infoMgmt.infoSearch.dto.InfoSearchDto;
 
+
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
 
 @Mapper
 public interface InfoSearchMapper {

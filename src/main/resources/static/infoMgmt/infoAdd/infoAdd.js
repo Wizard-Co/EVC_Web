@@ -51,6 +51,18 @@ $('#infoTable').on('dblclick', 'tr', function () {
     }
 
     openForm('infoAddDetail', '/infoMgmt/infoAdd/update?mode=update', param, '');
+
+    //선택한 행을 다시 선택하면 선택 해제
+    if( $(this).hasClass('selected') ) {
+        $(this).removeClass('selected');
+        selectedRow = null;
+    }
+    else {
+        infoTable.$('tr.selected').removeClass('selected');
+        $(this).addClass('selected');
+        selectedRow = infoTable.row(this).data();
+    }
+
 })
 
 //조회 클릭 이벤트
@@ -70,6 +82,7 @@ document.getElementById('btnAdd').addEventListener('click', function () {
 /*상세 클릭 이벤트*/
 document.getElementById('btnDetail').addEventListener('click', function () {
     //선택한 행이 없는 경우 메세지창
+
     if(infoTable.rows(".selected").data().length == 0){
         alert('선택한 데이터가 없습니다. \r\n데이터를 선택한 후에 진행 해주세요.');
     }
@@ -115,7 +128,6 @@ document.getElementById('btnDelete').addEventListener('click', function () {
                            }
             );
     }
-
 })
 
 /*엑셀 이벤트*/
@@ -304,8 +316,6 @@ function getDate(gbn){
             document.querySelector("#inputEDateSearch").value = formattedLastDay;
 
         }
-
-
 }
 
 /*로드시 전체 자동 체크표시*/
@@ -315,7 +325,7 @@ function checkboxGbn(){
     let chkAll = document.querySelector("#chkAllGbn");
     let chkPerson = document.querySelector("#chkPersonGbn");
     chkDate.checked = true;
-    chkAll.checked = true;
+    chkAll.checked = false;
     chkPerson.checked = false;
 }
 
@@ -419,15 +429,15 @@ const infoTable = $('#infoTable').DataTable({
     columns: [
         {data: "rn", className:'center'} ,                      /*순번*/
         {data: "infoID", className: 'center'},                  /*공지번호*/
-        {data: "allYNName", className: 'left'},               /*구분이름*/
-        {data: "fromDate", className: 'left'},                /*시작일*/
-        {data: "toDate", className: 'left'},                  /*종료일*/
-        {data: "info", className: 'left'},                    /*공지내용*/
-        {data: "personName", className: 'left'},              /*공지대상자*/
-        {data: "attachFile", className: 'left'},              /*첨부문서*/
-        {data: "attachPath", className: 'left'},              /*첨부문서경로*/
-        {data: "hitCount", className: 'right'},                /*조회수*/
-        {data: "createUser", className: 'left'},              /*작성자*/
+        {data: "allYNName", className: 'center'},               /*구분이름*/
+        {data: "fromDate", className: 'center'},                /*시작일*/
+        {data: "toDate", className: 'center'},                  /*종료일*/
+        {data: "info", className: 'center'},                    /*공지내용*/
+        {data: "personName", className: 'center'},              /*공지대상자*/
+        {data: "attachFile", className: 'center'},              /*첨부문서*/
+        {data: "attachPath", className: 'center'},              /*첨부문서경로*/
+        {data: "hitCount", className: 'center'},                /*조회수*/
+        {data: "createUser", className: 'center'},              /*작성자*/
         {data: "createDate", className: 'center'},              /*작성일*/
     ],
 

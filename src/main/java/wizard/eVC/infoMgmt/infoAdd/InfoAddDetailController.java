@@ -12,14 +12,15 @@ package wizard.eVC.infoMgmt.infoAdd;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-import wizard.eVC.common.util.FTP;
+
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import wizard.eVC.infoMgmt.infoAdd.dto.InfoAddDetailDto;
+import wizard.eVC.common.util.FTP;
 
 import java.io.IOException;
+import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -43,9 +44,8 @@ public class InfoAddDetailController {
 
         // attachFileDetail file 타입 file upload 저장
         // attachFile string 타입 DB 저장
-        // attachPath string 타입 DB 저장
         //파일이름 입력 안 하면 true, 파일이름 입력하면 false
-        if(!infoAddDetailDto.getAttachFileDetail().isEmpty()){
+        if(!infoAddDetailDto.getAttachFile().isEmpty()){
             infoAddDetailDto.setAttachFile(infoAddDetailDto.getAttachFileDetail().getOriginalFilename());
             infoAddDetailDto.setAttachPath(FTPPATH + "/");
         }
@@ -96,8 +96,8 @@ public class InfoAddDetailController {
         else{
             //수정 안 했으면 삭제 여부 확인
             //빈칸이면 삭제로 판단
-            if(infoAddDetailDto.attachFile.isEmpty()){
-                //파일 삭제 TODO
+            if(infoAddDetailDto.getAttachFile().isEmpty() && !infoAddDetailDto.getDeleteAttachFile().isEmpty()){
+                //파일 삭제
                 infoAddDetailDto.setAttachFile("");
                 infoAddDetailDto.setAttachPath("");
                 ftp.deleteFile(infoAddDetailDto.getDeleteAttachFile(),FTPPATH + "/" + infoID + "/");
@@ -132,8 +132,8 @@ public class InfoAddDetailController {
     //왼쪽 그리드
     @PostMapping("/infoLeftPersonData")
     @ResponseBody
-    public List<InfoAddDetailDto> getInfoLeftPersonData(@RequestBody Map<String, Object> param) {
-        List<InfoAddDetailDto> getInfoLeftPersonData = ifadService.getInfoLeftPersonDataList(param);
+    public List<InfoAddDetailDto> getInfoLeftPersonData() {
+        List<InfoAddDetailDto> getInfoLeftPersonData = ifadService.getInfoLeftPersonDataList();
         return getInfoLeftPersonData;
     }
 

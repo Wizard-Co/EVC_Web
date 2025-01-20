@@ -11,6 +11,7 @@ import wizard.eVC.common.util.FTP;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -143,6 +144,14 @@ public class ArticleService {
                 article.setSketch2File(oldArticle.getSketch2File());
                 article.setSketch2Path(oldArticle.getSketch2Path());
                 break;
+            case 3:
+                article.setSketch3File(oldArticle.getSketch3File());
+                article.setSketch3Path(oldArticle.getSketch3Path());
+                break;
+            case 4:
+                article.setSketch4File(oldArticle.getSketch4File());
+                article.setSketch4Path(oldArticle.getSketch4Path());
+                break;
         }
     }
 
@@ -159,6 +168,14 @@ public class ArticleService {
             case 2:
                 article.setSketch2File(fileName);
                 article.setSketch2Path(filePath);
+                break;
+            case 3:
+                article.setSketch3File(fileName);
+                article.setSketch3Path(filePath);
+                break;
+            case 4:
+                article.setSketch4File(fileName);
+                article.setSketch4Path(filePath);
                 break;
         }
     }
@@ -199,6 +216,11 @@ public class ArticleService {
             throws IOException {
         ftp.showImage(filename, filepath, response);
     }
+
+    public List<LinkedHashMap<String, Object>> gethsFinder(HashMap<String, Object> param) {
+        return mapper.gethsFinder(param);
+    }
+
 }
 
 

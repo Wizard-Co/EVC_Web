@@ -126,7 +126,7 @@
                                 </td>
                                 </td>
                                 <td class="col-md-2">
-                                    <label>부품분류</label>
+                                    <label>품목분류</label>
                                 </td>
                                 <td colspan="2" class="left">
                                     <select class="form-control display-inline-block" th:field="*{partTypeID}">
@@ -169,7 +169,8 @@
                                     <label>hs코드</label>
                                 </td>
                                 <td colspan="2" class="left">
-                                    <input type="text" class="form-control" th:field="*{hsCode}">
+                                    <input type="text" class="form-control" th:field="*{hsCode}" readonly>
+                                    <input type="text" class="form-control" id="hsCodeID" hidden>
                                 </td>
                             </tr>
                             <tr>
@@ -217,7 +218,7 @@
                                 </td>
                             </tr>
                         </table>
-                        <table class="table table-bordered text-center" style="border-top: 0px transparent">
+                        <table class="table table-bordered text-center display-none" style="border-top: 0px transparent">
                             <tr>
                                 <td class="w50px">
                                     <label>내경</label>
@@ -298,7 +299,7 @@
                                     <input type="text" class="form-control" th:field="*{comments}">
                                 </td>
                             </tr>
-                            <tr>
+                            <tr class="display-none">
                                 <td class="col-md-2">
                                     <label>공정패턴</label>
                                 </td>
@@ -312,85 +313,153 @@
                         </table>
                         <span class="form-result float-start"></span>
                     </div>
-                    <div style="width: 25%;">
-                        <div id="divProcess" class="mb-1" style="height: 50%">
-                            <div class="form-notice"><b>*</b>생산공정 선택</div>
-                            <div class="form-border">
-                                <table class="table table-bordered text-center table-light-info">
-                                    <thead>
-                                    <th>No</th>
-                                    <th>선택</th>
-                                    <th>공정</th>
-                                    </thead>
-                                    <tbody>
-                                    <tr th:each="option,i : ${cboProcess}">
-                                        <td th:text="${i.index}"></td>
-                                        <td>
-                                            <input type="checkbox" class="v-middle" th:value="${option.processID}"
-                                                   th:name="|articleProcessList[${i.index}].processID|"
-                                                   th:checked=" ${mode == 'update'} ? ${#lists.contains(apList, option.processID)}">
-                                        </td>
-                                        <td th:text="${option.process}"></td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                    <div style="width: 30%;">
+                        <!--                        <div id="divProcess" class="mb-1" style="height: 50%">-->
+                        <!--                            <div class="form-notice"><b>*</b>생산공정 선택</div>-->
+                        <!--                            <div class="form-border">-->
+                        <!--                                <table class="table table-bordered text-start table-light-info">-->
+                        <!--                                    <thead>-->
+                        <!--                                    <th>No</th>-->
+                        <!--                                    <th>선택</th>-->
+                        <!--                                    <th>공정</th>-->
+                        <!--                                    </thead>-->
+                        <!--                                    <tbody>-->
+                        <!--                                    <tr th:each="option,i : ${cboProcess}">-->
+                        <!--                                        <td th:text="${i.index}"></td>-->
+                        <!--                                        <td>-->
+                        <!--                                            <input type="checkbox" class="v-middle" th:value="${option.processID}"-->
+                        <!--                                                   th:name="|articleProcessList[${i.index}].processID|"-->
+                        <!--                                                   th:checked=" ${mode == 'update'} ? ${#lists.contains(apList, option.processID)}">-->
+                        <!--                                        </td>-->
+                        <!--                                        <td th:text="${option.process}"></td>-->
+                        <!--                                    </tr>-->
+                        <!--                                    </tbody>-->
+                        <!--                                </table>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
 
                         <div id="divImage" style="height: 50%">
                             <div class="form-notice"><b>*</b>첨부파일 선택</div>
-                            <div class="form-border">
-                                <table class="table table-bordered text-center table-light-info">
+                            <div>
+                                <table class="table table-bordered text-start table-light-info">
                                     <tr>
-                                        <td class="left flx">
-                                            <label for="realFile" class="form-control label-file">제품<br>이미지</label>
-                                            <input type="text" th:field="*{imageFileName}" class="form-control"
-                                                   th:attr="data-path=${article.imageFilePath}"
-                                                   readonly>
-                                            <div id="mypopover" popover>
-                                                <img>
+                                        <td class="left">
+                                            <div class="flx">
+                                                <label for="realFile" class="form-control label-file">제품<br>이미지</label>
+                                                <input type="text" th:field="*{imageFileName}" class="form-control"
+                                                       th:attr="data-path=${article.imageFilePath}"
+                                                       readonly>
+                                                <div id="mypopover" popover>
+                                                    <img>
+                                                </div>
+                                                <button type="button" class="bi bi-search" popovertarget="mypopover"></button>
+                                                <button type="button" class="btnImageDel bi bi-x-lg"></button>
+
+                                                <input type="file" id="realFile" name="fileList[0]" class="fileList"
+                                                       accept="image/*" hidden>
+                                                <input type="text" name="deleteFileList[0]" data-group="delete" hidden>
                                             </div>
-                                            <button type="button" class="bi bi-search" popovertarget="mypopover"></button>
-                                            <button type="button" class="btnImageDel bi bi-x-lg"></button>
-
-                                            <input type="file" id="realFile" name="fileList[0]" class="fileList"
-                                                   accept="image/*" hidden>
-                                            <input type="text" name="deleteFileList[0]" data-group="delete" hidden>
-
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="left flx">
-                                            <label for="realFile2" class="form-control label-file">작업<br>표준서1</label>
-                                            <input type="text" th:field="*{sketch1File}" class="form-control"
-                                                   th:attr="data-path=${article.sketch1Path}"
-                                                   readonly>
-                                            <div id="mypopover2" popover>
-                                                <img>
-                                            </div>
-                                            <button type="button" class="bi bi-search" popovertarget="mypopover2"></button>
-                                            <button type="button" class="btnImageDel bi bi-x-lg"></button>
-
-                                            <input type="file" id="realFile2" name="fileList[1]" class="fileList"
-                                                   accept="image/*" hidden>
-                                            <input type="text" name="deleteFileList[1]" data-group="delete" hidden>
+                                        <td>
+                                            <input type="text" class="form-control" th:field="*{imageFileAlias}">
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td class="left flx">
-                                            <label for="realFile3" class="form-control label-file">작업<br>표준서2</label>
-                                            <input type="text" th:field="*{sketch2File}" class="form-control"
-                                                   th:attr="data-path=${article.sketch2Path}"
-                                                   readonly>
-                                            <div id="mypopover3" popover>
-                                                <img>
-                                            </div>
-                                            <button type="button" class="bi bi-search" popovertarget="mypopover3"></button>
-                                            <button type="button" class="btnImageDel bi bi-x-lg"></button>
+                                        <td class="left">
+                                            <div class="flx">
+                                                <label for="realFile2" class="form-control label-file">작업<br>표준서1</label>
+                                                <input type="text" th:field="*{sketch1File}" class="form-control"
+                                                       th:attr="data-path=${article.sketch1Path}"
+                                                       readonly>
+                                                <div id="mypopover2" popover>
+                                                    <img>
+                                                </div>
+                                                <button type="button" class="bi bi-search" popovertarget="mypopover2"></button>
+                                                <button type="button" class="btnImageDel bi bi-x-lg"></button>
 
-                                            <input type="file" id="realFile3" name="fileList[2]" class="fileList"
-                                                   accept="image/*" hidden>
-                                            <input type="text" name="deleteFileList[2]" data-group="delete" hidden>
+                                                <input type="file" id="realFile2" name="fileList[1]" class="fileList"
+                                                       accept="image/*" hidden>
+                                                <input type="text" name="deleteFileList[1]" data-group="delete" hidden>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="text" class="form-control" th:field="*{sketch1Alias}">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="left">
+                                            <div class="flx">
+                                                <label for="realFile3" class="form-control label-file">작업<br>표준서2</label>
+                                                <input type="text" th:field="*{sketch2File}" class="form-control"
+                                                       th:attr="data-path=${article.sketch2Path}"
+                                                       readonly>
+                                                <div id="mypopover3" popover>
+                                                    <img>
+                                                </div>
+                                                <button type="button" class="bi bi-search" popovertarget="mypopover3"></button>
+                                                <button type="button" class="btnImageDel bi bi-x-lg"></button>
+
+                                                <input type="file" id="realFile3" name="fileList[2]" class="fileList"
+                                                       accept="image/*" hidden>
+                                                <input type="text" name="deleteFileList[2]" data-group="delete" hidden>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="text" class="form-control" th:field="*{sketch2Alias}">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="left">
+                                            <div class="flx">
+                                                <label for="realFile4" class="form-control label-file">작업<br>표준서3</label>
+                                                <input type="text" th:field="*{sketch3File}" class="form-control"
+                                                       th:attr="data-path=${article.sketch3Path}"
+                                                       readonly>
+                                                <div id="mypopover4" popover>
+                                                    <img>
+                                                </div>
+                                                <button type="button" class="bi bi-search" popovertarget="mypopover4"></button>
+                                                <button type="button" class="btnImageDel bi bi-x-lg"></button>
+
+                                                <input type="file" id="realFile4" name="fileList[3]" class="fileList"
+                                                       accept="image/*" hidden>
+                                                <input type="text" name="deleteFileList[3]" data-group="delete" hidden>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="text" class="form-control" th:field="*{sketch3Alias}">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="left">
+                                            <div class="flx">
+                                                <label for="realFile5" class="form-control label-file">작업<br>표준서4</label>
+                                                <input type="text" th:field="*{sketch4File}" class="form-control"
+                                                       th:attr="data-path=${article.sketch4Path}"
+                                                       readonly>
+                                                <div id="mypopover5" popover>
+                                                    <img>
+                                                </div>
+                                                <button type="button" class="bi bi-search" popovertarget="mypopover5"></button>
+                                                <button type="button" class="btnImageDel bi bi-x-lg"></button>
+
+                                                <input type="file" id="realFile5" name="fileList[4]" class="fileList"
+                                                       accept="image/*" hidden>
+                                                <input type="text" name="deleteFileList[4]" data-group="delete" hidden>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input type="text" class="form-control" th:field="*{sketch4Alias}">
                                         </td>
                                     </tr>
                                 </table>

@@ -22,6 +22,9 @@ let filePath;
 //변경 여부
 let updateYN = 'N';
 
+//port 번호
+let port = window.location.port;
+
 //메세지 숨김 여부
 const element = document.getElementById('hiddenTimer');
 
@@ -38,7 +41,6 @@ document.querySelector("#btnSearch").addEventListener("click", function() {searc
 
 });  //조회
 
-//TODO 정리해야 됨
 //엑셀 클릭 이벤트
 document.querySelector("#btnExcel").addEventListener("click", function() {
                                                                             let dataheader = []; //테이블 헤더
@@ -124,7 +126,7 @@ $(document).on('click', '.btn-download', function(){
     fileName = rowData.attachFile;
     filePath = rowData.attachPath;
 
-    location.href = "http://localhost:8080/infoMgmt/infoSearch/download?filePath=" + encodeURI(filePath) + "&fileName=" + encodeURI(fileName);
+    location.href = `http://localhost:${port}/infoMgmt/infoSearch/download?filePath=` + encodeURI(filePath) + "&fileName=" + encodeURI(fileName);
 
 });
 
@@ -360,9 +362,9 @@ const infoAttachFileTable = $('#infoAttachFileTable').DataTable({
     columns: [
         {data: "rn", className:'center'} ,                      /*순번*/
         {data: "infoID", className: 'center'},                  /*공지번호*/
-        {data: "allYNName", className: 'left'},               /*구분이름*/
-        {data: "fromDate", className: 'left'},                /*시작일*/
-        {data: "toDate", className: 'left'},                  /*종료일*/
+        {data: "allYNName", className: 'center'},               /*구분이름*/
+        {data: "fromDate", className: 'center'},                /*시작일*/
+        {data: "toDate", className: 'center'},                  /*종료일*/
         {data: "attachFile",  //버튼과 데이터 같이 생성
             defaultContent: '',
             render: function(data, type, row, meta) {

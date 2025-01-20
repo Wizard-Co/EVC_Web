@@ -1,20 +1,14 @@
 package wizard.eVC.baseMgmt.basecode;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.http.ResponseEntity;
 import wizard.eVC.baseMgmt.basecode.dto.basecodeDTO;
+import wizard.eVC.baseMgmt.basecode.dto.tableDataDTO;
+import wizard.eVC.baseMgmt.depart.DTO.Depart;
 
 import java.util.List;
 import java.util.Map;
-/**
- * packageName      : wizard.naDaum.baseMgmt.basecode
- * fileName         : basecodeMapper
- * author           : daehyun
- * date             : 2024-10-15
- * ======================================================
- * DATE             AUTHOR               NOTE
- * ------------------------------------------------------
- * 2024-10-15       Daehyun             최초 생성
- */
 
 @Mapper
 public interface basecodeMapper {
@@ -25,3 +19,6 @@ public interface basecodeMapper {
     void deleteBasecodeDetail(String codeTypeID, String codeID);
 
 }
+
+
+

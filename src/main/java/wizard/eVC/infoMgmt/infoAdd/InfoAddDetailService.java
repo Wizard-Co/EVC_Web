@@ -66,12 +66,12 @@ public class InfoAddDetailService {
 
     //왼쪽 그리드
     @Transactional
-    public List<InfoAddDetailDto> getInfoLeftPersonDataList(Map<String, Object> param) {
+    public List<InfoAddDetailDto> getInfoLeftPersonDataList() {
         try {
-            List<InfoAddDetailDto> list = ifadMapper.xp_person_sPerson_infoSave(param);
+            List<InfoAddDetailDto> list = ifadMapper.xp_person_sPerson_infoSave();
             return list;
         }catch (Exception e){
-            throw new UserException("오류 관리자에게 문의",e.getCause().toString(),"xp_person_sPerson_infoSave", System.getProperty("user.name") ,"admin", param);
+            throw new UserException("오류 관리자에게 문의",e.getCause().toString(),"xp_person_sPerson_infoSave", System.getProperty("user.name") ,"admin", "");
         }
     }
 

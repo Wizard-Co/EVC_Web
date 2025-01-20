@@ -18,7 +18,7 @@
     <!-- 공지사항 개별 등록시 왼쪽 사원 그리드 -->
     <select id="xp_person_sPerson_infoSave" statementType="CALLABLE" resultType="wizard.eVC.infoMgmt.infoAdd.dto.InfoAddDetailDto"
             parameterType="map">
-        { call xp_person_sPerson_infoSave(#{mainWorkYN, javaType=String, jdbcType=VARCHAR, mode=IN})}
+        { call xp_person_sPerson_infoSave()}
     </select>
 
     <!-- 공지사항 개별 등록시 오른쪽 사원 그리드 -->

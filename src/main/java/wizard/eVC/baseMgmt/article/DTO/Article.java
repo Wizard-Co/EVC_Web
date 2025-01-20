@@ -47,21 +47,31 @@ public class Article {
     public double outQtyPerBox;
     public String unitTypeID;
     public String unitType; // 그냥 단위
-    public String imageFileName;
 
+    public String imageFileName;
+    public String imageFileAlias;
     public String imageFilePath;
+
     public String sketch1File;
+    public String sketch1Alias;
     public String sketch1Path;
-    public String sketch2File;;
+
+    public String sketch2File;
+    public String sketch2Alias;
     public String sketch2Path;
 
-    public String sketch3File;;
+    public String sketch3File;
+    public String sketch3Alias;
     public String sketch3Path;
-    public String sketch4File;;
-    public String sketch4Path;
-    public String sketch5File;;
 
+    public String sketch4File;
+    public String sketch4Alias;
+    public String sketch4Path;
+
+    public String sketch5File;
+    public String sketch5Alias;
     public String sketch5Path;
+
     public String labelPrintYN;
     public String buyUnitTypeID;
     public double buyUnitPrice; //매입단가

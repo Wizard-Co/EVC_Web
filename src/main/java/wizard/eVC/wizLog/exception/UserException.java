@@ -13,7 +13,13 @@ package wizard.eVC.wizLog.exception;
 
 import lombok.Data;
 
+import lombok.EqualsAndHashCode;
+
+import java.util.Map;
+
 @Data
+@EqualsAndHashCode(callSuper=false)
+
 public class UserException extends RuntimeException{
     public String userMessage;  //사용자 메세지
     public String message;      //오류 메세지

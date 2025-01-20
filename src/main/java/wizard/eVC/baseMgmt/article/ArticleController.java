@@ -13,8 +13,7 @@ import wizard.eVC.common.CMService;
 import wizard.eVC.common.dto.CMCode;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * packageName      : wizard.eVC.baseMgmt.article.DTO
@@ -39,7 +38,7 @@ public class ArticleController {
         List<CMCode> cboArticleType = cmService.getCmCode("ArticleType"); //품명그룹
         List<CMCode> cboProductType = cmService.getCmCode("CMPRDGRPID"); //제품군
         List<CMCode> cboSupplyType = cmService.getCmCode("CMMASPLTYPE"); //공급유형
-        List<CMCode> cboPartType = cmService.getCmCode("PARTGBNID"); //부품분류
+        List<CMCode> cboPartType = cmService.getCmCode("PARTGBNID"); //품목분류
         List<CMCode> cboUnitType = cmService.getCmCode("MTRUNIT"); //단위
 
         List<ArticleProcess> cboProcess = service.getProcess("", "");
@@ -129,5 +128,30 @@ public class ArticleController {
         } catch (IOException ex) {
             ex.printStackTrace();
         }
+    }
+
+    //hscode finder
+    @GetMapping("pages/article/hsFinder")
+    public String home(Model model, @RequestParam(value = "nLarge", defaultValue = "0") int nLarge,
+                       @RequestParam(value = "sMiddle", defaultValue = "") String sMiddle) {
+
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("nLarge", nLarge);
+        params.put("sMiddle", sMiddle);
+
+        List<LinkedHashMap<String, Object>> lstpf = service.gethsFinder(params);
+
+        if (lstpf.size() != 0) {
+            List<String> lstColName = new ArrayList<>();
+            Map<String, Object> firstItem = lstpf.get(0);
+
+            for (String key : firstItem.keySet()) {
+                lstColName.add(key.trim());
+            }
+            model.addAttribute("lstpf", lstpf);
+            model.addAttribute("lstColName", lstColName);
+        }
+
+        return "/pages/baseMgmt/article/hsFinder";
     }
 }

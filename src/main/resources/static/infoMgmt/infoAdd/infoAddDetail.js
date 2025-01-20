@@ -47,8 +47,6 @@ form.addEventListener('submit', (e) => {
 document.querySelector("#chkAllGbn").addEventListener("click", function() {tbState("all")});
 document.querySelector("#chkPersonGbn").addEventListener("click", function() {tbState("person")});
 
-/*주강사 클릭 이벤트*/
-document.querySelector("#chkMain").addEventListener("click", function() {chkMainState()});
 /*저장 클릭 이벤트*/
 document.querySelector("#btnSave").addEventListener("click", function() {save('add')});
 /*수정 클릭 이벤트*/
@@ -197,9 +195,6 @@ function checkboxGbn(gbn){
         chkAll.checked = true;
         chkPerson.checked = false;
     }
-
-    let chkMain = document.querySelector("#chkMain");
-    chkMain.checked = true;
 }
 
 /*왼쪽 사원 트리 데이터, 조건 주강사 여부 추가하여 파라미터 사용*/
@@ -208,17 +203,6 @@ function leftPersonDataTree(){
     let mainWorkYN = {
                 mainWorkYN : '',
              }
-     if(chkMain.checked){
-         mainWorkYN = {
-            mainWorkYN : 'Y',
-         }
-     }
-     else{
-         mainWorkYN = {
-            mainWorkYN : 'N',
-         }
-     }
-
      $.ajax({
          type: "POST",
          url: "/infoLeftPersonData",
@@ -248,11 +232,19 @@ function leftPersonDataTree(){
                  plugins: ['wholerow','types'], // 사용할 플러그인
              })
              .bind('select_node.jstree', function(event, treeData) {
-                   // 노드 선택 이벤트
-                   // 사원 노드
-                   personNode = treeData.node;
-                   // 부모 노드
-                   departNode = $('#tree').jstree().get_node(personNode.parent)
+                 // 노드 선택 이벤트
+                 // 사원 노드
+                 personNode = treeData.node;
+                 // 부모 노드
+                 departNode = $('#tree').jstree().get_node(personNode.parent)
+
+                 // 노드 선택 이벤트
+                 // 사원 노드
+                 personNode = treeData.node;
+
+                 // 부모 노드
+                 departNode = $('#tree').jstree().get_node(personNode.parent)
+
              });
          },
          error: function(xhr, status, error) {
@@ -368,16 +360,6 @@ function tbState(gbn){
 
     }
 
-}
-
-/*주강사 이벤트 처리 함수*/
-function chkMainState(){
-    //인스턴스 제거해야 트리가 재생성 됨
-    $('#tree').jstree("destroy");
-    //트리 비우기
-    $('#tree').empty();
-
-    leftPersonDataTree();
 }
 
 /*저장 이벤트 처리 함수*/

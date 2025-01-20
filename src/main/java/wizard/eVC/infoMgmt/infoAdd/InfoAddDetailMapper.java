@@ -28,7 +28,7 @@ public interface InfoAddDetailMapper {
     InfoAddDetailDto xp_infoUS_iInfoUS(String infoID, String personID, String userID);
 
     //왼쪽 그리드
-    List<InfoAddDetailDto> xp_person_sPerson_infoSave(Map<String, Object> param);
+    List<InfoAddDetailDto> xp_person_sPerson_infoSave();
 
     //오른쪽 그리드
     List<InfoAddDetailDto> xp_infoUS_sinfoUS_infoSave(Map<String, Object> param);
