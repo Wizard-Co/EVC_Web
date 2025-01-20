@@ -2,7 +2,6 @@ package wizard.eVC.baseMgmt.customArticle.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
-import wizard.eVC.baseMgmt.basecode.dto.tableDataDTO;
 
 import java.math.BigDecimal;
 import java.util.List;
