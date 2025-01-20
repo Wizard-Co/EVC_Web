@@ -144,6 +144,14 @@ public class ArticleService {
                 article.setSketch2File(oldArticle.getSketch2File());
                 article.setSketch2Path(oldArticle.getSketch2Path());
                 break;
+            case 3:
+                article.setSketch3File(oldArticle.getSketch3File());
+                article.setSketch3Path(oldArticle.getSketch3Path());
+                break;
+            case 4:
+                article.setSketch4File(oldArticle.getSketch4File());
+                article.setSketch4Path(oldArticle.getSketch4Path());
+                break;
         }
     }
 
@@ -160,6 +168,14 @@ public class ArticleService {
             case 2:
                 article.setSketch2File(fileName);
                 article.setSketch2Path(filePath);
+                break;
+            case 3:
+                article.setSketch3File(fileName);
+                article.setSketch3Path(filePath);
+                break;
+            case 4:
+                article.setSketch4File(fileName);
+                article.setSketch4Path(filePath);
                 break;
         }
     }
