@@ -118,7 +118,7 @@
                                     <label><span class="form-notice">*</span>제품군</label>
                                 </td>
                                 <td colspan="2" class="left">
-                                    <select class="form-control display-inline-block" th:field="*{productTypeID}">
+                                    <select class="form-control display-inline-block input-necessary" th:field="*{productTypeID}">
                                         <option th:if="${#strings.isEmpty(productTypeID)}" value=""></option>
                                         <option th:each="option : ${cboProductType}"
                                                 th:value="${option.codeID}" th:text="${option.codeName}">
