@@ -107,7 +107,6 @@
                                 </td>
                                 <td colspan="2" class="left">
                                     <select class="form-control display-inline-block" th:field="*{part_attr}">
-                                        <option th:if="${#strings.isEmpty(part_attr)}" value=""></option>
                                         <option th:each="option : ${cboProductType}"
                                                 th:value="${option.codeID}" th:text="${option.codeName}">
                                     </select>
@@ -118,8 +117,7 @@
                                     <label><span class="form-notice">*</span>제품군</label>
                                 </td>
                                 <td colspan="2" class="left">
-                                    <select class="form-control display-inline-block" th:field="*{productTypeID}">
-                                        <option th:if="${#strings.isEmpty(productTypeID)}" value=""></option>
+                                    <select class="form-control display-inline-block input-necessary" th:field="*{productTypeID}">
                                         <option th:each="option : ${cboProductType}"
                                                 th:value="${option.codeID}" th:text="${option.codeName}">
                                     </select>
@@ -130,7 +128,6 @@
                                 </td>
                                 <td colspan="2" class="left">
                                     <select class="form-control display-inline-block" th:field="*{partTypeID}">
-                                        <option th:if="${#strings.isEmpty(partTypeID)}" value=""></option>
                                         <option th:each="option : ${cboPartType}"
                                                 th:value="${option.codeID}" th:text="${option.codeName}">
                                     </select>
@@ -142,7 +139,6 @@
                                 </td>
                                 <td colspan="2" class="left">
                                     <select class="form-control display-inline-block" th:field="*{unitTypeID}">
-                                        <option th:if="${#strings.isEmpty(unitTypeID)}" value=""></option>
                                         <option th:each="option : ${cboUnitType}"
                                                 th:value="${option.codeID}" th:text="${option.codeName}">
                                     </select>
@@ -197,7 +193,6 @@
                                 </td>
                                 <td class="col-md-2 left">
                                     <select class="form-control display-inline-block" th:field="*{buyUnitTypeID}">
-                                        <option th:if="${#strings.isEmpty(buyUnitTypeID)}" value=""></option>
                                         <option th:each="option : ${cboUnitType}"
                                                 th:value="${option.codeID}" th:text="${option.codeName}">
                                     </select>
@@ -211,7 +206,6 @@
                                 </td>
                                 <td class="col-md-2 left">
                                     <select class="form-control display-inline-block" th:field="*{outUnitTypeID}">
-                                        <option th:if="${#strings.isEmpty(outUnitTypeID)}" value=""></option>
                                         <option th:each="option : ${cboUnitType}"
                                                 th:value="${option.codeID}" th:text="${option.codeName}">
                                     </select>

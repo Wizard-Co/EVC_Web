@@ -151,17 +151,6 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="col-md-2">
-                                    <label>주강사 여부</label>
-                                </td>
-                                <td class="left">
-                                    <select class="form-control display-inline-block" th:field="*{mainWorkYN}">
-                                        <option value="Y">Y</option>
-                                        <option value="N">N</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
                                 <td rowspan="4" class="col-md-2">
                                     <label>주소</label>
                                 </td>
@@ -225,10 +214,7 @@
                                 <td class="left">
                                     <input type="text" class="form-control input-necessary" th:field="*{loginID}"
                                            required>
-                                    <!--                                           pattern="^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z!@#$%^&*]{6,10}$"-->
-                                    <div class="invalid-feedback">
-                                        영문 또는 영문,숫자,특수문자 조합 <br>6~10자리이상 입력해주세요.
-                                    </div>
+
                                 </td>
                                 <td class="col-md-2">
                                     <label><span class="form-notice">*</span>비밀번호</label>

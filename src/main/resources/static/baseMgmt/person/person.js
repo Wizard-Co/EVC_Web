@@ -27,8 +27,8 @@ const table = new DataTable('#table', {
         {data: "num", className: 'center'},
         {data: "personID", className: 'left'},
         {data: "name", className: 'left'},
-        {data: "departID", className: 'left', orderable: false},
-        {data: "positionID", className: 'left', orderable: false},
+        {data: "depart", className: 'left', orderable: false},
+        {data: "position", className: 'left', orderable: false},
 
         {data: "duty", className: 'left', orderable: false},
         {data: "registNo", className: 'left', orderable: false},
