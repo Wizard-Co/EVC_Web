@@ -1,0 +1,63 @@
+.search-icon{
+    width: 30px;
+    height: 30px;
+}
+
+.align-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.display-inline-block {
+    display: inline-block !important; }
+
+
+/*라벨 4자리*/
+.w11{
+    width: 11%;
+}
+
+.w75px{
+    width: 80px;
+}
+
+.b-style{
+    border: transparent;
+}
+
+.td-flx{
+  display: flex;
+}
+
+.form-border {
+    border: solid 1px #dee2e6;
+    padding: 0.5rem;
+    font-size: 13px;
+    max-height: 100%;
+}
+
+.visible {
+    visibility: visible;
+}
+
+.collapse{
+    visibility: collapse;
+}
+
+#srhTable td input{
+    border: 1px solid lightgray;
+}
+
+input[type="text"]:disabled {
+    background-color: #e9ecef;
+    opacity: 0.8;
+}
+
+/* select 필드 disabled 스타일 */
+select:disabled {
+    background-color: #e9ecef;
+    opacity: 0.8;
+    color: #6c757d;
+}
+

@@ -1,0 +1,105 @@
+<!--
+  *packageName      : templates.pages.infoMgmt.infoAdd
+  *fileName         : infoAdd.html
+  *author           : KDH
+  *date             : 2024-10-08
+  *======================================================
+  *DATE             AUTHOR               NOTE
+  *------------------------------------------------------
+  * 2024-10-08       KDH              공지사항 추가
+ -->
+
+<!--
+id : 카멜케이스 ex) chkDate
+class : 하이픈 사용 ex) page-header
+-->
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/layout}" lang="ko">
+
+<th:block layout:fragment="css">
+    <link rel="stylesheet" type="text/css" th:href="@{/infoMgmt/infoAdd/infoAdd.css}"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"> <!-- toastr 메시지 css -->
+</th:block>
+<th:block layout:fragment="script">
+    <script th:src="@{/infoMgmt/infoAdd/infoAdd.js}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script> <!-- toastr 메시지 js -->
+</th:block>
+
+<!--content-->
+<section layout:fragment="content">
+    <body>
+    <loading-form id="loading" class="display-none"></loading-form>
+    <main>
+        <div class="menu">
+            <div class="page-header">
+                ■ 공지사항등록
+            </div>
+            <div class="icon">
+                <div class="flx">
+                    <button type="button" class="btn btn-success m-r-05" id="btnAdd">등록</button>
+                    <button type="button" class="btn btn-info m-r-05" id="btnDetail">상세</button>
+                    <button type="button" class="btn btn-success" id="btnDelete">삭제</button>
+                </div>
+                <div class="flx mt-05">
+                    <button type="button" class="btn btn-info m-r-05" id="btnSearch">조회</button>
+                    <button type="button" class="btn btn-print m-r-05" id="btnExcel">엑셀</button>
+                </div>
+            </div>
+        </div>
+        <condition class="panel">
+            <div class="panel-body">
+                <div class="flx label-align">
+                    <div class="div-srh m-r-4 label-align">
+                        <label class="form-check-label" for="chkDate">
+                            공지일자
+                        </label>
+                        <input class="form-check-input lbl-srh " id="chkDate" type="checkbox">
+
+                        <input class="input-date" id="inputSDateSearch" type="date">
+                        <label> ~ </label>
+                        <input class="input-date" id="inputEDateSearch" type="date">
+
+                        <button type="button" class="btn-primary btn-date" id="preMonth">전월</button>
+                        <button type="button" class="btn-primary btn-date" id="preDay">전일</button>
+                        <button type="button" class="btn-primary btn-date" id="month">당월</button>
+                        <button type="button" class="btn-primary btn-date" id="today">금일</button>
+                    </div>
+                    <div class="div-srh m-r-4">
+                        <label class="form-check-label" for="chkAllGbn">
+                            전체
+                        </label>
+                        <input class="form-check-input lbl-srh" id="chkAllGbn" type="checkbox">
+                        <label class="form-check-label" for="chkPersonGbn">
+                            개별
+                        </label>
+                        <input class="form-check-input lbl-srh" id="chkPersonGbn" type="checkbox">
+                    </div>
+                </div>
+            </div>
+        </condition>
+        <section>
+            <table id="infoTable" class="table table-bordered text-center striped cell-border table-light-info text-align">
+                <thead>
+                <tr>
+                    <th>순</th>
+                    <th>공지번호</th>
+                    <th>구분</th> <!--전체, 개별-->
+                    <th>시작일</th>
+                    <th>종료일</th>
+                    <th>공지내용</th>
+                    <th>공지대상자</th>
+                    <th>첨부문서</th>
+                    <th>첨부문서경로</th>
+                    <th>조회수</th>
+                    <th>작성자</th>
+                    <th>작성일자</th>
+                </tr>
+                </thead>
+            </table>
+        </section>
+    </main>
+    </body>
+</section>
+</html>

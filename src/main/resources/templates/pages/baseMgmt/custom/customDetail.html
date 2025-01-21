@@ -1,0 +1,494 @@
+<!--
+패키지명 : templates\pages\baseMgmt\company\customDetail.html
+파일명: customDetail.html
+작성일: 2024-11-22
+개발자: daehyun
+***************************************************
+변경일자            변경자             변경내용
+***************************************************
+-->
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/subLayout}" lang="ko">
+
+
+<th:block layout:fragment="css">
+    <link rel="stylesheet" type="text/css" th:href="@{/baseMgmt/custom/custom.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/sysMgmt/company/company.css}"/>
+</th:block>
+<th:block layout:fragment="script">
+    <script th:src="@{/common/common.js}"></script>
+    <script th:src="@{/baseMgmt/custom/customDetail.js}"></script>
+</th:block>
+<!--content-->
+<section layout:fragment="content">
+<!--    <body>-->
+    <div id="addPop">
+        <div class="menu">
+            <div class="page-header">
+                <h3>시스템관리
+                    <span> /거래처 관리</span>
+                </h3>
+            </div>
+            <div class="icon">
+                <button type="submit" id="btnReset"  class="btn btn-success">초기화</button>
+                <button type="submit" id="btnUpdate" class="btn btn-success"  style="display: none;">수정</button>
+                <button type="submit" id="btnSave" form="addForm" class="btn btn-success" style="display: none;">저장</button>
+                <button type="button" id="btnDelete" class="btn btn-success"  style="display: none;">삭제</button>
+                <button type="button" id="btnClose" class="btn btn-print">닫기
+                </button>
+            </div>
+        </div>
+        <div id="main">
+            <form id="addForm" th:object="${customdto}" class="needs-validation" novalidate method="post">
+                <div class="flx">
+                    <div id="divForm" style="width: 72%">
+                        <span class="form-notice float-start"><b>*</b> 표시는 필수 기입 사항 입니다</span>
+                        <table id="formTable" class="table table-bordered text-center">
+                            <tbody>
+                            <tr>
+                                <td class="v-middle" colspan="1">
+                                    <label>코드</label>
+                                </td>
+                                <td class="left" colspan="1">
+                                    <input type="text" id="customID" class="form-control input-auto subtle-input pt-e-none"
+                                           th:field="*{customID}" readonly placeholder="자동 생성">
+                                </td>
+                                <td class="v-middle collapse" colspan="1">
+                                    <label>국가</label>
+                                </td>
+                                <td class="left collapse" colspan="1">
+                                    <input type="text" id="countryName" name="countryName" class="form-control subtle-input"
+                                            th:field="*{countryName}" placeholder="EnterKey를 눌러 검색"
+                                           onkeyup="if(event.key === 'Enter')PlusFinder('countryCode','countryName',55,this.value)">
+                                    <input type="hidden" id="countryCode" name="countryCode"
+                                           th:field="*{countryCode}">
+                                </td>
+                                <td class="left align-center b-style collapse"colspan="1">
+                                    <button type="button" onclick="PlusFinder('countryCode','countryName',55,getElementById('countryName').value)">
+                                        <img src="../../img/search6.png" class="search-icon">
+                                    </button>
+                                </td>
+                                <td class="v-middle" colspan="1">
+                                    <label>대표자</label>
+                                </td>
+                                <td class="left" colspan="1">
+                                    <input type="text" id="chief" class="form-control subtle-input"
+                                           th:field="*{chief}" placeholder="대표자 입력">
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="v-middle" colspan="1">
+                                    <label><span class="form-notice">*</span>상호</label>
+                                </td>
+                                <td class="left" colspan="1">
+                                    <input type="text" id="kCustom" class="form-control input-necessary subtle-input"
+                                           th:field="*{kCustom}" placeholder="상호명 입력" required>
+                                    <div class="invalid-feedback">
+                                        상호명을 입력하세요.
+                                    </div>
+                                </td>
+                                <td class="v-middle" colspan="1">
+                                    <label><span class="form-notice">*</span>사업자번호</label>
+                                </td>
+                                <td class="left" colspan="2">
+                                    <input type="text" id="customNo" class="form-control input-necessary subtle-input"
+                                           th:field="*{customNo}" placeholder="사업자번호 입력(번호만)" maxlength="12" required
+                                           oninput="setCustomnoHyphen()">
+                                    <div class="invalid-feedback">
+                                        사업자 번호를 입력하세요.
+                                    </div>
+                                </td>
+
+                                <td class="v-middle" colspan="1">
+                                    <label>거래구분</label>
+                                </td>
+                                <td class="left" colspan="1">
+                                    <select class="form-control w200px display-inline-block ct" id="cboTradeID" th:field="*{tradeID}">
+                                        <option th:each="option : ${cboTradeID}"
+                                                th:value="${option.codeID}" th:text="${option.codeName}">
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="v-middle" colspan="1">
+                                    <label>상호(영문)</label>
+                                </td>
+                                <td class="left" colspan="1">
+                                    <input type="text" id="eCustom" class="form-control subtle-input"
+                                           th:field="*{eCustom}" placeholder="상호명(영문) 입력">
+                                </td>
+                                <td class="v-middle" colspan="1">
+                                    <label>상호(약칭)</label>
+                                </td>
+                                <td class="left" colspan="2">
+                                    <input type="text" id="shortCustom" class="form-control subtle-input"
+                                           th:field="*{shortCustom}" placeholder="상호명(약칭) 입력">
+                                </td>
+                                <td class="v-middle hidden-bnr" colspan="1">
+                                    <label>기관구분</label>
+                                </td>
+                                <td class="left hidden-bnl" colspan="1">
+                                    <select class="form-control w200px display-inline-block ct" id="cboOrgGbn" th:field="*{organBnID}">
+                                        <option th:each="option : ${cboOrgGbn}"
+                                                th:value="${option.codeID}" th:text="${option.codeName}">
+                                    </select>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="v-middle" colspan="1">
+                                    <label>업태</label>
+                                </td>
+                                <td class="left" colspan="1">
+                                    <input type="text" id="condition" class="form-control subtle-input"
+                                           th:field="*{condition}" placeholder="업태 입력">
+                                </td>
+                                <td class="v-middle" colspan="1">
+                                    <label>종목</label>
+                                </td>
+                                <td class="left" colspan="2">
+                                    <input type="text" id="category" class="form-control subtle-input"
+                                           th:field="*{category}" placeholder="종목 입력">
+                                </td>
+                                <td class="v-middle" colspan="1">
+                                    <label>주력상품</label>
+                                </td>
+                                <td class="left" colspan="2">
+                                    <input type="text" id="mainItem" class="form-control subtle-input"
+                                           th:field="*{mainItem}" placeholder="주력상품 입력">
+                                </td>
+<!--                                <td class="v-middle" colspan="2">-->
+<!--                                    <label class="collapse">FTA 중점 관리</label>-->
+<!--                                </td>-->
+<!--                                <td class="left" colspan="1">-->
+<!--                                    <select class="form-control w200px display-inline-block ct collapse" id="cboFtaMgrYN" th:field="*{ftaMgrYN}">-->
+<!--                                        <option th:each="option : ${cboFtaMgrYN}"-->
+<!--                                                th:value="${option.codeID}" th:text="${option.codeName}">-->
+<!--                                    </select>-->
+<!--                                </td>-->
+                            </tr>
+
+                            <tr>
+                                <td class="v-middle" colspan="1">
+                                    <label><span class="form-notice">*</span>대표전화</label>
+                                </td>
+                                <td class="left" colspan="1">
+                                    <input type="text" id="repPhone" class="form-control input-necessary subtle-input"
+                                           th:field="*{repPhone}" placeholder="대표 전화 입력"
+                                            oninput="numericalType('repPhone')">
+                                    <div class="invalid-feedback">
+                                        대표전화나 전화번호 중 하나는 필수입니다.
+                                    </div>
+                                </td>
+                                <td class="v-middle" colspan="1">
+                                    <label><span class="form-notice">*</span>전화번호</label>
+                                </td>
+                                <td class="left" colspan="2">
+                                    <input type="text" id="phone" class="form-control input-necessary subtle-input"
+                                           th:field="*{phone}" placeholder="전화 번호 입력"
+                                           oninput="numericalType('phone')">
+                                    <div class="invalid-feedback">
+                                        대표전화나 전화번호 중 하나는 필수입니다.
+                                    </div>
+                                </td>
+                                <td class="v-middle" colspan="1">
+                                    <label>팩스번호</label>
+                                </td>
+                                <td class="left" colspan="1">
+                                    <input type="text" id="faxNo" class="form-control subtle-input"
+                                           th:field="*{faxNo}" placeholder="팩스 번호 입력"
+                                            oninput="numericalType('faxNo')">
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="col-md-2 v-middle" colspan="1">
+                                    <label><span class="form-notice">*</span>우편번호<button type="button" id="postBtn" >주소검색</button></label>
+                                    <div class="mt-2">
+                                        <input type="text" class="form-control center input-necessary subtle-input pt-e-none" name="zipcode" id="zipcode" placeholder="우편번호(검색 입력)(필수)" th:field="*{zipcode}"  readonly required/>
+                                    </div>
+                                </td>
+                                <td class="col-md-10" colspan="11">
+                                    <div class="row">
+                                        <label class="left"><span class="form-notice">*</span>도로명주소</label>
+                                        <div class="mt-2">
+                                            <input type="text" class="form-control input-necessary subtle-input pt-e-none" name="address1" id="address1" placeholder="도로명 주소(검색 입력)(필수)" th:field="*{address1}"  readonly required/>
+                                            <div class="invalid-feedback">
+                                                주소 검색을 먼저 하세요.
+                                            </div>
+                                        </div>
+                                        <div class="mt-2">
+                                            <input type="text" class="form-control input-necessary subtle-input pt-e-none" name="address2" id="address2" placeholder="건물명, 나머지 주소(필수)" th:field="*{address2}" readonly required/>
+                                            <div class="invalid-feedback">
+                                                상세 주소를 입력 하세요.
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-2">
+                                        <label class="left"><span class="form-notice">*</span>지번주소</label>
+                                        <div class="mt-2">
+                                            <input type="text" class="form-control input-necessary subtle-input pt-e-none" name="addressJiBun1" id="addressJiBun1" placeholder="지번 주소(검색 입력)(필수)" th:field="*{addressJibun1}"  readonly required/>
+                                            <div class="invalid-feedback">
+                                                주소 검색을 먼저 하세요.
+                                            </div>
+                                        </div>
+                                        <div class="mt-2">
+                                            <input type="text" class="form-control input-necessary subtle-input pt-e-none" name="addressJiBun2" id="addressJiBun2" placeholder="건물명, 나머지 주소(필수)" th:field="*{addressJibun2}"  readonly required/>
+                                            <div class="invalid-feedback">
+                                                상세 주소를 입력 하세요.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="v-middle" colspan="1">
+                                    <label>홈페이지</label>
+                                </td>
+                                <td class="left" colspan="2">
+                                    <input type="text" id="homepage" class="form-control subtle-input"
+                                           th:field="*{homepage}" placeholder="홈페이지 입력">
+                                </td>
+                                <td class="v-middle" colspan="1">
+                                    <label>E-MAIL</label>
+                                </td>
+                                <td class="left" colspan="3">
+                                    <input type="text" id="eMail" class="form-control subtle-input"
+                                           th:field="*{eMail}" oninput="isValidEmail(this)"  placeholder="이메일 입력">
+                                    <div class="invalid-feedback" id="emailError">
+                                        유효하지 않은 이메일 주소입니다.
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                               <td colspan="1" class="v-middle">
+                                   <label>비   고</label>
+                               </td>
+                                <td colspan="6">
+                                        <textarea class="form-control col-md-10 ct subtle-input"  placeholder="비고 사항 입력"
+                                                  style="resize: none" rows="3" id="comments" name="comments"
+                                                  th:field="*{comments}" maxlength="2000"
+                                                  oninput="if(this.value.length >= 2000) alert('2000자까지만 입력 가능합니다.')"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="v-middle hidden-bnr" colspan="1">
+                                    <label>지연건</label>
+                                </td>
+                                <td class="left hidden-bn" colspan="1">
+                                    <input type="text" id="delayedCount" class="form-control subtle-input"
+                                           th:field="*{delayedCount}" placeholder="지연 발생 건수 입력">
+                                </td>
+                                <td class="v-middle hidden-bn" colspan="1">
+                                    <label>불량건</label>
+                                </td>
+                                <td class="left hidden-bn" colspan="2">
+                                    <input type="text" id="defectCount" class="form-control subtle-input"
+                                           th:field="*{defectCount}" placeholder="불량 발생 건수 입력">
+                                </td>
+                                <td class="left" colspan="2">
+                                    <div class="form-check d-flex align-items-center">
+                                        <input type="checkbox" th:field="*{useYN}" class="form-check-input" id="useYN"
+                                                th:value="N"/>
+                                        <label for="useYN" class="lbl-srh">이 거래처 사용안함</label>
+                                    </div>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="divForm2" style="width: 28%; padding-left: 0.5rem;">
+                        <div id="divDamdang" style="margin-bottom: 0.5rem">
+                            <div class="form-notice">※담당자</div>
+                            <div class="form-border">
+                                <span class="mb-1"><b>담당자1</b></span>
+                                <table class="table table-bordered text-center">
+                                    <tbody>
+                                    <tr>
+                                        <td class="v-middle" style="width: 79px" colspan="1">
+                                            <label>성명</label>
+                                        </td>
+                                        <td class="left" colspan="1">
+                                            <input type="text" id="damdangName1" class="form-control subtle-input"
+                                                   th:field="*{damdangName1}" placeholder="성명 입력">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="v-middle" colspan="1">
+                                            <label>전화번호</label>
+                                        </td>
+                                        <td class="left" colspan="1">
+                                            <input type="text" id="damdangPhone1" class="form-control subtle-input"
+                                                   th:field="*{damdangPhone1}" placeholder="전화번호 입력">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="v-middle" colspan="1">
+                                            <label>직통번호</label>
+                                        </td>
+                                        <td class="left" colspan="1">
+                                            <input type="text" id="damdangDirectPhone1" class="form-control subtle-input"
+                                                   th:field="*{damdangDirectPhone1}" placeholder="직통 전화번호 입력">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="v-middle" colspan="1">
+                                            <label>비고</label>
+                                        </td>
+                                        <td colspan="1">
+                                            <textarea class="form-control subtle-input"  placeholder="비고 사항 입력"
+                                                      style="resize: none" rows="3" id="damdangComments1" name="damdangComments1"
+                                                      th:field="*{damdangComments1}"  maxlength="1000"
+                                                      oninput="if(this.value.length >= 1000) alert('1000자까지만 입력 가능합니다.')"></textarea>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                                <span class="mb-1"><b>담당자2</b></span>
+                                <table class="table table-bordered text-center">
+                                    <tbody>
+                                    <tr>
+                                        <td class="v-middle" style="width: 79px" colspan="1">
+                                            <label>성명</label>
+                                        </td>
+                                        <td class="left" colspan="1">
+                                            <input type="text" id="damdangName2" class="form-control subtle-input"
+                                                   th:field="*{damdangName2}" placeholder="성명 입력">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="v-middle" colspan="1">
+                                            <label>전화번호</label>
+                                        </td>
+                                        <td class="left" colspan="1">
+                                            <input type="text" id="damdangPhone2" class="form-control subtle-input"
+                                                   th:field="*{damdangPhone2}" placeholder="전화번호 입력">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="v-middle" colspan="1">
+                                            <label>직통번호</label>
+                                        </td>
+                                        <td class="left" colspan="1">
+                                            <input type="text" id="damdangDirectPhone2" class="form-control subtle-input"
+                                                   th:field="*{damdangDirectPhone2}" placeholder="직통 전화번호 입력">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="v-middle" colspan="1">
+                                            <label>비고</label>
+                                        </td>
+                                        <td colspan="1">
+                                            <textarea class="form-control subtle-input"  placeholder="비고 사항 입력"
+                                                      style="resize: none" rows="3" id="damdangComments2" name="damdangComments1"
+                                                      th:field="*{damdangComments2}" maxlength="1000"
+                                                      oninput="if(this.value.length >= 1000) alert('1000자까지만 입력 가능합니다.')"></textarea>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+<!--                        <div id="divZone" style="height: 50%" class="collapse">-->
+<!--                            <div class="form-border" >-->
+<!--                                <table class="table table-bordered text-center">-->
+<!--                                    <tbody>-->
+<!--                                    <tr>-->
+<!--                                        <td class="v-middle" colspan="1">-->
+<!--                                            <label>지역구분</label>-->
+<!--                                        </td>-->
+<!--                                        <td class="left" colspan="1">-->
+<!--                                            <select class="form-control w200px display-inline-block ct" id="cboZoneGbn" th:field="*{zoneGbnID}">-->
+<!--                                                <option th:each="option : ${cboZoneGbn}"-->
+<!--                                                        th:value="${option.codeID}" th:text="${option.codeName}">-->
+<!--                                            </select>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+
+<!--                                    <tr>-->
+<!--                                        <td class="v-middle" colspan="1">-->
+<!--                                            <label>등록년도</label>-->
+<!--                                        </td>-->
+<!--                                        <td class="left" colspan="1">-->
+<!--                                            <select class="form-control w150px display-inline-block ct" id="cboRegYear" th:field="*{regYear}" >-->
+<!--                                                <option th:each="option : ${cboRegYear}"-->
+<!--                                                        th:value="${option.codeID}" th:text="${option.codeName}">-->
+<!--                                            </select>-->
+<!--                                            <input type="number" class="w150px" th:field="*{regYear}" id="inputRegYear" style="display: none;"-->
+<!--                                                   max="9999" min="1000">-->
+<!--                                            <button id="btnRegYearModify" type="button" class="m-l-2">직접입력</button>-->
+<!--                                            <button id="btnRegYearUpdate" type="button" class="m-l-2">변경</button>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+
+<!--                                    <tr>-->
+<!--                                        <td class="v-middle" colspan="1">-->
+<!--                                            <label>상담경로</label>-->
+<!--                                        </td>-->
+<!--                                        <td class="left" colspan="1">-->
+<!--                                            <select class="form-control w200px display-inline-block ct" id="" th:field="*{firstContactPath}" >-->
+<!--                                                <option th:each="option : ${cboCtPath}"-->
+<!--                                                        th:value="${option.codeID}" th:text="${option.codeName}">-->
+<!--                                            </select>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+
+<!--                                    <tr>-->
+<!--                                        <td class="v-middle" colspan="1">-->
+<!--                                            <label>학교이력</label>-->
+<!--                                        </td>-->
+<!--                                        <td colspan="1">-->
+<!--                                            <textarea class="form-control subtle-input"  placeholder="학교이력 및 특이사항 입력"-->
+<!--                                                      style="resize: none" rows="3" id="customHistory" name="customHistory"-->
+<!--                                                      th:field="*{customHistory}"  maxlength="2000"-->
+<!--                                                      oninput="if(this.value.length >= 2000) alert('2000자까지만 입력 가능합니다.')"></textarea>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+
+<!--                                    <tr>-->
+<!--                                        <td class="v-middle" colspan="1">-->
+<!--                                            <label>교사이력</label>-->
+<!--                                        </td>-->
+<!--                                        <td colspan="1">-->
+<!--                                            <textarea class="form-control subtle-input"  placeholder="교사이력 및 특이사항 입력"-->
+<!--                                                      style="resize: none" rows="3" id="damdangHistory" name="damdangHistory"-->
+<!--                                                      th:field="*{damdangHistory}" maxlength="2000"-->
+<!--                                                      oninput="if(this.value.length >= 2000) alert('2000자까지만 입력 가능합니다.')"></textarea>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+
+<!--                                    <tr>-->
+<!--                                        <td class="v-middle" colspan="1">-->
+<!--                                            <label>행정메모</label>-->
+<!--                                        </td>-->
+<!--                                        <td colspan="1">-->
+<!--                                            <textarea class="form-control subtle-input"  placeholder="행정메모 및 특이사항 입력"-->
+<!--                                                      style="resize: none" rows="3" id="customJobMemo" name="customJobMemo"-->
+<!--                                                      th:field="*{customJobMemo}" maxlength="2000"-->
+<!--                                                      oninput="if(this.value.length >= 2000) alert('2000자까지만 입력 가능합니다.')"></textarea>-->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+
+<!--                                    </tbody>-->
+<!--                                </table>-->
+<!--                            </div>-->
+<!--                        </div>-->
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+<!--    </body>-->
+</section>
+</html>

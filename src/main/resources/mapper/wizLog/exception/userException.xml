@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--    설명: 사용자 예외 처리 맵퍼.xml
+        작성일: 2024.11.20
+        개발자: KDH
+        ********************************************************
+        수정일자       수정자          요청자     요청내용
+        ********************************************************
+
+
+
+-->
+
+<mapper namespace="wizard.eVC.wizLog.exception.UserExceptionMapper">
+    <!--TODO Dto 생성-->
+    <!-- 에러 로그 저장 -->
+    <!--id 값과 call 값은 프로시저 이름으로 해야 됨-->
+    <select id="xp_iErrLog" statementType="CALLABLE" resultType="wizard.eVC.wizLog.exception.dto.UserExceptionDto" parameterType="map">
+        { call WizLog.dbo.xp_iErrLog(#{nErrID, javaType=Int, jdbcType=INTEGER, mode=OUT} <!--errID-->
+        ,#{sComputer, javaType=String, jdbcType=VARCHAR, mode=IN} <!--컴퓨터이름-->
+        ,#{sUserID,javaType=String, jdbcType=VARCHAR, mode=IN} <!--userID-->
+        ,#{nErrNO, javaType=Int, jdbcType=INTEGER, mode=IN}<!--상태코드-->
+        ,#{nErrIndex, javaType=Int, jdbcType=SMALLINT, mode=IN}
+        ,#{sErrMsg, javaType=String, jdbcType=VARCHAR, mode=IN}<!--상태-->
+        )}
+    </select>
+
+    <!-- 에러 로그 저장 SUB -->
+    <select id="xp_iErrLogSub" statementType="CALLABLE" resultType="wizard.eVC.wizLog.exception.dto.UserExceptionDto" parameterType="map">
+        { call WizLog.dbo.xp_iErrLogSub(#{nErrID, javaType=int, jdbcType=INTEGER, mode=IN} <!--errID-->
+        ,#{nErrSeq,javaType=Int, jdbcType=SMALLINT, mode=IN}
+        ,#{sErrData,javaType=String, jdbcType=VARCHAR, mode=IN} <!--에러 파라미터-->
+        )}
+    </select>
+
+
+</mapper>

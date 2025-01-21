@@ -1,4 +1,4 @@
-// DataTable.type('num', 'className', '');
+/*DataTable.type('num', 'className', '');*/
 
 /**
  * 김수정, 2024
@@ -216,7 +216,7 @@ function isEmpty(str){
  */
 //#region 플러스파인더
 function PlusFinder(txtID, txtName, nLarge, sMiddle) {
-
+    console.log('PlusFinder 호출됨');
     let baseurl = "/pages/common/plusFinder";
     let url = baseurl + "?txtID=" + txtID + "&txtName=" + txtName + "&nLarge=" + nLarge + "&sMiddle=" + sMiddle;
     let encodeUrl = encodeURI(url);
@@ -229,11 +229,47 @@ function PlusFinder(txtID, txtName, nLarge, sMiddle) {
     let option = "width=" + _width + ", height=" + _height + ", top=" + _top + ", left=" + _left;
     let openPf = window.open(encodeUrl, name, option);
 
+
 }
 
 function setPlusFinderData(txtID, txtName, PfID, PfName) {
     document.getElementById(txtID).value = PfID;
     document.getElementById(txtName).value = PfName;
+}
+/**
+ * 김수정, 2024.12.05
+ * MES 프로그램 바로가기
+ * 이준협, 2024.01.09 MES 자동로그인 위해서 로직수정
+ */
+function goMES() {
+    // 세션에서 userID와 password를 가져오기 위한 GET 요청
+    fetch('/sysMgmt/userLogin/getSessionInfo', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        credentials: 'include', // 세션 쿠키 포함
+    })
+        .then(response => response.json())
+        .then(data => {
+            // 세션에서 userID와 password를 가져왔다면
+            if (data.userID && data.Password) {
+                const userID = data.userID;
+                const Password = data.Password;
+
+                console.log("Received userID:", userID, "Received Password:", Password); // 디버깅용 로그
+
+                // wizardMES2:// 프로토콜 호출
+                const url = `wizardMES2://login?userID=${encodeURIComponent(userID)}&Password=${encodeURIComponent(Password)}`;
+
+                window.location.href = url; // 해당 프로토콜 호출
+            } else {
+                console.error("로그인 정보가 부족합니다.");
+            }
+        })
+        .catch(error => {
+            console.error("API 호출 실패:", error);
+        });
 }
 
 //#endregion

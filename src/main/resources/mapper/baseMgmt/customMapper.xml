@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="wizard.eVC.baseMgmt.custom.customMapper">
+
+        <select id="getCustomList" statementType="CALLABLE" resultType="wizard.eVC.baseMgmt.custom.dto.customDTO"
+                parameterType="map">
+            {call xp_Custom_sCustom( #{sCustomID, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                     #{chkKCustom, javaType=Int, jdbcType=SMALLINT, mode=IN},
+                                     #{sKCustom, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                     #{chkOrganGbn, javaType=Int, jdbcType=SMALLINT, mode=IN},
+                                     #{sOrganGbn, javaType=String, jdbcType=CHAR, mode=IN},
+                                     #{chkTradeID, javaType=Int, jdbcType=SMALLINT, mode=IN},
+                                     #{sTradeID, javaType=String, jdbcType=CHAR, mode=IN},
+                                     #{chkChief, javaType=Int, jdbcType=SMALLINT, mode=IN},
+                                     #{sChief, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                     #{chkDamdang, javaType=Int, jdbcType=SMALLINT, mode=IN},
+                                     #{sDamdangName, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                     #{chkDamdangComments, javaType=Int, jdbcType=SMALLINT, mode=IN},
+                                     #{sDamdangComments, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                     #{chkComments, javaType=Int, jdbcType=SMALLINT, mode=IN},
+                                     #{sComments, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                     #{chkUseYN, javaType=Int, jdbcType=SMALLINT, mode=IN})
+            }
+        </select>
+
+    <select id="saveCustomDetail" statementType="CALLABLE" resultType="wizard.eVC.baseMgmt.custom.dto.customDTO"
+            parameterType="wizard.eVC.baseMgmt.custom.dto.customDTO">
+            { call xp_Custom_iCustom(#{customID, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                     #{kCustom, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                     #{eCustom, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                     #{shortCustom, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                     #{condition, javaType=String, jdbcType=VARCHAR, mode=IN},
+
+                                     #{category, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                     #{customNo, javaType=String, jdbcType=CHAR, mode=IN},
+                                     #{registID, javaType=String, jdbcType=CHAR, mode=IN},
+                                     #{chief, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                     #{zipcode, javaType=String, jdbcType=CHAR, mode=IN},
+
+                                     #{address1, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                     #{address2, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                     #{addressJibun1, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                     #{addressJibun2, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                     #{repPhone, javaType=String, jdbcType=VARCHAR, mode=IN},
+
+                                     #{phone, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                     #{faxNo, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                     #{eMail, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                     #{tradeID, javaType=String, jdbcType=CHAR, mode=IN},
+                                     #{organBnID, javaType=String, jdbcType=CHAR, mode=IN},
+
+                                     #{useYN, javaType=String, jdbcType=CHAR, mode=IN},
+                                     #{countryCode, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                     #{comments, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                     #{homepage, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                     #{mainItem, javaType=String, jdbcType=VARCHAR, mode=IN},
+
+                                     #{damdangName1, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                     #{damdangPhone1, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                     #{damdangDirectPhone1, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                     #{damdangComments1, javaType=String, jdbcType=VARCHAR, mode=IN},
+
+                                     #{damdangName2, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                     #{damdangPhone2, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                     #{damdangDirectPhone2, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                     #{damdangComments2, javaType=String, jdbcType=VARCHAR, mode=IN},
+
+
+                                     #{createUserID, javaType=String, jdbcType=CHAR, mode=IN}
+                   )}
+    </select>
+
+    <select id="updateCustomDetail" statementType="CALLABLE" resultType="wizard.eVC.baseMgmt.custom.dto.customDTO"
+            parameterType="wizard.eVC.baseMgmt.custom.dto.customDTO">
+        { call xp_Custom_uCustom(#{customID, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                 #{kCustom, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                 #{eCustom, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                 #{shortCustom, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                 #{condition, javaType=String, jdbcType=VARCHAR, mode=IN},
+
+                                 #{category, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                 #{customNo, javaType=String, jdbcType=CHAR, mode=IN},
+                                 #{registID, javaType=String, jdbcType=CHAR, mode=IN},
+                                 #{chief, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                 #{zipcode, javaType=String, jdbcType=CHAR, mode=IN},
+
+                                 #{address1, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                 #{address2, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                 #{addressJibun1, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                 #{addressJibun2, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                 #{repPhone, javaType=String, jdbcType=VARCHAR, mode=IN},
+
+                                 #{phone, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                 #{faxNo, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                 #{eMail, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                 #{tradeID, javaType=String, jdbcType=CHAR, mode=IN},
+                                 #{organBnID, javaType=String, jdbcType=CHAR, mode=IN},
+
+
+                                 #{useYN, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                 #{countryCode, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                 #{comments, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                 #{homepage, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                 #{mainItem, javaType=String, jdbcType=VARCHAR, mode=IN},
+
+
+                                 #{damdangName1, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                 #{damdangPhone1, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                 #{damdangDirectPhone1, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                 #{damdangComments1, javaType=String, jdbcType=VARCHAR, mode=IN},
+
+                                 #{damdangName2, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                 #{damdangPhone2, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                 #{damdangDirectPhone2, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                 #{damdangComments2, javaType=String, jdbcType=VARCHAR, mode=IN},
+                                 #{lastUpdateUserID, javaType=String, jdbcType=CHAR, mode=IN}
+               )}
+    </select>
+
+
+    <select id="deleteCustomDetail" statementType="CALLABLE" parameterType="String">
+    { call xp_Custom_dCustom(#{sCustomID, javaType=String, jdbcType=VARCHAR, mode=IN}
+    )}
+    </select>
+
+
+</mapper>
