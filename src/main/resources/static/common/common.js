@@ -260,7 +260,7 @@ function goMES() {
                 console.log("Received userID:", userID, "Received Password:", Password); // 디버깅용 로그
 
                 // wizardMES2:// 프로토콜 호출
-                const url = `wizardMES2://login?userID=${encodeURIComponent(userID)}&Password=${encodeURIComponent(Password)}`;
+                const url = `wizardmes1://login?userID=${encodeURIComponent(userID)}&Password=${encodeURIComponent(Password)}`;
 
                 window.location.href = url; // 해당 프로토콜 호출
             } else {

@@ -6,21 +6,21 @@
     <select id="sCustomList" parameterType="wizard.eVC.baseMgmt.customArticle.dto.LJHbasecodeDTO" resultType="wizard.eVC.baseMgmt.customArticle.dto.LJHbasecodeDTO">
         {CALL xp_Article_sArticle_Custom_sales_Test(
                 #{p.KCustom , jdbcType=VARCHAR, mode=IN},
-                #{p.BusinessTypeCode ,jdbcType=VARCHAR, mode=IN}
+                #{p.businessTypeCode ,jdbcType=VARCHAR, mode=IN}
               )}
     </select>
     <!--첫번째 젤위에있는 select  -->
     <select id="sCustomListALL" parameterType="wizard.eVC.baseMgmt.customArticle.dto.LJHbasecodeDTO" resultType="wizard.eVC.baseMgmt.customArticle.dto.LJHbasecodeDTO">
         {CALL xp_Article_sArticle_sales_Test(
                 #{p.KCustom , jdbcType=VARCHAR, mode=IN},
-                #{p.BusinessTypeCode ,jdbcType=VARCHAR, mode=IN}
+                #{p.businessTypeCode ,jdbcType=VARCHAR, mode=IN}
 
               )}
     </select>
     <!--두번째  순 품번 품명만 select -->
     <select id="sArticle" parameterType="wizard.eVC.baseMgmt.customArticle.dto.LJHbasecodeDTO" resultType="wizard.eVC.baseMgmt.customArticle.dto.LJHbasecodeDTO" >
         {CALL xp_Article_sArticle_Custom_sales_article(
-                #{p.BusinessTypeCode ,jdbcType=VARCHAR, mode=IN},
+                #{p.businessTypeCode ,jdbcType=VARCHAR, mode=IN},
                 #{p.ArticleID,jdbcType=VARCHAR, mode=IN}
               )}
 
@@ -43,7 +43,7 @@
                 #{UnitPrice, jdbcType=NUMERIC, mode=IN},
                 #{businessCommission, jdbcType=NUMERIC, mode=IN},
                 #{PersonId, jdbcType=VARCHAR, mode=IN},
-                #{iMode,jdbcType=VARCHAR,mode=IN}
+                #{Mode,jdbcType=VARCHAR,mode=IN}
               )}
     </select>
 

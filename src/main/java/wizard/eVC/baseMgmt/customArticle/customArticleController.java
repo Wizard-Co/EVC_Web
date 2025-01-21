@@ -48,21 +48,33 @@ public class customArticleController {
     @PostMapping(value = "/save")
     @ResponseBody
     @Transactional
-    public List<LJHbasecodeDTO> iArticle(@RequestBody LJHbasecodeDTO payload , HttpServletRequest request) {
-        if (payload.getInvestmentUnitPrice() == null) {
-            payload.setInvestmentUnitPrice(BigDecimal.ZERO);
-        }
-        if (payload.getUnitPrice() == null) {
-            payload.setUnitPrice(BigDecimal.ZERO);
-        }
-        if (payload.getBusinessCommission() == null) {
-            payload.setBusinessCommission(BigDecimal.ZERO);
-        }
+    public List<LJHbasecodeDTO> iArticle(@RequestBody LJHbasecodeDTO payload, HttpServletRequest request) {
+        try {
+            // Null 값에 대한 기본값 설정
+            if (payload.getInvestmentUnitPrice() == null) {
+                payload.setInvestmentUnitPrice(BigDecimal.ZERO);
+            }
+            if (payload.getUnitPrice() == null) {
+                payload.setUnitPrice(BigDecimal.ZERO);
+            }
+            if (payload.getBusinessCommission() == null) {
+                payload.setBusinessCommission(BigDecimal.ZERO);
+            }
 
-        List<LJHbasecodeDTO> dtoList = service.iArticle(payload);
+            // 서비스 호출 및 결과 반환
+            List<LJHbasecodeDTO> dtoList = service.iArticle(payload);
 
+            System.out.println("Response Payload: {}" + dtoList);;
+            log.info("Request Payload: {}", payload.toString());
 
-        return dtoList;
+            return dtoList;
+        } catch (Exception e) {
+            // 예외 발생 시 상세 로그 출력
+            log.error("Error occurred during save operation", e);
+
+            // 사용자 친화적인 에러 메시지 반환
+            throw new RuntimeException("서버 처리 중 오류가 발생했습니다. 관리자에게 문의하세요.", e);
+        }
     }
     @GetMapping(value = "/delete")
     @ResponseBody
