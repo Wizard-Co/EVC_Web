@@ -19,17 +19,17 @@ $.extend($.fn.dataTable.defaults, {
             next: ">>"
         }
     },
-    columnDefs: [
-        {
-            targets: '_all',
-            render: function (data, type, row) {
-                if ($.isNumeric(data)) {
-                    return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-                }
-                return data;
-            }
-        }
-    ],
+    // columnDefs: [
+    //     {
+    //         targets: '_all',
+    //         render: function (data, type, row) {
+    //             if ($.isNumeric(data)) {
+    //                 return data.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    //             }
+    //             return data;
+    //         }
+    //     }
+    // ],
     scrollY: true
 })
 
