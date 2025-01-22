@@ -115,4 +115,14 @@ public class PersonContoller {
         return "/pages/baseMgmt/person/user-menu";
     }
 
+    @ResponseBody
+    @GetMapping("/checkID")
+    public ResponseEntity<Boolean> checkID(String loginID) {
+        if(service.checkID(loginID)){
+            return ResponseEntity.ok(true);
+        } else {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(false);
+        }
+    }
+
 }

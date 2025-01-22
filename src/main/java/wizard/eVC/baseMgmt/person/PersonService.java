@@ -181,5 +181,10 @@ public class PersonService {
             mapper.savePersonMenu(params);
         }
     }
-
+    public boolean checkID(String loginID) {
+        int result = mapper.checkID(loginID);
+        if (result > 0) {
+            return false;
+        } else return true;
+    }
 }

@@ -14,7 +14,26 @@ let menuList = [];
 form.addEventListener('submit', (e) => {
     e.preventDefault();
 });
-
+async function checkID() {
+    try {
+        let loginID = document.getElementById('loginID');
+        let baseUrl = '/baseMgmt/person/checkID';
+        let param = new URLSearchParams({
+            loginID: loginID.value
+        });
+        let urlWithParam = `${baseUrl}?${param}`
+        const response = await fetch(urlWithParam);
+        const isAvailable = await response.json();
+        if(!isAvailable) {
+            loginID.value = '';
+            toastr.error('중복된 아이디입니다.', '오류', { positionClass: 'toast-top-right' });
+        }
+        return isAvailable;
+    } catch(error) {
+        console.error(error);
+        return null;
+    }
+}
 document.getElementById('btnUpdate').addEventListener('click', async function () {
     const result = document.querySelector('.form-result');
 
@@ -53,6 +72,7 @@ document.getElementById('btnSave').addEventListener('click', async function () {
         if (!form.checkValidity()) return;
         if (!CheckMenuList(menuList)) return;
         if (!CheckImageBeforeSave()) return;
+        if (checkID()) return;
 
         const formData = new FormData(form);
         AddFormData(menuList, formData);
