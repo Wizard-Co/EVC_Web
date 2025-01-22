@@ -154,4 +154,10 @@
         { call xp_Menu_dUserMenu(#{personID, javaType=string,jdbcType=CHAR, mode=IN},
                                  #{pgGubun, javaType=string,jdbcType=CHAR, mode=IN})}
     </select>
+
+    <select id="checkID" parameterType="String" resultType="int">
+        select result = count(*)
+        from mt_person
+        where loginID = #{loginID}
+    </select>
 </mapper>

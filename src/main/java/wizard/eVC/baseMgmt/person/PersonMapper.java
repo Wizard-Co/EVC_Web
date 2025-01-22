@@ -33,5 +33,5 @@ public interface PersonMapper {
     List<CMCode> getPosition();
     List<Menu> getMenuList(String sPgGubun);
     List<Menu> getPersonMenu(String personID, String pgGubun);
-
+    int checkID(String loginID);
 }
