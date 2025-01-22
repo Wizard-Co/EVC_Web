@@ -40,6 +40,7 @@ public class ArticleController {
         List<CMCode> cboSupplyType = cmService.getCmCode("CMMASPLTYPE"); //공급유형
         List<CMCode> cboPartType = cmService.getCmCode("PARTGBNID"); //품목분류
         List<CMCode> cboUnitType = cmService.getCmCode("MTRUNIT"); //단위
+        List<CMCode> cboPriceType = cmService.getCmCode("currency"); //화폐단위
 
         List<ArticleProcess> cboProcess = service.getProcess("", "");
         List<Map<String, Object>> cboPattern = service.getProcessPattern("");
@@ -54,6 +55,7 @@ public class ArticleController {
         model.addAttribute("cboSupplyType", cboSupplyType);
         model.addAttribute("cboPartType", cboPartType);
         model.addAttribute("cboUnitType", cboUnitType);
+        model.addAttribute("cboPriceType", cboPriceType);
     }
 
     @GetMapping("")
