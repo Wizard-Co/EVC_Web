@@ -88,18 +88,16 @@
 
             <!-- 두 번째 테이블 -->
             <div style="flex: 1;">
-                <!-- 거래처 검색 (위쪽에 배치) -->
                 <div style="display: flex; width: 100%; margin-bottom: 5px; align-items: center; gap: 10px;">
                     <div style="display: flex; flex: 1; align-items: center;">
                         <label for="KCustom" style="white-space: nowrap; margin-right: 10px;">거래처</label>
-                        <input type="text" id="KCustom" class="form-control"
-                               placeholder="거래처검색"
+                        <input type="hidden" id="customID">
+                        <input type="text" id="KCustom" class="form-control" placeholder="거래처검색"
                                style="flex: 1; border-top-right-radius: 0; border-bottom-right-radius: 0;"
-                               onkeyup="if(event.key === 'Enter') PlusFinder('CustomID', 'KCustom', 8002, this.value)">
-                        <input type="hidden" id="CustomID">
+                               onkeyup="if(event.key === 'Enter') PlusFinder('customID', 'KCustom', 8002, this.value)">
                         <button type="button" id="customSearchBtn"
                                 style="border: none; background: none; margin: 0; padding: 0;"
-                                onclick="PlusFinder('CustomID', 'KCustom', 8002, document.getElementById('KCustom').value)">
+                                onclick="PlusFinder('customID', 'KCustom', 8002, document.getElementById('KCustom').value)">
                             <img src="/img/serach6.png" alt="검색" style="width: 40px; height: 40px;">
                         </button>
                     </div>
@@ -134,6 +132,7 @@
                     </tr>
                     </tfoot>
                 </table>
+
             </div>
             </div>
 

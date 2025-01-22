@@ -536,7 +536,7 @@ function saveData() {
             document.querySelectorAll('#KCustomTable2 tbody tr').forEach(row => {
                 if (iMode === '1') {  // mode가 1일 때만 처리
                     const rowData = {
-                        CustomID: selectedRow.CustomID, // CustomID 추가
+                        CustomID: document.getElementById('customID').value, // hidden input에서 CustomID 가져오기
                         ArticleID: row.cells[7]?.innerText || '', // ArticleID 추가
                         article: row.cells[3]?.innerText || '',  // article 내용 추가
                         buyerArticleNo: row.cells[2]?.innerText || '',  // buyerArticleNo 내용 추가
@@ -551,7 +551,7 @@ function saveData() {
                 }
                 if (iMode === '2') {  // mode가 2일 때만 처리
                     const rowData = {
-                        CustomID: selectedRow.CustomID, // CustomID 추가
+                        CustomID: document.getElementById('customID').value, // hidden input에서 CustomID 가져오기
                         ArticleID: row.cells[7]?.innerText || '', // ArticleID 추가
                         article: row.cells[3]?.innerText || '',  // article 내용 추가
                         buyerArticleNo: row.cells[2]?.innerText || '',  // buyerArticleNo 내용 추가
@@ -878,12 +878,13 @@ document.querySelector('#selectAll1').addEventListener('change', function () {
     });
 });
 
-function setPlusFinderData(txtID, txtName, PfID, PfName) {
-    // 전달받은 값으로 부모창의 필드에 설정
-    document.getElementById(txtID).value = PfID;  // CustomID에 값 설정
-    document.getElementById(txtName).value = PfName;  // KCustom에 값 설정
-    selectedRow.CustomID = PfID;
-}
+    function setPlusFinderData(txtID, txtName, PfID, PfName) {
+        // 전달받은 값으로 부모창의 필드에 설정
+        document.getElementById(txtID).value = PfID;  // CustomID에 값 설정
+        document.getElementById(txtName).value = PfName;  // KCustom에 값 설정
+
+        // selectedRow 관련 코드 제거
+    }
 
 
 
