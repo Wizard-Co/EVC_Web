@@ -31,7 +31,7 @@ public class LJHbasecodeDTO {
 
     public String PersonId;
 
-    public int iMode; // 수정 시 =2 추가시 =1  로직 을다르게 하기위한 코드
+    public int Mode; // 수정 시 =2 추가시 =1  로직 을다르게 하기위한 코드
 
     @JsonProperty("InvestmentUnitPrice")
     private BigDecimal InvestmentUnitPrice = BigDecimal.ZERO;
@@ -39,8 +39,8 @@ public class LJHbasecodeDTO {
     @JsonProperty("UnitPrice")
     private BigDecimal UnitPrice = BigDecimal.ZERO;
 
-    @JsonProperty("BusinessCommission")
-    private BigDecimal BusinessCommission = BigDecimal.ZERO;
+    @JsonProperty("businessCommission")
+    private BigDecimal businessCommission = BigDecimal.ZERO;
 
     private List<LJHtableDataDTO> tableData;
 

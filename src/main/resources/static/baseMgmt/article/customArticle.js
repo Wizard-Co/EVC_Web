@@ -1,16 +1,17 @@
-/**
- *설명          :
- *작성일         : 2024.월.일
- *개발자         : LJH
- *======================================================
- *DATE             AUTHOR               NOTE
- *------------------------------------------------------
- *2024.월.일       LJH                  최초 생성
- **/
+
+    /**
+     *설명          :
+     *작성일         : 2024.월.일
+     *개발자         : LJH
+     *======================================================
+     *DATE             AUTHOR               NOTE
+     *------------------------------------------------------
+     *2024.월.일       LJH                  최초 생성
+     **/
 
 let KCustomTable; // DataTable 객체를 전역으로 선언
 let selectedRow;
-let iMode ='1'; // 수정 추가 insert 문
+let Mode ='1'; // 수정 추가 insert 문
 let isSearching = false; // 팝업창 띄울때 중복 엔터 방지
 let isPlusFinderOpen = false;
 let isToggled = false; // 토글 상태 관리 변수
@@ -52,21 +53,21 @@ function initializeDataTable() {
     });
 }
 
-    // function checkAndShowPersonIDInput() {
-    //     var sessionPersonID = $('#sessionPersonID').val().trim();
-    //
-    //     if (!sessionPersonID) {
-    //         console.log("세션 PersonID를 찾을 수 없습니다.");
-    //         window.location.href='/'
-    //         return ;
-    //     }
-    //     // User 객체 문자열에서 personID 값을 추출
-    //     var match = sessionPersonID.match(/personID=(\w+)\s*,/);
-    //     var extractedPersonID = match ? match[1].trim() : null;
-    //
-    //     console.log("추출된 PersonID:", extractedPersonID);
-    // }
-    // checkAndShowPersonIDInput();
+// function checkAndShowPersonIDInput() {
+//     var sessionPersonID = $('#sessionPersonID').val().trim();
+//
+//     if (!sessionPersonID) {
+//         console.log("세션 PersonID를 찾을 수 없습니다.");
+//         window.location.href='/'
+//         return ;
+//     }
+//     // User 객체 문자열에서 personID 값을 추출
+//     var match = sessionPersonID.match(/personID=(\w+)\s*,/);
+//     var extractedPersonID = match ? match[1].trim() : null;
+//
+//     console.log("추출된 PersonID:", extractedPersonID);
+// }
+// checkAndShowPersonIDInput();
 
 function attachTableEvents() {
     // DataTable이 초기화된 후 tbody 요소가 동적으로 생성되므로, rows().nodes()로 접근
@@ -100,12 +101,12 @@ function attachTableEvents() {
                     };
 
                     // selectedRow에서 BusinessTypeCode를 확인하고 해당 값을 찾거나 '알 수 없음'을 기본값으로 사용
-                    const businessTypeValue = businessTypeMap[selectedRow.BusinessTypeCode] || '알 수 없음';
+                    const businessTypeValue = businessTypeMap[selectedRow.businessTypeCode] || '알 수 없음';
 
                     // 서버에 전송할 파라미터 설정
                     let param = {
                         CustomID: selectedRow.CustomID,
-                        BusinessType: businessTypeValue  // 비즈니스 유형 값 추가
+                        businessType: businessTypeValue  // 비즈니스 유형 값 추가
                     };
 
                     console.log("서버에 전송할 데이터:", param);
@@ -314,25 +315,25 @@ function mainBtnSetting() {
 
             saveBtn.disabled = true;
 
-            showModal();
+            // showModal();
         });
 
     }
     //모달 표시함수
-    function showModal() {
-        const modal = document.getElementById("saveModal");
-        const backdrop = document.getElementById("modalBackdrop");
-
-        modal.style.display = "block";
-        backdrop.style.display = "block";
-
-        const closeModalBtn = document.getElementById("closeModalBtn");
-        closeModalBtn.addEventListener("click", () => {
-            modal.style.display = "none";
-            backdrop.style.display = "none";
-        }
-        );
-    }
+    // function showModal() {
+    //     const modal = document.getElementById("saveModal");
+    //     const backdrop = document.getElementById("modalBackdrop");
+    //
+    //     modal.style.display = "block";
+    //     backdrop.style.display = "block";
+    //
+    //     const closeModalBtn = document.getElementById("closeModalBtn");
+    //     closeModalBtn.addEventListener("click", () => {
+    //             modal.style.display = "none";
+    //             backdrop.style.display = "none";
+    //         }
+    //     );
+    // }
     if(btnDelete){
         btnDelete.addEventListener("click", function(){
             btnDelete.disabled =true;
@@ -407,7 +408,7 @@ function saveData() {
                         buyerArticleNo: row.cells[1]?.innerText || '',  // buyerArticleNo 내용 추가
                         InvestmentUnitPrice: row.cells[3]?.querySelector('input')?.value || '',  // 투자 단가
                         UnitPrice: row.cells[4]?.querySelector('input')?.value || '',  // 단가
-                        BusinessCommission: row.cells[5]?.querySelector('input')?.value || '',  // 사업 수수료
+                        businessCommission: row.cells[5]?.querySelector('input')?.value || '',  // 사업 수수료
                         PersonId: "admin", // 사용자 ID
                         mode: iMode  // mode는 1
                     };
@@ -422,9 +423,9 @@ function saveData() {
                         buyerArticleNo: row.cells[1]?.innerText || '',  // buyerArticleNo 내용 추가
                         InvestmentUnitPrice: row.cells[3]?.querySelector('input')?.value || '',  // 투자 단가
                         UnitPrice: row.cells[4]?.querySelector('input')?.value || '',  // 단가
-                        BusinessCommission: row.cells[5]?.querySelector('input')?.value || '',  // 사업 수수료
+                        businessCommission: row.cells[5]?.querySelector('input')?.value || '',  // 사업 수수료
                         PersonId: "admin", // 사용자 ID
-                        mode: iMode  // mode는 2
+                        mode: "2"  // mode는 2
                     };
                     console.log("Row Data (mode 2):", rowData); // mode 2일 때 rowData 출력
                     tableData.push(rowData); // tableData에 추가
@@ -433,7 +434,7 @@ function saveData() {
         }
 
         // #KCustomTable2가 비어있으면 CustomID만 서버로 전송 (mode === '2'일 때만)
-        if (isTableEmpty && iMode === '2') {
+        if (isTableEmpty &&  mode==='2') {
             const rowData = {
                 CustomID: selectedRow.CustomID, // CustomID 추가
                 ArticleID: null,  // ArticleID는 비워둠
@@ -445,7 +446,7 @@ function saveData() {
         }
         // 각각의 데이터를 개별적으로 서버로 전송
         tableData.forEach((rowData) => {
-            fetch('/baseMgmt/customArticle/save', {
+            fetch('/article/customArticle/save', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -555,8 +556,9 @@ function Search() {
 
     let param = {
         KCustom: document.getElementById('KCustom').value,
-        BusinessTypeCode: document.getElementById('BusinessTypeCode').value
+        businessTypeCode: document.getElementById('businessTypeCode').value
     };
+
 
     // URL 설정 (토글 상태에 따라 변경)
     const currentURL = isToggled ? "/article/customArticle/allCustomArticle" : "/article/customArticle/search";
@@ -660,7 +662,7 @@ function updateTable2(data, businessTypeCode) {
                 <td>${item.article || ''}</td>
                 <td>${item.InvestmentUnitPrice || ''}</td>
                 <td>${item.UnitPrice || ''}</td>
-                <td>${item.BusinessCommission || ''}</td>
+                <td>${item.businessCommission || ''}</td>
                 <td style="display:none">${item.ArticleID || ''}</td> <!-- ArticleID 추가 -->
             `;
             tbody2.appendChild(row);
@@ -676,8 +678,8 @@ function updateTable2(data, businessTypeCode) {
         const businessTypeValue = businessTypeMap[businessTypeCode] || '알 수 없음';
         document.getElementById('businessTypeCaptionValue').textContent = businessTypeValue;
 
-        // 건수 표시
-        document.querySelector('#selectCount').textContent = data.length; // 건수를 표시
+        const articleCount = data.length;
+        document.querySelector('#selectCount').textContent = articleCount; // 건수를 표시
     }
 }
 
@@ -691,7 +693,6 @@ function updateCounts() {
     const table2Count = document.querySelector('#KCustomTable2 tbody').rows.length;
     document.querySelector('#selectCount').textContent = table2Count; // 건수 표시
 }
-
 
 
 

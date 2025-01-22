@@ -17,8 +17,8 @@ public class LJHtableDataDTO {
     @JsonProperty("UnitPrice")
     private BigDecimal UnitPrice = BigDecimal.ZERO;
 
-    @JsonProperty("BusinessCommission")
-    private BigDecimal BusinessCommission = BigDecimal.ZERO;
+    @JsonProperty("businessCommission")
+    private BigDecimal businessCommission = BigDecimal.ZERO;
     private String PersonId;
 
 
