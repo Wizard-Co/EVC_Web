@@ -129,9 +129,8 @@ function attachTableEvents() {
                         .then(data => {
                             console.log("서버에서 받은 데이터:", data); // 서버 응답 확인
                             updateTable2(data); // #KCustomTable2 업데이트
-
                             // UI 업데이트: BusinessTypeCode에 맞는 값 표시
-                            document.getElementById('businessTypeCaptionValue').textContent = businessTypeValue;
+                            // document.getElementById('businessTypeCaptionValue').textContent = businessTypeValue;
                         })
                         .catch(error => {
                             console.error("Error:", error);
@@ -147,9 +146,9 @@ function attachTableEvents() {
             if (rowElement) {
                 // 더블클릭된 행의 데이터 가져오기
                 let rowData = {
-                    buyerArticleNo: rowElement.cells[1].innerText, // 품번
-                    article: rowElement.cells[2].innerText, // 품명
-                    ArticleID: rowElement.cells[3].innerText, // 추가적인 데이터
+                    buyerArticleNo: rowElement.cells[2].innerText, // 품번
+                    article: rowElement.cells[3].innerText, // 품명
+                    ArticleID: rowElement.cells[4].innerText, // 추가적인 데이터
                 };
 
                 console.log("선택된 #KCustomTable1 행:", rowData);
@@ -171,9 +170,9 @@ function attachTableEvents() {
             let rowElement = event.target.closest('tr');
             if (rowElement) {
                 const rowData = {
-                    buyerArticleNo: rowElement.cells[1].innerText, // 품번
-                    article: rowElement.cells[2].innerText,       // 품명
-                    ArticleID: rowElement.cells[3]?.innerText || '',
+                    buyerArticleNo: rowElement.cells[2].innerText, // 품번
+                    article: rowElement.cells[3].innerText,       // 품명
+                    ArticleID: rowElement.cells[4]?.innerText || '',
                 };
 
                 // 행 추가
@@ -198,6 +197,7 @@ function addRowToTable(tbody, rowData, withInputs = true) {
     const row = document.createElement('tr');
     if (withInputs) {
         row.innerHTML = `
+            <td><input type="checkbox" class="row-checkbox"></td>
             <td>${tbody.rows.length + 1}</td>
             <td>${rowData.buyerArticleNo || ''}</td>
             <td>${rowData.article || ''}</td>
@@ -208,6 +208,7 @@ function addRowToTable(tbody, rowData, withInputs = true) {
         `;
     } else {
         row.innerHTML = `
+            <td><input type="checkbox" class="row-checkbox"></td>
             <td>${tbody.rows.length + 1}</td>
             <td>${rowData.buyerArticleNo || ''}</td>
             <td>${rowData.article || ''}</td>
@@ -219,39 +220,51 @@ function addRowToTable(tbody, rowData, withInputs = true) {
 // 화살표 버튼 클릭 시 이동
 function setupArrowButtonEvents() {
     // 오른쪽 화살표 버튼
-    document.getElementById('rightArrow').addEventListener('click', function () {
-        moveRowBetweenTables('#KCustomTable1', '#KCustomTable2');
+    document.getElementById('rightArrow').addEventListener('click', function() {
+        moveCheckedRowsBetweenTables('#KCustomTable1', '#KCustomTable2');
     });
 
-    // 왼쪽 화살표 버튼
-    document.getElementById('leftArrow').addEventListener('click', function () {
-        moveRowBetweenTables('#KCustomTable2', '#KCustomTable1');
+// 왼쪽 화살표 클릭 시: 두 번째 테이블에서 첫 번째 테이블로 이동
+    document.getElementById('leftArrow').addEventListener('click', function() {
+        moveCheckedRowsBetweenTables('#KCustomTable2', '#KCustomTable1');
     });
 }
-
-// 화살표를 클릭했을 때 행 이동 함수
-function moveRowBetweenTables(fromTableId, toTableId) {
+function moveCheckedRowsBetweenTables(fromTableId, toTableId) {
     const fromTable = document.querySelector(fromTableId);
     const toTable = document.querySelector(toTableId);
-    const selectedRow = fromTable.querySelector('tr.selected'); // 선택된 행
 
-    if (selectedRow) {
-        const rowData = {
-            buyerArticleNo: selectedRow.cells[1].innerText,  // 품번
-            article: selectedRow.cells[2].innerText,         // 품명
-        };
-
-        // 선택된 행 삭제
-        selectedRow.remove();
-
-        // 다른 테이블로 추가
-        addRowToTable(toTable.querySelector('tbody'), rowData, false);
-
-        // 건수 업데이트
-        updateCounts();
-    } else {
+    // 체크된 행들 가져오기
+    const checkedRows = fromTable.querySelectorAll('tbody .row-checkbox:checked');
+    if (checkedRows.length === 0) {
         alert('선택된 행이 없습니다.');
+        return;
     }
+
+    // 각 체크된 행 처리
+    checkedRows.forEach((checkbox) => {
+        const rowElement = checkbox.closest('tr'); // 체크박스가 속한 행
+
+        if (rowElement) {
+            // 행의 데이터 가져오기
+            const rowData = {
+                buyerArticleNo: rowElement.cells[2].innerText, // 품번
+                article: rowElement.cells[3].innerText,       // 품명
+                ArticleID: rowElement.cells[4]?.innerText || '' // 추가 데이터
+            };
+
+            // 테이블 간 이동 시 withInputs 조정
+            const withInputs = toTableId === '#KCustomTable2'; // 테이블 2로 이동 시 true, 테이블 1로 이동 시 false
+
+            // 이동할 테이블에 데이터 추가
+            addRowToTable(toTable.querySelector('tbody'), rowData, withInputs);
+
+            // 원래 테이블에서 행 삭제
+            rowElement.remove();
+        }
+    });
+
+    // 건수 업데이트
+    updateCounts();
 }
 
 // 테이블 행 선택을 위한 이벤트 추가
@@ -259,7 +272,7 @@ function setupRowSelection() {
     // #KCustomTable1 행 선택
     document.querySelector('#KCustomTable1 tbody').addEventListener('click', function (event) {
         const row = event.target.closest('tr');
-        if (row) {
+        if (row && event.target.type !== 'checkbox') {
             toggleRowSelection(row);
         }
     });
@@ -267,20 +280,26 @@ function setupRowSelection() {
     // #KCustomTable2 행 선택
     document.querySelector('#KCustomTable2 tbody').addEventListener('click', function (event) {
         const row = event.target.closest('tr');
-        if (row) {
+        if (row && event.target.type !== 'checkbox') {
             toggleRowSelection(row);
         }
+    });
+    document.querySelectorAll('.row-checkbox').forEach(checkbox => {
+        checkbox.addEventListener('change', function () {
+            const row = this.closest('tr');
+            if (this.checked) {
+                row.classList.add('selected');
+            } else {
+                row.classList.remove('selected');
+            }
+        });
     });
 }
 
 // 선택된 행에 클래스 토글 (선택 상태)
-function toggleRowSelection(row) {
-    const previouslySelectedRow = document.querySelector('.selected');
-    if (previouslySelectedRow && previouslySelectedRow !== row) {
-        previouslySelectedRow.classList.remove('selected');
+    function toggleRowSelection(row) {
+        row.classList.toggle('selected');
     }
-    row.classList.toggle('selected');
-}
 
 // 페이지 로딩 후 설정
 window.addEventListener('load', function () {
@@ -297,6 +316,7 @@ function mainBtnSetting() {
     const updateBtn = document.getElementById('btnUpdate');
     const btnAdd = document.getElementById('btnAdd');
     const btnDelete = document.getElementById("btnDelete");
+    const btnCancel = document.getElementById("btnCancel");
     // 검색 버튼 클릭 이벤트
     if (searchBtn) {
         console.log("btnSearch 버튼이 로드되었습니다.");
@@ -307,18 +327,7 @@ function mainBtnSetting() {
     }
 
     // 저장 버튼 클릭 이벤트
-    if (saveBtn) {
-        saveBtn.disabled = true;  // 처음에는 비활성화
-        saveBtn.addEventListener("click", function () {
-            console.log("저장 버튼 클릭됨");
-            saveData();  // 저장 로직 호출
 
-            saveBtn.disabled = true;
-
-            // showModal();
-        });
-
-    }
     //모달 표시함수
     // function showModal() {
     //     const modal = document.getElementById("saveModal");
@@ -342,7 +351,51 @@ function mainBtnSetting() {
         });
     }
 
+    if (saveBtn) {
+        saveBtn.disabled = true;  // 처음에는 비활성화
+        saveBtn.addEventListener("click", function () {
+            console.log("저장 버튼 클릭됨");
+            saveData();  // 저장 로직 호출
+
+            saveBtn.disabled = true;
+
+            // showModal();
+        });
+    }
     // 수정 버튼 클릭 이벤트
+    if (saveBtn) {
+        saveBtn.disabled = true;  // 처음에는 비활성화
+        saveBtn.addEventListener("click", function () {
+            console.log("저장 버튼 클릭됨");
+            saveData();  // 저장 로직 호출
+
+            saveBtn.disabled = true;  // 저장 후 비활성화
+
+            // 저장 후 모든 버튼을 다시 보이도록 설정
+            if (updateBtn) {
+                updateBtn.style.display = 'inline-block'; // 수정 버튼 보이도록 설정
+            }
+
+            if (btnDelete) {
+                btnDelete.style.display = 'inline-block'; // 삭제 버튼 보이도록 설정
+            }
+
+            if (searchBtn) {
+                searchBtn.style.display = 'inline-block'; // 조회 버튼 보이도록 설정
+            }
+
+            if (btnAdd) {
+                btnAdd.style.display = 'inline-block'; // 추가 버튼 보이도록 설정
+            }
+
+            // 취소 버튼은 계속 보이도록 설정
+            if (btnCancel) {
+                btnCancel.style.visibility = 'visible'; // 취소 버튼 보이도록 설정
+            }
+        });
+    }
+
+// 수정 버튼 클릭 시
     if (updateBtn) {
         updateBtn.addEventListener("click", function () {
             console.log("수정 버튼 클릭됨");
@@ -351,8 +404,31 @@ function mainBtnSetting() {
 
             // 저장 버튼 활성화
             if (saveBtn) {
-                saveBtn.disabled = false;  // 수정 모드에서만 저장 버튼 활성화
+                saveBtn.disabled = false;  // 저장 버튼 활성화
+                saveBtn.style.visibility = 'visible';  // 저장 버튼 보이도록 설정
             }
+
+            // 수정 버튼을 클릭하면 나머지 버튼 숨김 처리
+            if (btnDelete) {
+                btnDelete.style.visibility = 'hidden'; // 삭제 버튼 숨김
+            }
+
+            if (searchBtn) {
+                searchBtn.style.visibility = 'hidden'; // 조회 버튼 숨김
+            }
+
+            if (btnAdd) {
+                btnAdd.style.visibility = 'hidden'; // 추가 버튼 숨김
+            }
+
+            // 취소 버튼만 보이도록 설정
+            if (btnCancel) {
+                btnCancel.style.visibility = 'visible'; // 취소 버튼 보이도록 설정
+            }
+
+            // 저장 버튼은 보이도록 설정
+            saveBtn.style.visibility = 'visible'; // 저장 버튼 보이도록 설정
+
             // 모든 행에 대해 투자단가, 단가, 영업수수료를 입력할 수 있도록 변환
             document.querySelectorAll('#KCustomTable2 tbody tr').forEach(row => {
                 const cells = row.querySelectorAll('td');
@@ -374,15 +450,73 @@ function mainBtnSetting() {
             });
         });
     }
-    if(btnAdd){
-        btnAdd.addEventListener("click",function () {
+
+// 추가 버튼 클릭 시
+    if (btnAdd) {
+        btnAdd.addEventListener("click", function () {
             console.log("추가 버튼 클릭됨");
-            iMode = '1'; // 수정 모드로 설정
-            console.log("mode 값:", iMode); // mode 값 확인 (2로 설정되어야 합니다.)
+            iMode = '1'; // 추가 모드로 설정
+            console.log("mode 값:", iMode); // mode 값 확인 (1로 설정되어야 합니다.)
 
             // 저장 버튼 활성화
             if (saveBtn) {
-                saveBtn.disabled = false;  // 저장  모드에서만 저장 버튼 활성화
+                saveBtn.disabled = false;  // 저장 버튼 활성화
+                saveBtn.style.visibility = 'visible'; // 저장 버튼 보이도록 설정
+            }
+
+            // 추가 시 수정, 삭제, 조회 버튼 숨김 처리
+            if (updateBtn) {
+                updateBtn.style.visibility = 'hidden'; // 수정 버튼 숨김 (자리는 그대로 유지)
+            }
+
+            if (btnDelete) {
+                btnDelete.style.visibility = 'hidden'; // 삭제 버튼 숨김 (자리는 그대로 유지)
+            }
+
+            if (searchBtn) {
+                searchBtn.style.visibility = 'hidden'; // 조회 버튼 숨김 (자리는 그대로 유지)
+            }
+
+            // 취소 버튼만 보이도록 설정
+            if (btnCancel) {
+                btnCancel.style.visibility = 'visible'; // 취소 버튼 보이도록 설정
+            }
+
+            // 추가 후에는 해당 버튼만 보여주기
+            saveBtn.style.visibility = 'visible'; // 저장 버튼은 보이도록 설정
+        });
+    }
+
+// 취소 버튼 클릭 시
+    if (btnCancel) {
+        btnCancel.addEventListener("click", function () {
+            console.log("취소 버튼 클릭됨");
+
+            // 취소 시 버튼 상태를 원래대로 복원
+            if (saveBtn) {
+                saveBtn.disabled = true;  // 저장 버튼 비활성화
+            }
+
+            // 취소 후 원래대로 모든 버튼을 보이도록 설정
+            if (updateBtn) {
+                updateBtn.style.visibility = 'visible'; // 수정 버튼 보이도록 설정
+            }
+
+            if (btnDelete) {
+                btnDelete.style.visibility = 'visible'; // 삭제 버튼 보이도록 설정
+            }
+
+            if (searchBtn) {
+                searchBtn.style.visibility = 'visible'; // 조회 버튼 보이도록 설정
+            }
+
+            if (btnAdd) {
+                btnAdd.style.visibility = 'visible'; // 추가 버튼 보이도록 설정
+            }
+
+            // 취소 버튼은 계속 보이도록 설정
+            if (btnCancel) {
+                btnCancel.style.visibility = 'visible'; // 취소 버튼 보이도록 설정
             }
         });
     }
@@ -402,13 +536,13 @@ function saveData() {
             document.querySelectorAll('#KCustomTable2 tbody tr').forEach(row => {
                 if (iMode === '1') {  // mode가 1일 때만 처리
                     const rowData = {
-                        CustomID: selectedRow.CustomID, // CustomID 추가
-                        ArticleID: row.cells[6]?.innerText || '', // ArticleID 추가
-                        article: row.cells[2]?.innerText || '',  // article 내용 추가
-                        buyerArticleNo: row.cells[1]?.innerText || '',  // buyerArticleNo 내용 추가
-                        InvestmentUnitPrice: row.cells[3]?.querySelector('input')?.value || '',  // 투자 단가
-                        UnitPrice: row.cells[4]?.querySelector('input')?.value || '',  // 단가
-                        businessCommission: row.cells[5]?.querySelector('input')?.value || '',  // 사업 수수료
+                        CustomID: document.getElementById('customID').value, // hidden input에서 CustomID 가져오기
+                        ArticleID: row.cells[7]?.innerText || '', // ArticleID 추가
+                        article: row.cells[3]?.innerText || '',  // article 내용 추가
+                        buyerArticleNo: row.cells[2]?.innerText || '',  // buyerArticleNo 내용 추가
+                        InvestmentUnitPrice: row.cells[4]?.querySelector('input')?.value || '',  // 투자 단가
+                        UnitPrice: row.cells[5]?.querySelector('input')?.value || '',  // 단가
+                        businessCommission: row.cells[6]?.querySelector('input')?.value || '',  // 사업 수수료
                         PersonId: "admin", // 사용자 ID
                         mode: iMode  // mode는 1
                     };
@@ -417,13 +551,13 @@ function saveData() {
                 }
                 if (iMode === '2') {  // mode가 2일 때만 처리
                     const rowData = {
-                        CustomID: selectedRow.CustomID, // CustomID 추가
-                        ArticleID: row.cells[6]?.innerText || '', // ArticleID 추가
-                        article: row.cells[2]?.innerText || '',  // article 내용 추가
-                        buyerArticleNo: row.cells[1]?.innerText || '',  // buyerArticleNo 내용 추가
-                        InvestmentUnitPrice: row.cells[3]?.querySelector('input')?.value || '',  // 투자 단가
-                        UnitPrice: row.cells[4]?.querySelector('input')?.value || '',  // 단가
-                        businessCommission: row.cells[5]?.querySelector('input')?.value || '',  // 사업 수수료
+                        CustomID: document.getElementById('customID').value, // hidden input에서 CustomID 가져오기
+                        ArticleID: row.cells[7]?.innerText || '', // ArticleID 추가
+                        article: row.cells[3]?.innerText || '',  // article 내용 추가
+                        buyerArticleNo: row.cells[2]?.innerText || '',  // buyerArticleNo 내용 추가
+                        InvestmentUnitPrice: row.cells[4]?.querySelector('input')?.value || '',  // 투자 단가
+                        UnitPrice: row.cells[5]?.querySelector('input')?.value || '',  // 단가
+                        businessCommission: row.cells[6]?.querySelector('input')?.value || '',  // 사업 수수료
                         PersonId: "admin", // 사용자 ID
                         mode: "2"  // mode는 2
                     };
@@ -556,7 +690,7 @@ function Search() {
 
     let param = {
         KCustom: document.getElementById('KCustom').value,
-        businessTypeCode: document.getElementById('businessTypeCode').value
+        businessTypeCode: document.getElementById('businessTypeCode').value,
     };
 
 
@@ -606,57 +740,99 @@ function Search() {
         });
 }
 
-// 두 번째 fetch 요청 (전체 품목 조회)
-function fetchArticles(param) {
-    fetch("/article/customArticle/article", {
-        method: "POST", // 'POST' 방식으로 요청
-        body: JSON.stringify(param),
-        headers: {
-            "Content-Type": "application/json" // 요청 본문이 JSON 형식임을 명시
+// 개별 체크박스의 상태가 변경될 때, 전체 선택 체크박스의 상태를 업데이트
+document.querySelector('#KCustomTable1').addEventListener('change', function(event) {
+    if (event.target.classList.contains('row-checkbox')) {
+        const checkboxes = document.querySelectorAll('.row-checkbox');
+        const selectAllCheckbox = document.getElementById('selectAll');
+
+        // 모든 체크박스가 체크되었으면 전체선택 체크박스도 체크, 하나라도 체크가 안되어 있으면 해제
+        selectAllCheckbox.checked = Array.from(checkboxes).every(checkbox => checkbox.checked);
+        selectAllCheckbox.indeterminate = !selectAllCheckbox.checked && Array.from(checkboxes).some(checkbox => checkbox.checked);
+    }
+});
+
+    function handleKeyup(event, value) {
+        // 입력값을 param 객체에 추가
+        let param = {
+            KCustom: document.getElementById('KCustom').value,
+            businessTypeCode: document.getElementById('businessTypeCode').value,
+            article: value  // 입력된 품명값
+        };
+
+        if (event.key === 'Enter') {
+            fetchArticles(param);  // article 값이 param에 포함되어 서버로 넘겨짐
         }
-    })
-        .then(response => {
-            if (response.ok) {
-                return response.json(); // JSON 형식으로 응답 받기
-            } else {
-                throw new Error('Network response was not ok');
+    }
+// 두 번째 fetch 요청 (전체 품목 조회)
+    function fetchArticles(searchValue) {
+        console.log("검색어:", searchValue);
+
+        fetch("/article/customArticle/article", {
+            method: "POST", // 'POST' 방식으로 요청
+            body: JSON.stringify(searchValue),
+            headers: {
+                "Content-Type": "application/json" // 요청 본문이 JSON 형식임을 명시
             }
         })
-        .then(data => {
-            console.log("서버에서 받은 데이터:", data); // 서버 응답 확인
-            const tbody1 = document.querySelector('#KCustomTable1 tbody');
-            tbody1.innerHTML = ''; // 기존 테이블 내용 삭제
+            .then(response => {
+                if (response.ok) {
+                    return response.json(); // JSON 형식으로 응답 받기
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            })
+            .then(data => {
+                console.log("서버에서 받은 데이터:", data); // 서버 응답 확인
 
-            if (data && data.length > 0) {
-                data.forEach((item, index) => {
-                    const row = document.createElement('tr');
-                    row.innerHTML = `
-                        <td>${index + 1}</td>
-                        <td>${item.buyerArticleNo || ''}</td>
-                        <td>${item.article || ''}</td>
-                        <td style="display:none">${item.ArticleID || ''}</td>  
-                    `;
-                    tbody1.appendChild(row);
-                });
+                const tbody1 = document.querySelector('#KCustomTable1 tbody');
+                tbody1.innerHTML = ''; // 기존 테이블 내용 삭제
 
-                // 품목 건수 표시 업데이트
+                // 품목 건수 업데이트
                 const articleCount = data.length;
-                document.querySelector('#articleCountValue').textContent = articleCount; // 건수를 표시
-            }
-        })
-        .catch(error => {
-            console.error("Error:", error);
-        });
-}
+                document.querySelector('#articleCountValue').textContent = articleCount; // 건수 업데이트
 
-function updateTable2(data, businessTypeCode) {
-    const tbody2 = document.querySelector('#KCustomTable2 tbody');
-    tbody2.innerHTML = '';
+                if (data && data.length > 0) {
+                    data.forEach((item, index) => {
+                        const row = document.createElement('tr');
 
-    if (data && data.length > 0) {
-        data.forEach((item, index) => {
-            const row = document.createElement('tr');
-            row.innerHTML = `
+                        // 체크박스 추가
+                        const checkboxCell = document.createElement('td');
+                        const checkbox = document.createElement('input');
+                        checkbox.type = 'checkbox';
+                        checkbox.classList.add('row-checkbox');  // 체크박스에 클래스 추가
+                        checkbox.setAttribute('data-id', item.ArticleID);  // 각 체크박스에 ArticleID를 데이터 속성으로 추가
+
+                        // 초기 상태 설정 (전체선택 체크박스에 따라 체크 여부 설정 가능)
+                        checkbox.checked = false; // 기본적으로 체크하지 않음
+                        checkboxCell.appendChild(checkbox);
+
+                        // 나머지 데이터 행 추가
+                        row.innerHTML = `
+                    <td><input type="checkbox" class="row-checkbox" data-id="${item.ArticleID || ''}"></td> <!-- 체크박스 추가 -->
+                    <td>${index + 1}</td>
+                    <td>${item.buyerArticleNo || ''}</td>
+                    <td>${item.article || ''}</td>
+                    <td style="display:none">${item.ArticleID || ''}</td>  
+                `;
+
+                        tbody1.appendChild(row);
+                    });
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            });
+    }
+    function updateTable2(data, businessTypeCode) {
+        const tbody2 = document.querySelector('#KCustomTable2 tbody');
+        tbody2.innerHTML = '';
+
+        if (data && data.length > 0) {
+            data.forEach((item, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                <td><input type="checkbox" class="row-checkbox" data-id="${item.ArticleID || ''}"></td> <!-- 체크박스 추가 -->
                 <td>${index + 1}</td>
                 <td>${item.buyerArticleNo || ''}</td>
                 <td>${item.article || ''}</td>
@@ -665,23 +841,19 @@ function updateTable2(data, businessTypeCode) {
                 <td>${item.businessCommission || ''}</td>
                 <td style="display:none">${item.ArticleID || ''}</td> <!-- ArticleID 추가 -->
             `;
-            tbody2.appendChild(row);
-        });
+                tbody2.appendChild(row);
+            });
 
-        // BusinessTypeCode에 맞는 값 표시
-        const businessTypeMap = {
-            '01': '매입',
-            '02': '매출',
-            // 필요 시 추가 매핑
-        };
-
-        const businessTypeValue = businessTypeMap[businessTypeCode] || '알 수 없음';
-        document.getElementById('businessTypeCaptionValue').textContent = businessTypeValue;
-
-        const articleCount = data.length;
-        document.querySelector('#selectCount').textContent = articleCount; // 건수를 표시
+            // BusinessTypeCode에 맞는 값 표시
+            const businessTypeMap = {
+                '01': '매입',
+                '02': '매출',
+                // 필요 시 추가 매핑
+            };
+            const articleCount = data.length;
+            document.querySelector('#selectCount').textContent = articleCount; // 건수를 표시
+        }
     }
-}
 
 //건수 업데이트
 function updateCounts() {
@@ -693,6 +865,27 @@ function updateCounts() {
     const table2Count = document.querySelector('#KCustomTable2 tbody').rows.length;
     document.querySelector('#selectCount').textContent = table2Count; // 건수 표시
 }
+document.querySelector('#selectAll2').addEventListener('change', function () {
+    const isChecked = this.checked;
+    document.querySelectorAll('#KCustomTable2 tbody input[type="checkbox"]').forEach(checkbox => {
+        checkbox.checked = isChecked;
+    });
+});
+document.querySelector('#selectAll1').addEventListener('change', function () {
+    const isChecked = this.checked;
+    document.querySelectorAll('#KCustomTable1 tbody input[type="checkbox"]').forEach(checkbox => {
+        checkbox.checked = isChecked;
+    });
+});
+
+    function setPlusFinderData(txtID, txtName, PfID, PfName) {
+        // 전달받은 값으로 부모창의 필드에 설정
+        document.getElementById(txtID).value = PfID;  // CustomID에 값 설정
+        document.getElementById(txtName).value = PfName;  // KCustom에 값 설정
+
+        // selectedRow 관련 코드 제거
+    }
+
 
 
 

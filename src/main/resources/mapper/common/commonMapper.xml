@@ -11,7 +11,7 @@
     </select>
 
     <select id="getPlusFinder" statementType="CALLABLE" resultType="hashmap" parameterType="hashmap">
-        { call xp_Common_PlusFinder_test(#{nLarge, javaType=int,jdbcType=INTEGER, mode=IN}
+        { call xp_Common_PlusFinder(#{nLarge, javaType=int,jdbcType=INTEGER, mode=IN}
             , #{sMiddle, javaType=String, jdbcType=VARCHAR, mode=IN})}
     </select>
 

@@ -4,7 +4,7 @@
 
 <head>
     <link href="/baseMgmt/article/customArticle.css" rel="stylesheet" type="text/css">
-    <script src="/baseMgmt/article/customArticle.js"></script>
+        <script src="/baseMgmt/article/customArticle.js" defer></script>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css">
 </head>
 
@@ -35,32 +35,24 @@
         <div class="panel">
             <div class="panel-body">
                 <div class="flx">
-                    <div class="div-srh m-r-4">
-                        <label for="KCustom" class="lbl-srh">거래처</label>
-                        <input type="text" id="KCustom" class="form-control" placeholder="거래처검색">
-                    </div>
+                    <!--                    <div class="div-srh m-r-4">-->
+                    <!--                        <label for="KCustom" class="lbl-srh">거래처</label>-->
+                    <!--                        <input type="text" id="KCustom" class="form-control" placeholder="거래처검색">-->
+                    <!--                    </div>-->
                 </div>
                 <div class="flx">
-                    <div class="div-srh m-r-4">
-                        <label for="businessTypeCode" class="lbl-srh">거래처구분</label>
-                        <select id="businessTypeCode">
-                            <option value="">선택</option>
-                            <option value="전체">전체</option>
-                            <option value="대기">대기</option>
-                            <option value="완료">완료</option>
-                        </select>
-                    </div>
+                    <!--                    <div class="div-srh m-r-4">-->
+                    <!--                        <label for="businessTypeCode" class="lbl-srh">거래처구분</label>-->
+                    <!--                        <select id="businessTypeCode">-->
+                    <!--                            <option value="">선택</option>-->
+                    <!--                            <option value="전체">전체</option>-->
+                    <!--                            <option value="대기">대기</option>-->
+                    <!--                            <option value="완료">완료</option>-->
+                    <!--                        </select>-->
+                    <!--                    </div>-->
+                </div>
+                <div class="flx">
 
-                </div>
-                <div class="flx">
-                    <div class="div-srh m-r-4">
-                        <input type="text" id="article" name="article" class="form-control subtle-input"
-                               placeholder="품명검색"
-                               onkeyup="if(event.key === 'Enter')PlusFinder('articleID', 'article', 8, this.value)">
-                        <input type="hidden" id="articleID" name="articleID">
-                        <button type="button" onclick="PlusFinder('articleID', 'article', 8, this.value)">
-                        </button>
-                    </div>
                     <div id="articleResults" style="display:none;">
                         <h3>품명 조회 결과</h3>
                         <ul id="articleList">
@@ -96,22 +88,52 @@
 
             <!-- 두 번째 테이블 -->
             <div style="flex: 1;">
+                <div style="display: flex; width: 100%; margin-bottom: 5px; align-items: center; gap: 10px;">
+                    <div style="display: flex; flex: 1; align-items: center;">
+                        <label for="KCustom" style="white-space: nowrap; margin-right: 10px;">거래처</label>
+                        <input type="hidden" id="customID">
+                        <input type="text" id="KCustom" class="form-control" placeholder="거래처검색"
+                               style="flex: 1; border-top-right-radius: 0; border-bottom-right-radius: 0;"
+                               onkeyup="if(event.key === 'Enter') PlusFinder('customID', 'KCustom', 8002, this.value)">
+                        <button type="button" id="customSearchBtn"
+                                style="border: none; background: none; margin: 0; padding: 0;"
+                                onclick="PlusFinder('customID', 'KCustom', 8002, document.getElementById('KCustom').value)">
+                            <img src="/img/serach6.png" alt="검색" style="width: 40px; height: 40px;">
+                        </button>
+                    </div>
+                </div>
+                <!-- 품명 검색 (아래쪽에 배치, 크기 절반) -->
+                <div style="display: flex; width: 100%; margin-bottom: 5px;">
+                    <input type="text" id="article" name="article" class="form-control subtle-input"
+                           placeholder="품명검색"
+                           onkeyup="handleKeyup(event, this.value)"
+                           style="flex: 0.5; border-top-right-radius: 0; border-bottom-right-radius: 0;">
+                </div>
+                <div style="margin-bottom: 5px;">
+                    <label for="selectAll1" style="margin-right: 10px;">
+                        <input type="checkbox" id="selectAll1"> 전체선택
+                    </label>
                 <table id="KCustomTable1" class="striped cell-border table-light-info" style="width: 100%;">
                     <caption class="table-section-title">전체품목</caption>
                     <thead>
                     <tr>
-                        <th>순</th>
+                        <th>선택여부</th>
+                        <th>순</th> <!-- 순 번호 컬럼 -->
                         <th>품번</th>
                         <th>품명</th>
                     </tr>
                     </thead>
-                    <tbody></tbody>
+                    <tbody>
+                    <!-- 데이터는 여기에 추가됩니다 -->
+                    </tbody>
                     <tfoot>
                     <tr>
                         <td colspan="2" class="tfoot-value">건수: <span id="articleCountValue">0</span></td>
                     </tr>
                     </tfoot>
                 </table>
+
+            </div>
             </div>
 
             <!-- 화살표 버튼 -->
@@ -122,31 +144,46 @@
 
             <!-- 세 번째 테이블 -->
             <div style="flex: 1;">
-                <table id="KCustomTable2" class="striped cell-border table-light-info" style="width: 100%;">
-                    <caption class="table-section-title">선택된품목</caption>
-                    <thead>
-                    <tr>
-                        <th>순</th>
-                        <th>품번</th>
-                        <th>품명</th>
-                        <th>투자단가</th>
-                        <th>단가</th>
-                        <th>영업수수료</th>
-                    </tr>
-                    </thead>
-                    <tbody></tbody>
-                    <tfoot>
-                    <tr>
-                        <td colspan="2" class="tfoot-value">건수: <span id="selectCount">0</span></td>
-                    </tr>
-                    </tfoot>
-                </table>
-            </div>
+                <div class="div-srh m-r-4">
+                    <label for="businessTypeCode" class="lbl-srh">거래처구분</label>
+                    <select id="businessTypeCode" style="width: 200px;">
+                        <option value="01">매입</option>
+                        <option value="02">매출</option>
+                    </select>
+                </div>
+                <div>
+                    <input type="checkbox" id="selectAll2"> 전체선택
+                    <span id="selectCount2"></span>
+                    <table id="KCustomTable2" class="striped cell-border table-light-info" style="width: 100%;">
+                        <caption class="table-section-title">품목 목록</caption>
+                        <thead>
+                        <tr>
+                            <th>선택여부</th>
+                            <th>순</th> <!-- 순 번호 컬럼 -->
+                            <th>품번</th>
+                            <th>품명</th>
+                            <th>투자단가</th>
+                            <th>단가</th>
+                            <th>영업수수료</th>
+                            <th style="display:none">ArticleID</th> <!-- 숨겨진 ArticleID 컬럼 -->
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <!-- 데이터는 여기에 추가됩니다 -->
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <td colspan="7" class="tfoot-value">건수: <span id="selectCount">0</span></td>
+                        </tr>
+                        </tfoot>
+                    </table>
+            </div></div>
         </section>
     </main>
 </section>
+<script src="/baseMgmt/article/customArticle.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
-<script src="/baseMgmt/article/customArticle.js"></script>
+
 </body>
 </html>

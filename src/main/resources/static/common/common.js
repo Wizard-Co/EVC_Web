@@ -228,14 +228,24 @@ function PlusFinder(txtID, txtName, nLarge, sMiddle) {
     let _top = Math.ceil((window.screen.height - _height) / 2);
     let option = "width=" + _width + ", height=" + _height + ", top=" + _top + ", left=" + _left;
     let openPf = window.open(encodeUrl, name, option);
+    openPf.setPlusFinderData = setPlusFinderData; // 팝업에서 부모 창의 setPlusFinderData 함수에 접근할 수 있도록 설정
 
-
+    console.log('txtID:', txtID, 'txtName:', txtName);
 }
 
 function setPlusFinderData(txtID, txtName, PfID, PfName) {
-    document.getElementById(txtID).value = PfID;
-    document.getElementById(txtName).value = PfName;
+    const customIDInput = document.getElementById(txtID);
+    const kCustomInput = document.getElementById(txtName);
+
+    // customID와 kCustomInput이 존재하는지 확인
+    if (customIDInput && kCustomInput) {
+        customIDInput.value = PfID;
+        kCustomInput.value = PfName;
+    } else {
+        console.error('Cannot find the input elements with IDs:', txtID, txtName);
+    }
 }
+
 /**
  * 김수정, 2024.12.05
  * MES 프로그램 바로가기
