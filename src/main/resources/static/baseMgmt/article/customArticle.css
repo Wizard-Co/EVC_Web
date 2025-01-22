@@ -4,7 +4,7 @@
     white-space: nowrap;
     padding: 5px;
     display: inline-block; /* label과 input을 inline으로 배치 */
-    width: 100px; /* label의 고정 너비 설정 */
+
 }
 
 .div-srh {

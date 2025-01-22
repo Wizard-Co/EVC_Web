@@ -228,7 +228,7 @@ function PlusFinder(txtID, txtName, nLarge, sMiddle) {
     let _top = Math.ceil((window.screen.height - _height) / 2);
     let option = "width=" + _width + ", height=" + _height + ", top=" + _top + ", left=" + _left;
     let openPf = window.open(encodeUrl, name, option);
-
+    openPf.setPlusFinderData = setPlusFinderData; // 팝업에서 부모 창의 setPlusFinderData 함수에 접근할 수 있도록 설정
 
 }
 

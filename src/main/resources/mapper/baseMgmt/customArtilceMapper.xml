@@ -21,7 +21,8 @@
     <select id="sArticle" parameterType="wizard.eVC.baseMgmt.customArticle.dto.LJHbasecodeDTO" resultType="wizard.eVC.baseMgmt.customArticle.dto.LJHbasecodeDTO" >
         {CALL xp_Article_sArticle_Custom_sales_article(
                 #{p.businessTypeCode ,jdbcType=VARCHAR, mode=IN},
-                #{p.ArticleID,jdbcType=VARCHAR, mode=IN}
+                #{p.ArticleID,jdbcType=VARCHAR, mode=IN},
+                #{p.article,jdbcType=VARCHAR, mode=IN}
               )}
 
     </select>
