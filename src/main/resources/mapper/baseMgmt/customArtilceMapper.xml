@@ -14,7 +14,6 @@
         {CALL xp_Article_sArticle_sales_Test(
                 #{p.KCustom , jdbcType=VARCHAR, mode=IN},
                 #{p.businessTypeCode ,jdbcType=VARCHAR, mode=IN}
-
               )}
     </select>
     <!--두번째  순 품번 품명만 select -->
@@ -23,6 +22,15 @@
                 #{p.businessTypeCode ,jdbcType=VARCHAR, mode=IN},
                 #{p.ArticleID,jdbcType=VARCHAR, mode=IN},
                 #{p.article,jdbcType=VARCHAR, mode=IN}
+              )}
+
+    </select>
+    <select id="sArticleDetail" parameterType="wizard.eVC.baseMgmt.customArticle.dto.LJHbasecodeDTO" resultType="wizard.eVC.baseMgmt.customArticle.dto.LJHbasecodeDTO" >
+        {CALL xp_Article_sArticle_Custom_sales_article_Detail(
+                #{p.businessTypeCode ,jdbcType=VARCHAR, mode=IN},
+                #{p.ArticleID,jdbcType=VARCHAR, mode=IN},
+                #{p.article,jdbcType=VARCHAR, mode=IN},
+                #{p.CustomID, jdbcType=VARCHAR, mode=IN}
               )}
 
     </select>

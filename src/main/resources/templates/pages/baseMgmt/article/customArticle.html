@@ -63,7 +63,7 @@
                 <button id="toggleButton" class="toggle-button">관리품 보기</button>
             </div>
         </div>
-        <section style="display: flex; flex-direction: row; align-items: flex-start; gap: 20px;">
+        <section style="display: flex; flex-direction: row; gap: 20px;">
             <!-- 첫 번째 테이블 -->
             <div style="flex: 1;">
                 <table id="KCustomTable" class="striped cell-border table-light-info" style="width: 100%;">
@@ -108,6 +108,12 @@
                            placeholder="품명검색"
                            onkeyup="handleKeyup(event, this.value)"
                            style="flex: 0.5; border-top-right-radius: 0; border-bottom-right-radius: 0;">
+                    <button type="button" id="customArticleBtn"
+                            style="border: none; background: none; margin: 0; padding: 0;"
+                            onclick="PlusFinder('articleID', 'article', 8001, document.getElementById('article').value)">
+                        <img src="/img/serach6.png" alt="검색" style="width: 40px; height: 40px;">
+                        <input type="hidden" id="articleID">
+                    </button>
                 </div>
                 <div style="margin-bottom: 5px;">
                     <label for="selectAll1" style="margin-right: 10px;">
