@@ -100,7 +100,7 @@ public class ArticleService {
                 // 실체 파일이 없는 경우 (텍스트만 수정하는 경우 or 삭제하는 경우)
             } else { // 기존거 그대로 가는 경우
                 // 삭제리스트의 이름과 기존것의 이름이 같을 때 삭제한다.
-                if(delFilename.equals(oldfileNames.get(i))){
+                if(delFilename.equals(oldfileNames.get(i)) && !delFilename.isBlank()){
                     ftp.deleteFile(delFilename, filePath);
                     setArticleFile(i, article, "", "");
                 } else {
