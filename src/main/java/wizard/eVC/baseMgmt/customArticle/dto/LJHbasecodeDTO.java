@@ -28,9 +28,8 @@ public class LJHbasecodeDTO {
 //    public String businessCommission;
 
     public String ArticleID;
-    public int IsAlreadyExists;
-    public String PersonId;
 
+    public String PersonId;
 
     public int Mode; // 수정 시 =2 추가시 =1  로직 을다르게 하기위한 코드
 

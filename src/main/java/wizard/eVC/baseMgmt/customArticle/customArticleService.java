@@ -41,7 +41,4 @@ public class customArticleService {
     public List<LJHbasecodeDTO>sArticleDetail(Map<String, Object> p){
         return mapper.sArticleDetail(p);
     }
-    public List<LJHbasecodeDTO>checkArticle(Map<String, Object> p){
-        return mapper.checkArticle(p);
-    }
 }
