@@ -25,97 +25,36 @@ window.addEventListener('load', function () {
 });
 
 
-    function initializeDataTables() {
-        // 1번 테이블 (KCustomTable)
-        $('#KCustomTable').DataTable({
-            dom: 'Bfrtip',
-            buttons: [
-                {
-                    extend: 'excel',
-                    filename: '거래처별 품명코드',
-                    title: '거래처별 품목코드',
-                    customize: function (xlsx) {
-                        let sheet = xlsx.xl.worksheets['sheet1.xml'];
-                        $('row:first c', sheet).attr('s', '42');
-                    }
-                }
-            ],
-            columns: [
-                { data: null, className: 'center', render: (data, type, row, meta) => meta.row + 1 }, // 순번
-                { data: "KCustom", className: 'left' }, // KCustom
-                { data: "comments", className: 'left' }, // comments
-                { data: "buyerArticleNo", className: 'left' }, // buyerArticleNo
-                { data: "article", className: 'left' }, // article
-                { data: "CustomID", visible: false } // CustomID (숨김)
-            ],
-            scrollY: '50vh',
-            scrollCollapse: true,
-            paging: false
-        });
-
-        // 2번 테이블 (InvestmentTable)
-        $('#InvestmentTable').DataTable({
-            dom: 'Bfrtip',
-            buttons: [
-                {
-                    extend: 'excel',
-                    filename: '투자단가 테이블',
-                    title: '투자단가 테이블',
-                    customize: function (xlsx) {
-                        let sheet = xlsx.xl.worksheets['sheet1.xml'];
-                        $('row:first c', sheet).attr('s', '42');
-                    }
-                }
-            ],
-            columns: [
-                { data: null, className: 'center', render: (data, type, row, meta) => meta.row + 1 }, // 순번
-                { data: "buyerArticleNo", className: 'left' }, // buyerArticleNo
-                { data: "article", className: 'left' }, // article
-                { data: "InvestmentUnitPrice", className: 'left', render: data => `<input type="text" value="${data}" placeholder="투자단가">` }, // 투자단가
-                { data: "UnitPrice", className: 'left', render: data => `<input type="text" value="${data}" placeholder="단가">` }, // 단가
-                { data: "businessCommission", className: 'left', render: data => `<input type="text" value="${data}" placeholder="영업수수료">` }, // 영업수수료
-                { data: "ArticleID", visible: false } // ArticleID (숨김)
-            ],
-            scrollY: '50vh',
-            scrollCollapse: true,
-            paging: false
-        });
-
-        // 3번 테이블 (OtherTable)
-        $('#OtherTable').DataTable({
-            dom: 'Bfrtip',
-            buttons: [
-                {
-                    extend: 'excel',
-                    filename: '기타 테이블',
-                    title: '기타 테이블',
-                    customize: function (xlsx) {
-                        let sheet = xlsx.xl.worksheets['sheet1.xml'];
-                        $('row:first c', sheet).attr('s', '42');
-                    }
-                }
-            ],
-            columns: [
-                { data: null, className: 'center', render: (data, type, row, meta) => meta.row + 1 }, // 순번
-                { data: "buyerArticleNo", className: 'left' }, // buyerArticleNo
-                { data: "article", className: 'left' }, // article
-                { data: "ArticleID", visible: false } // ArticleID (숨김)
-            ],
-            scrollY: '50vh',
-            scrollCollapse: true,
-            paging: false
-        });
-    }
-
-    // 버튼 클릭 이벤트 (엑셀 다운로드)
-    document.getElementById('btnExcel').addEventListener("click", function () {
-        const dtExcel = document.querySelector('.dt-button.buttons-excel');
-        if (dtExcel) {
-            dtExcel.click();
-        } else {
-            console.error('Excel 버튼을 찾을 수 없습니다.');
-        }
+function initializeDataTable() {
+    console.log("initializeDataTable 함수 호출됨");
+    return new DataTable('#KCustomTable', {
+        buttons: [{
+            extend: 'excel',
+            filename: '거래처별 품명코드',
+            title: '거래처별 품목코드',
+            customize: function (xlsx) {
+                let sheet = xlsx.xl.worksheets['sheet1.xml'];
+                $('row:first c', sheet).attr('s', '42');
+            }
+        }],
+        columns: [
+            {data: "num", className: 'center'},
+            {data: "KCustom", className: 'left', orderable: false},
+            {data: "comments", className: 'left'},
+            {data: "buyerArticleNo", className: 'left', orderable: false},
+            {data: "article", className: 'left', orderable: false},
+            {data: "CustomID",visible:false},
+        ],
+        scrollY: '50vh',  // 세로 스크롤을 설정 (화면의 50% 높이로 제한)
+        scrollCollapse: true,
+        paging: false  // 페이지네이션 비활성화
     });
+}
+document.getElementById('btnExcel').addEventListener("click", function () {
+
+    const dtExcel = document.querySelector('.dt-button.buttons-excel')
+    dtExcel.click();
+});
 
 // function checkAndShowPersonIDInput() {
 //     var sessionPersonID = $('#sessionPersonID').val().trim();
