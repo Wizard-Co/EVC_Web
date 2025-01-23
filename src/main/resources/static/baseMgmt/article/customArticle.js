@@ -14,8 +14,7 @@ let Mode ='1'; // 수정 추가 insert 문
 let isSearching = false; // 팝업창 띄울때 중복 엔터 방지
 let isPlusFinderOpen = false;
 let isToggled = false; // 토글 상태 관리 변수
-let isProcessing = false; // 처리 중 여
-let saveBtn = true;
+let isProcessing = false; // 처리 중 여부
 
 
 window.addEventListener('load', function () {
@@ -24,7 +23,6 @@ window.addEventListener('load', function () {
     KCustomTable = initializeDataTable();  // DataTable 초기화 후 참조
     attachTableEvents();  // 테이블 관련 이벤트 설정
 });
-
 
 
 function initializeDataTable() {
@@ -52,6 +50,11 @@ function initializeDataTable() {
         paging: false  // 페이지네이션 비활성화
     });
 }
+document.getElementById('btnExcel').addEventListener("click", function () {
+
+    const dtExcel = document.querySelector('.dt-button.buttons-excel')
+    dtExcel.click();
+});
 
 // function checkAndShowPersonIDInput() {
 //     var sessionPersonID = $('#sessionPersonID').val().trim();
@@ -374,7 +377,6 @@ window.addEventListener('load', function () {
     setupArrowButtonEvents(); // 화살표 버튼 설정
     //attachTableEvents(); // 더블클릭 이벤트 설정
     setupRowSelection(); // 행 선택 설정
-    disableSaveButton(); // 저장 버튼 비활성화
 
 });
 
@@ -397,46 +399,24 @@ function mainBtnSetting() {
 
     if (btnDelete) {
         btnDelete.addEventListener("click", function () {
-            console.log("삭제 버튼 클릭됨");
-            btnDelete.disabled = true; // 버튼 비활성화
+            btnDelete.disabled = true;
+            console.log("삭제버튼 클릭됨")
             deleteData();
         });
     }
    //저장
     if (saveBtn) {
-        saveBtn.disabled = true;  // 처음에는 비활성화
         saveBtn.addEventListener("click", function () {
             console.log("저장 버튼 클릭됨");
-            saveData();  // 저장 로직 호출
 
-            // 거래처 값 확인
-            const KCustom = document.getElementById('KCustom').value;
-            const customID = document.getElementById('customID').value;
+            // 현재 두 테이블 데이터를 저장
+            saveInitialTableData();
 
-            // 저장 후 상태 처리
-            if (KCustom && customID) {
-                console.log("저장 완료: 거래처 값 있음");
+            // 저장 버튼 비활성화
+            saveBtn.disabled = true; // 저장 버튼 비활성화
 
-                // 저장 후 메시지 표시
-                alert("저장되었습니다");
-
-                // 새로고침 처리 (Search 함수 호출)
-                Search();  // 데이터 새로 조회
-                saveBtn.disabled = true;
-                // 모든 버튼을 다시 보이도록 설정
-                toggleButtonsVisibility(true);  // 모든 버튼 보이도록 설정
-            } else {
-                console.log("저장 실패: 거래처 값 없음");
-
-                // 거래처 값이 없으면 알림 메시지
-                alert("거래처가 없습니다");
-
-                // 새로고침 처리 (Search 함수 호출)
-                Search();  // 데이터 새로 조회
-
-                // 저장 버튼 다시 비활성화
-                saveBtn.disabled = true;
-            }
+            // 버튼 가시성 초기화
+            toggleButtonsVisibility(true);
         });
     }
 
@@ -573,188 +553,138 @@ document.addEventListener("DOMContentLoaded", function () {
 }
 //Article 플러스파인더
 
-    let isDeleted = false;  // 삭제 여부를 추적하는 변수
+function saveData() {
+    if (selectedRow && selectedRow.CustomID) {
+        const tableData = [];
+        const tbody2 = document.querySelector('#KCustomTable2 tbody');
 
-    function saveData() {
-        if (selectedRow && selectedRow.CustomID) {
-            const tableData = [];
-            const tbody2 = document.querySelector('#KCustomTable2 tbody');
+        // #KCustomTable2가 비어 있는지 체크
+        const isTableEmpty = tbody2 && tbody2.rows.length === 0;
 
-            // #KCustomTable2가 비어 있는지 체크
-            const isTableEmpty = tbody2.rows.length === 0;
-
-            // #KCustomTable2에 데이터가 있을 경우, 각 행을 처리
-            if (!isTableEmpty) {
-                document.querySelectorAll('#KCustomTable2 tbody tr').forEach(row => {
-                    if (iMode === '1') {  // mode가 1일 때만 처리
-                        const rowData = {
-                            CustomID: document.getElementById('customID').value, // hidden input에서 CustomID 가져오기
-                            ArticleID: row.cells[7]?.innerText || '', // ArticleID 추가
-                            article: row.cells[3]?.innerText || '',  // article 내용 추가
-                            buyerArticleNo: row.cells[2]?.innerText || '',  // buyerArticleNo 내용 추가
-                            InvestmentUnitPrice: row.cells[4]?.querySelector('input')?.value || '',  // 투자 단가
-                            UnitPrice: row.cells[5]?.querySelector('input')?.value || '',  // 단가
-                            businessCommission: row.cells[6]?.querySelector('input')?.value || '',  // 사업 수수료
-                            PersonId: "admin", // 사용자 ID
-                            mode: "1"  // mode는 1
-                        };
-                        console.log("Row Data (mode 1):", rowData); // mode 1일 때 rowData 출력
-                        tableData.push(rowData); // tableData에 추가
-                    }
-
-                    if (iMode === '2') {  // mode가 2일 때만 처리
-                        const rowData = {
-                            CustomID: document.getElementById('customID').value, // hidden input에서 CustomID 가져오기
-                            ArticleID: row.cells[7]?.innerText || null, // ArticleID 추가
-                            article: row.cells[3]?.innerText || '',  // article 내용 추가
-                            buyerArticleNo: row.cells[2]?.innerText || '',  // buyerArticleNo 내용 추가
-                            InvestmentUnitPrice: row.cells[4]?.querySelector('input')?.value || '',  // 투자 단가
-                            UnitPrice: row.cells[5]?.querySelector('input')?.value || '',  // 단가
-                            businessCommission: row.cells[6]?.querySelector('input')?.value || '',  // 사업 수수료
-                            PersonId: "admin", // 사용자 ID
-                            mode: "2"  // mode는 2
-                        };
-                        console.log("Row Data (mode 2):", rowData); // mode 2일 때 rowData 출력
-                        tableData.push(rowData); // tableData에 추가
-                    }
-                });
-            }
-
-            // #KCustomTable2가 비어있으면 CustomID만 서버로 전송 (mode === '2'일 때만)
-            if (isTableEmpty && iMode === '2') {
-                const rowData = {
-                    CustomID: selectedRow.CustomID, // CustomID 추가
-                    ArticleID: null,  // ArticleID는 비워둠
-                    PersonId: "admin",  // 사용자 ID
-                    mode: '2'  // mode는 2
-                };
-                console.log("Row Data (Empty Table):", rowData); // rowData 출력
-                tableData.push(rowData);  // tableData에 추가
-            }
-
-            // iMode가 '2'이고 삭제가 되지 않았으면, 삭제 요청
-            if (iMode === '2' && !isDeleted) {
-                const deleteData = {
-                    CustomID: selectedRow.CustomID // CustomID만 전송
-                };
-
-                fetch('/article/customArticle/delete', {
-                    method: 'POST', // 서버가 DELETE 메소드를 지원하지 않으면 POST 사용
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(deleteData) // CustomID로 삭제 요청
-                })
-                    .then(response => response.text())
-                    .then(data => {
-                        console.log("삭제 결과:", data); // 삭제 결과 출력
-
-                        // 삭제가 완료되면 isDeleted 값을 true로 설정
-                        isDeleted = true;
-
-                        // 삭제 후, 저장 요청
-                        saveNewData(tableData);
-                    })
-                    .catch(error => {
-                        console.error("삭제 요청 오류:", error);
-                    });
-            } else {
-                // iMode가 '2'가 아니거나 이미 삭제가 완료되었으면 바로 저장 진행
-                saveNewData(tableData);
-            }
-        } else {
-            console.log('저장할 항목이 선택되지 않았습니다.');
+        // #KCustomTable2에 데이터가 있을 경우, 각 행을 처리
+        if (!isTableEmpty) {
+            document.querySelectorAll('#KCustomTable2 tbody tr').forEach(row => {
+                if (iMode === '1') {  // mode가 1일 때만 처리
+                    const rowData = {
+                        CustomID: document.getElementById('customID').value, // hidden input에서 CustomID 가져오기
+                        ArticleID: row.cells[7]?.innerText || '', // ArticleID 추가
+                        article: row.cells[3]?.innerText || '',  // article 내용 추가
+                        buyerArticleNo: row.cells[2]?.innerText || '',  // buyerArticleNo 내용 추가
+                        InvestmentUnitPrice: row.cells[4]?.querySelector('input')?.value || '',  // 투자 단가
+                        UnitPrice: row.cells[5]?.querySelector('input')?.value || '',  // 단가
+                        businessCommission: row.cells[6]?.querySelector('input')?.value || '',  // 사업 수수료
+                        PersonId: "admin", // 사용자 ID
+                        mode: iMode  // mode는 1
+                    };
+                    console.log("Row Data (mode 1):", rowData); // mode 1일 때 rowData 출력
+                    tableData.push(rowData); // tableData에 추가
+                }
+                if (iMode === '2') {  // mode가 2일 때만 처리
+                    const rowData = {
+                        CustomID: document.getElementById('customID').value, // hidden input에서 CustomID 가져오기
+                        ArticleID: row.cells[7]?.innerText || '', // ArticleID 추가
+                        article: row.cells[3]?.innerText || '',  // article 내용 추가
+                        buyerArticleNo: row.cells[2]?.innerText || '',  // buyerArticleNo 내용 추가
+                        InvestmentUnitPrice: row.cells[4]?.querySelector('input')?.value || '',  // 투자 단가
+                        UnitPrice: row.cells[5]?.querySelector('input')?.value || '',  // 단가
+                        businessCommission: row.cells[6]?.querySelector('input')?.value || '',  // 사업 수수료
+                        PersonId: "admin", // 사용자 ID
+                        mode: "2"  // mode는 2
+                    };
+                    console.log("Row Data (mode 2):", rowData); // mode 2일 때 rowData 출력
+                    tableData.push(rowData); // tableData에 추가
+                }
+            });
         }
-    }
 
-    // 새로운 데이터 저장 처리
-    function saveNewData(tableData) {
-        let savePromises = []; // 저장 요청을 위한 프로미스 배열
-
-        // 각 데이터를 개별적으로 서버로 전송
+        // #KCustomTable2가 비어있으면 CustomID만 서버로 전송 (mode === '2'일 때만)
+        if (isTableEmpty &&  mode==='2') {
+            const rowData = {
+                CustomID: selectedRow.CustomID, // CustomID 추가
+                ArticleID: null,  // ArticleID는 비워둠
+                PersonId: "admin",  // 사용자 ID
+                mode: '2'  // mode는 2
+            };
+            console.log("Row Data (Empty Table):", rowData); // rowData 출력
+            tableData.push(rowData);  // tableData에 추가
+        }
+        // 각각의 데이터를 개별적으로 서버로 전송
         tableData.forEach((rowData) => {
-            let savePromise = fetch('/article/customArticle/save', {
+            fetch('/article/customArticle/save', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(rowData) // 개별 데이터 전송
+
             })
-                .then(response => response.json())  // 응답을 JSON으로 파싱
+                .then(response => {
+                    if (!response.ok) {
+                        console.log('HTTP 에러 발생: ', response);
+                        throw new Error('서버와의 통신 오류');
+                    }
+                    return response.json(); // JSON 응답 처리
+                })
                 .then(data => {
                     console.log('저장 성공:', data);
                 })
                 .catch(error => {
                     console.log('예상치 못한 오류 발생: ', error);
                 });
-
-            savePromises.push(savePromise); // 각 저장 요청을 배열에 추가
         });
 
-        // 모든 저장 요청이 완료되면 새로고침 실행
-        Promise.all(savePromises).then(() => {
-            console.log('모든 데이터 저장 완료');
-            location.reload(); // 페이지 새로고침
-        });
-    }
-
-//delete 함수
-    function deleteData() {
-        if (selectedRow && selectedRow.CustomID) {
-            const customID = selectedRow.CustomID;
-
-            if (customID) {
-                // 삭제 확인 메시지
-                const userConfirmed = confirm("삭제하시겠습니까?");
-                if (!userConfirmed) {
-                    console.log("사용자가 삭제를 취소했습니다.");
-                    return;
-                }
-
-                // 삭제 요청 데이터
-                const rowData = {
-                    CustomID: customID // 선택된 행의 CustomID
-                };
-
-                console.log("전송 데이터:", rowData);
-
-                // 서버로 삭제 요청
-                fetch('/article/customArticle/delete', {
-                    method: 'POST', // 서버가 DELETE 메소드를 지원하지 않으면 POST 사용
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(rowData) // JSON 데이터로 전송
-                })
-                    .then(response => {
-                        if (!response.ok) {
-                            console.error('HTTP 에러 발생: ', response);
-                            throw new Error('서버와의 통신 오류');
-                        }
-                        return response.json(); // JSON 응답 처리
-                    })
-                    .then(data => {
-                        console.log('삭제 성공:', data);
-                        alert('삭제가 완료되었습니다.'); // 사용자에게 알림
-                    })
-                    .catch(error => {
-                        console.error('예상치 못한 오류 발생: ', error);
-                        alert('삭제 중 오류가 발생했습니다. 다시 시도해 주세요.'); // 사용자에게 오류 알림
-                    })
-                    .finally(() => {
-                        btnDelete.disabled = false; // 버튼 활성화
-                    });
-
-                console.log('삭제 요청이 서버로 전송되었습니다:', rowData);
-            } else {
-                console.log('CustomID를 가져올 수 없습니다.');
-                btnDelete.disabled = false; // 버튼 활성화
+        // 저장 후 페이지 새로고침
+        window.addEventListener("load", () => {
+            if (typeof Search === "function") {
+                Search();
             }
-        } else {
-            console.log('삭제할 항목이 선택되지 않았습니다.');
-            btnDelete.disabled = false; // 버튼 활성화
-        }
+        });
+        console.log('저장 프로세스가 완료되었습니다.');
+    } else {
+        console.log('저장할 항목이 선택되지 않았습니다.');
     }
+}
+//delete 함수
+function deleteData() {
+    if (selectedRow && selectedRow.CustomID) {
+        const deleteDataArray = [];
+        document.querySelectorAll('#KCustomTable2 tbody tr').forEach(row => {
+            const rowData = {
+                CustomID: selectedRow.CustomID, // CustomID 추가
+                ArticleID: row.cells[6]?.innerText || '' // ArticleID
+            };
+            deleteDataArray.push(rowData);
+        });
+
+        // 각각의 데이터를 개별적으로 서버로 전송
+        deleteDataArray.forEach((rowData) => {
+            fetch('/baseMgmt/customArticle/delete', { // DELETE 요청 엔드포인트 설정
+                method: 'POST', // 서버가 DELETE 메소드를 지원하지 않으면 POST 사용
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(rowData) // JSON 데이터로 전송
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        console.log('HTTP 에러 발생: ', response);
+                        throw new Error('서버와의 통신 오류');
+                    }
+                    return response.json(); // JSON 응답 처리
+                })
+                .then(data => {
+                    console.log('삭제 성공:', data);
+                })
+                .catch(error => {
+                    console.log('예상치 못한 오류 발생: ', error);
+                });
+        });
+
+        console.log('삭제 프로세스가 완료되었습니다.');
+    } else {
+        console.log('삭제할 항목이 선택되지 않았습니다.');
+    }
+}
 
 // Search 함수 정의
 document.addEventListener('DOMContentLoaded', function () {
@@ -1054,48 +984,45 @@ function saveInitialTableData() {
 }
 
 // 두 테이블을 초기 상태로 복원
-function restoreTablesToInitialState() {
-    // 테이블 1 복원
-    const table1Body = document.querySelector('#KCustomTable1 tbody');
-    table1Body.innerHTML = ''; // 기존 내용 제거
-    originalTableData.table1Data.forEach((data, index) => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-        <td><input type="checkbox" class="row-checkbox"></td>
-        <td>${index + 1}</td>
-        <td>${data.buyerArticleNo}</td>
-        <td>${data.article}</td>
-        <td style="display:none">${data.articleID}</td>
-    `;
-        table1Body.appendChild(row);
-    });
+    function restoreTablesToInitialState() {
+        // 테이블 1 복원
+        const table1Body = document.querySelector('#KCustomTable1 tbody');
+        table1Body.innerHTML = ''; // 기존 내용 제거
+        originalTableData.table1Data.forEach((data, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+            <td><input type="checkbox" class="row-checkbox"></td>
+            <td>${index + 1}</td>
+            <td>${data.buyerArticleNo}</td>
+            <td>${data.article}</td>
+            <td style="display:none">${data.articleID}</td>
+        `;
+            table1Body.appendChild(row);
+        });
 
-    // 테이블 2 복원
-    const table2Body = document.querySelector('#KCustomTable2 tbody');
-    table2Body.innerHTML = ''; // 기존 내용 제거
-    originalTableData.table2Data.forEach((data, index) => {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-        <td><input type="checkbox" class="row-checkbox"></td>
-        <td>${index + 1}</td>
-        <td>${data.buyerArticleNo}</td>
-        <td>${data.article}</td>
-        <td>${data.investment}</td>
-        <td>${data.unitPrice}</td>
-        <td>${data.commission}</td>
-        <td style="display:none">${data.articleID}</td>
-    `;
-        table2Body.appendChild(row);
-    });
+        // 테이블 2 복원
+        const table2Body = document.querySelector('#KCustomTable2 tbody');
+        table2Body.innerHTML = ''; // 기존 내용 제거
+        originalTableData.table2Data.forEach((data, index) => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+            <td><input type="checkbox" class="row-checkbox"></td>
+            <td>${index + 1}</td>
+            <td>${data.buyerArticleNo}</td>
+            <td>${data.article}</td>
+            <td>${data.investment}</td>
+            <td>${data.unitPrice}</td>
+            <td>${data.commission}</td>
+            <td style="display:none">${data.articleID}</td>
+        `;
+            table2Body.appendChild(row);
+        });
 
-    console.log("두 테이블이 초기 상태로 복원되었습니다.");
-}
-function disableSaveButton() {
-    const saveBtn = document.getElementById('btnSave');
-    if (saveBtn) {
-        saveBtn.disabled = true; // 저장 버튼 비활성화
+        // 건수 업데이트 (기존 함수 사용)
+        updateCounts();
+
+        console.log("두 테이블이 초기 상태로 복원되었습니다.");
     }
-}
 
 
 

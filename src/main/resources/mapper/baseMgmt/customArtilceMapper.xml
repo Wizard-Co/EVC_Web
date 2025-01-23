@@ -58,8 +58,8 @@
 
     <delete id ="dArticle" parameterType="wizard.eVC.baseMgmt.customArticle.dto.LJHbasecodeDTO">
         {CALL xp_Article_dArticle_Custom_sales_Detail_Test(
-                #{CustomID,jdbcType=VARCHAR, mode=IN }
-
+                #{CustomID,jdbcType=VARCHAR, mode=IN },
+                #{ArticleID, jdbcType=VARCHAR, mode=IN}
               )}
 
     </delete>
@@ -67,13 +67,6 @@
     <select id="articleSearch" parameterType="wizard.eVC.baseMgmt.customArticle.dto.LJHbasecodeDTO" resultType= "wizard.eVC.baseMgmt.customArticle.dto.LJHbasecodeDTO" >
         {CALL xp_Article_sArticle_article (
                 #{ArticleID, jdbcType=VARCHAR , mode=IN}
-              )}
-    </select>
-
-    <select id="checkArticle" parameterType="wizard.eVC.baseMgmt.customArticle.dto.LJHbasecodeDTO" resultType= "wizard.eVC.baseMgmt.customArticle.dto.LJHbasecodeDTO" >
-        {CALL xp_Article_dArticle_Custom_sales_Check_Artcile] (
-            #{CustomID, jdbcType=VARCHAR, mode=IN},
-            #{ArticleID, jdbcType=VARCHAR, mode=IN}
               )}
     </select>
 
