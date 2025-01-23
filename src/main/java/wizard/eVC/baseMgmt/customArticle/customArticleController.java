@@ -3,6 +3,7 @@ package wizard.eVC.baseMgmt.customArticle;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -83,10 +84,12 @@ public class customArticleController {
             throw new RuntimeException("서버 처리 중 오류가 발생했습니다. 관리자에게 문의하세요.", e);
         }
     }
-    @GetMapping(value = "/delete")
+    @PostMapping(value = "/delete")
     @ResponseBody
-    public void dArticle(@RequestParam LJHbasecodeDTO p){
+    public ResponseEntity<?> dArticle(@RequestBody LJHbasecodeDTO p) {
+        System.out.println("Received CustomID: " + p.getCustomID());
         service.dArticle(p);
+        return ResponseEntity.ok().body("삭제 성공");  // 성공 메시지 반환(
     }
 
     @PostMapping(value = "/articleSearch")
@@ -116,6 +119,13 @@ public class customArticleController {
     public List<LJHbasecodeDTO> sCustomList(@RequestBody LJHbasecodeDTO p){
         System.out.println(p);
         List<LJHbasecodeDTO> dtoList = service.sCustomList(p);
+        return dtoList;
+    }
+    @PostMapping(value ="/checkArticle")
+    @ResponseBody
+    public List<LJHbasecodeDTO> checkArticle(@RequestBody Map<String, Object> p){
+        System.out.println(p);
+        List<LJHbasecodeDTO> dtoList = service.checkArticle(p);
         return dtoList;
     }
 }
