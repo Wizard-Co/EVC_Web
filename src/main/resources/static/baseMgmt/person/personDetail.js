@@ -72,7 +72,7 @@ document.getElementById('btnSave').addEventListener('click', async function () {
         if (!form.checkValidity()) return;
         if (!CheckMenuList(menuList)) return;
         if (!CheckImageBeforeSave()) return;
-        if (checkID()) return;
+        if (!(await checkID())) return;
 
         const formData = new FormData(form);
         AddFormData(menuList, formData);
