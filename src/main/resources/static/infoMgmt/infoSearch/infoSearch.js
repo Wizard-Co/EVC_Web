@@ -126,7 +126,28 @@ $(document).on('click', '.btn-download', function(){
     fileName = rowData.attachFile;
     filePath = rowData.attachPath;
 
-    location.href = `http://localhost:${port}/infoMgmt/infoSearch/download?filePath=` + encodeURI(filePath) + "&fileName=" + encodeURI(fileName);
+    //location.href = `http://localhost:${port}/infoMgmt/infoSearch/download?filePath=` + encodeURI(filePath) + "&fileName=" + encodeURI(fileName);
+
+    // 파일 경로와 이름을 쿼리 파라미터로 전달
+    fetch(`/infoMgmt/infoSearch/download?filePath=${encodeURIComponent(filePath)}&fileName=${encodeURIComponent(fileName)}`)
+        .then(response => {
+            if (!response.ok) {
+                alert('파일을 찾을 수 없습니다!');
+                return;
+            }
+            return response.blob();
+        })
+        .then(blob => {
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName;  // 파일 이름으로 다운로드
+            a.click();
+            window.URL.revokeObjectURL(url);
+        })
+        .catch(error => {
+            console.error('파일 다운로드 중 오류가 발생했습니다:', error);
+        });
 
 });
 

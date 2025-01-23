@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import wizard.eVC.infoMgmt.infoAdd.dto.InfoAddDetailDto;
 import wizard.eVC.common.util.FTP;
+import wizard.eVC.sysMgmt.login.LoginManager;
 
 import java.io.IOException;
 import java.util.HashMap;
