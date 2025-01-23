@@ -46,7 +46,7 @@ $('#infoTable').on('click', 'tr', function () {
 $('#infoTable').on('dblclick', 'tr', function () {
     let param = {
         infoID: selectedRow.infoID,
-        userID: 'admin',
+        userID: 'admin',        //controller에서 로그인한 ID로 변경함
         companyID: ''
     }
 
@@ -72,7 +72,7 @@ document.querySelector("#btnSearch").addEventListener("click", function() {searc
 document.getElementById('btnAdd').addEventListener('click', function () {
 
     let param = {
-        userID: 'admin',
+        userID: 'admin',        //controller에서 로그인한 ID로 변경함
         companyID: ''
     }
 
@@ -89,7 +89,7 @@ document.getElementById('btnDetail').addEventListener('click', function () {
     else{
         let param = {
             infoID: selectedRow.infoID,
-            userID: 'admin',
+            userID: 'admin',        //controller에서 로그인한 ID로 변경함
             companyID: ''
         }
         openForm('infoAddDetail', '/infoMgmt/infoAdd/update?mode=update', param, '');

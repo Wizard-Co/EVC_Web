@@ -22,7 +22,9 @@ import wizard.eVC.common.util.Excel;
 import wizard.eVC.common.util.FTP;
 import wizard.eVC.infoMgmt.infoAdd.dto.InfoAddDetailDto;
 import wizard.eVC.infoMgmt.infoAdd.dto.InfoAddDto;
+import wizard.eVC.sysMgmt.login.LoginManager;
 import wizard.eVC.wizLog.log.LogService;
+import wizard.eVC.baseMgmt.person.DTO.Person;
 
 import java.net.UnknownHostException;
 import java.util.List;
@@ -42,6 +44,9 @@ public class InfoAddController {
 
     @Autowired
     private FTP ftp;
+
+    @Autowired
+    private LoginManager loginManager;
 
     //삭제할 폴더 위치
     String FTPPATH = "/ImageData/info/";
@@ -76,7 +81,7 @@ public class InfoAddController {
     @PostMapping("/infoMgmt/infoAdd/add")
     public String add(Model model) {
         InfoAddDetailDto infoAddDetailDto = new InfoAddDetailDto();
-        infoAddDetailDto.setUserID("admin"); //TODO 로그인한 personID
+        infoAddDetailDto.setUserID(loginManager.getPersonID());
         model.addAttribute("InfoAddDetailDto", infoAddDetailDto);
  
         return "/pages/infoMgmt/infoAdd/infoAddDetail";
@@ -95,7 +100,7 @@ public class InfoAddController {
         ifaService.getDataTypeSet(infoAddDetailDto);
         //삭제나 수정여부를 알기 위해 기존 파일이름을 가져감
         infoAddDetailDto.setDeleteAttachFile(infoAddDetailDto.getAttachFile());
-        //TODO 로그인한 personID
+        infoAddDetailDto.setUserID(loginManager.getPersonID());//로그인한 personID
         model.addAttribute("InfoAddDetailDto", infoAddDetailDto);
 
         return "/pages/infoMgmt/infoAdd/infoAddDetail";
@@ -114,7 +119,19 @@ public class InfoAddController {
 
     }
 
-    //TODO 정리
+    //로그인한 ID의 권한 가져오기
+    //infoAdd, infoDetail, infoSearch 같이 사용
+    @PostMapping("/infoMgmt/infoAdd/add/userCheck")
+    @ResponseBody
+    public Person getLoginID() {
+        if(loginManager.getPersonID() != null){
+            return loginManager.getLoginUser();
+        }
+        else{
+            return null;
+        }
+    }
+
     //엑셀 다운로드
     @PostMapping("/infoMgmt/infoAdd/excel")
     @ResponseBody
