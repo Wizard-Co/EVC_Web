@@ -38,4 +38,7 @@ public class customArticleService {
     public List<LJHbasecodeDTO> sCustomList(LJHbasecodeDTO p){
         return mapper.sCustomList(p);
     }
+    public List<LJHbasecodeDTO>sArticleDetail(Map<String, Object> p){
+        return mapper.sArticleDetail(p);
+    }
 }

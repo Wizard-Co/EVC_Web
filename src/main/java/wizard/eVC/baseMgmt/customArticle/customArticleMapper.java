@@ -27,4 +27,6 @@ public interface customArticleMapper {
 
     List<LJHbasecodeDTO> sCustomList(@Param("p")LJHbasecodeDTO p);
 
+    List<LJHbasecodeDTO> sArticleDetail(@Param("p") Map<String, Object> p);
+
 }

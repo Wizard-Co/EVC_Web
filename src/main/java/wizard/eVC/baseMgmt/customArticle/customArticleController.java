@@ -45,9 +45,16 @@ public class customArticleController {
         List<LJHbasecodeDTO> dtoList = service.sArticleCustom(p);
         return dtoList;
     }
+    @PostMapping(value = "/customArticleDetail")
+    @ResponseBody
+    public List<LJHbasecodeDTO> sArticleDetail(@RequestBody Map<String, Object> p){
+        List<LJHbasecodeDTO> dtoList =service.sArticleDetail(p);
+        System.out.println(p);
+        return dtoList;
+    }
+
     @PostMapping(value = "/save")
     @ResponseBody
-    @Transactional
     public List<LJHbasecodeDTO> iArticle(@RequestBody LJHbasecodeDTO payload, HttpServletRequest request) {
         try {
             // Null 값에 대한 기본값 설정

@@ -22,7 +22,7 @@ public class mainController {
         if (loginUser != null) {
             return "pages/main";
         }else {
-            return "/pages/baseMgmt/article/customArticle";
+            return "/pages/sysMgmt/login/login";
         }
         //pages/sysMgmt/login/login
 
