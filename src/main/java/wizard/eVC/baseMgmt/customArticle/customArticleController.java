@@ -3,6 +3,8 @@ package wizard.eVC.baseMgmt.customArticle;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +12,7 @@ import wizard.eVC.baseMgmt.customArticle.dto.LJHbasecodeDTO;
 
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -55,7 +58,7 @@ public class customArticleController {
 
     @PostMapping(value = "/save")
     @ResponseBody
-    public List<LJHbasecodeDTO> iArticle(@RequestBody LJHbasecodeDTO payload, HttpServletRequest request) {
+    public List<LJHbasecodeDTO> iArticle(@RequestBody LJHbasecodeDTO payload) {
         try {
             // Null 값에 대한 기본값 설정
             if (payload.getInvestmentUnitPrice() == null) {
@@ -68,25 +71,34 @@ public class customArticleController {
                 payload.setBusinessCommission(BigDecimal.ZERO);
             }
 
-            // 서비스 호출 및 결과 반환
-            List<LJHbasecodeDTO> dtoList = service.iArticle(payload);
-
-            System.out.println("Response Payload: {}" + dtoList);;
-            log.info("Request Payload: {}", payload.toString());
-
-            return dtoList;
+            // 중복 여부 체크
+            List<LJHbasecodeDTO> checkList = service.checkArticle(payload.getCustomID(), payload.getArticleID());
+            System.out.println(payload.getCustomID());
+            System.out.println(payload.getArticle());
+            if (checkList.size() > 0) {
+                // 중복된 데이터가 있으면 클라이언트에 해당 데이터를 반환
+                System.out.println("중복된 데이터가 존재합니다.");
+                return checkList;  // 클라이언트에서 이 데이터를 받아서 처리하도록 합니다.
+            } else {
+                // 중복이 없으면 새로운 데이터를 저장
+                List<LJHbasecodeDTO> dtoList = service.iArticle(payload);
+                System.out.println("Response Payload: {}" + dtoList);
+                return dtoList;
+            }
         } catch (Exception e) {
             // 예외 발생 시 상세 로그 출력
-            log.error("Error occurred during save operation", e);
-
-            // 사용자 친화적인 에러 메시지 반환
+            System.err.println("Error occurred during save operation: " + e.getMessage());
+            e.printStackTrace();
             throw new RuntimeException("서버 처리 중 오류가 발생했습니다. 관리자에게 문의하세요.", e);
         }
     }
-    @GetMapping(value = "/delete")
+
+    @PostMapping(value = "/delete")
     @ResponseBody
-    public void dArticle(@RequestParam LJHbasecodeDTO p){
+    public ResponseEntity<?> dArticle(@RequestBody LJHbasecodeDTO p) {
+        System.out.println("Received CustomID: " + p.getCustomID());
         service.dArticle(p);
+        return ResponseEntity.ok().body("삭제 성공");  // 성공 메시지 반환(
     }
 
     @PostMapping(value = "/articleSearch")
@@ -117,5 +129,20 @@ public class customArticleController {
         System.out.println(p);
         List<LJHbasecodeDTO> dtoList = service.sCustomList(p);
         return dtoList;
+    }
+    @PostMapping(value ="/checkArticle")
+    @ResponseBody
+    public List<LJHbasecodeDTO> checkArticle(@RequestBody LJHbasecodeDTO p) {
+        List<LJHbasecodeDTO> checkList = service.checkArticle(p.getCustomID(), p.getArticleID());
+        System.out.println(checkList);
+        System.out.println("중복체크값"+p.getArticleID());
+        System.out.println("중복체크값"+p.getCustomID());
+        if (!checkList.isEmpty()) {
+            // 중복된 데이터가 있으면 클라이언트에 해당 데이터를 반환
+            System.out.println("중복된 데이터가 존재합니다.");
+            return checkList;  // 클라이언트에서 이 데이터를 받아서 처리하도록 합니다.
+        }
+
+        return checkList; // 중복이 없으면 빈 리스트 반환
     }
 }
