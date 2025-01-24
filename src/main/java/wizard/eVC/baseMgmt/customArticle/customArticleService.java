@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import wizard.eVC.baseMgmt.customArticle.dto.LJHbasecodeDTO;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -41,4 +42,13 @@ public class customArticleService {
     public List<LJHbasecodeDTO>sArticleDetail(Map<String, Object> p){
         return mapper.sArticleDetail(p);
     }
+    public List<LJHbasecodeDTO> checkArticle(String customID, String articleID) {
+        // customID와 articleID를 Map에 담아서 전달합니다.
+        Map<String, Object> params = new HashMap<>();
+        params.put("CustomID", customID);
+        params.put("ArticleID", articleID);
+
+        return mapper.checkArticle(params); // Mapper 메서드 호출
+    }
+
 }

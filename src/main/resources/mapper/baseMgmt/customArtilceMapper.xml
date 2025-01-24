@@ -58,8 +58,8 @@
 
     <delete id ="dArticle" parameterType="wizard.eVC.baseMgmt.customArticle.dto.LJHbasecodeDTO">
         {CALL xp_Article_dArticle_Custom_sales_Detail_Test(
-                #{CustomID,jdbcType=VARCHAR, mode=IN },
-                #{ArticleID, jdbcType=VARCHAR, mode=IN}
+                #{CustomID,jdbcType=VARCHAR, mode=IN }
+
               )}
 
     </delete>
@@ -70,6 +70,11 @@
               )}
     </select>
 
-
+    <select id="checkArticle" parameterType="java.util.Map" resultType= "wizard.eVC.baseMgmt.customArticle.dto.LJHbasecodeDTO" >
+        {CALL xp_Article_dArticle_Custom_sales_Check_Artcile(
+            #{p.CustomID, jdbcType=VARCHAR, mode=IN},
+            #{p.ArticleID, jdbcType=VARCHAR, mode=IN}
+              )}
+    </select>
 
 </mapper>
