@@ -11,12 +11,28 @@
 
 
 let form = document.getElementById('addForm');
+const currentUrl = new URLSearchParams(window.location.search);
 let companyID, kCompany;
 
 window.addEventListener('load', function() {
     companyID = document.getElementById('companyID').value;
     kCompany = document.getElementById('kCompany').value
     mainBtnSetting();
+
+    if(currentUrl.get('mode') === 'add'){
+
+        const btnSave=  document.getElementById('btnSave');
+
+
+        btnSave.style.display = 'inline-block';
+    }
+    else{
+        const btnUpdate = document.getElementById('btnUpdate');
+        const btnDelete =document.getElementById('btnDelete');
+
+        btnUpdate.style.display = 'inline-block';
+        btnDelete.style.display = 'inline-block'
+    }
 
 });
 

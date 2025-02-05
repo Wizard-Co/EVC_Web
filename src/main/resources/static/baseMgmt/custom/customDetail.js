@@ -138,13 +138,13 @@ function save(strFlag) {
         return;
     }
     //대표전화, 일반전화 중 하나라도 있을 것
-    if(!validatePhone()){
-        return;
-    }
+    // if(!validatePhone()){
+    //     return;
+    // }
     //사업자번호 검증
-    if(!validateCustomNo()){
-        return;
-    }
+    // if(!validateCustomNo()){
+    //     return;
+    // }
 
     if (form.checkValidity()) {
         const payload = new FormData(form);
