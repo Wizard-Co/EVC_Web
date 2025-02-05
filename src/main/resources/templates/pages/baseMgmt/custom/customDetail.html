@@ -91,15 +91,13 @@
                                     </div>
                                 </td>
                                 <td class="v-middle" colspan="1">
-                                    <label><span class="form-notice">*</span>사업자번호</label>
+                                    <label>사업자번호</label>
                                 </td>
                                 <td class="left" colspan="2">
-                                    <input type="text" id="customNo" class="form-control input-necessary subtle-input"
-                                           th:field="*{customNo}" placeholder="사업자번호 입력(번호만)" maxlength="12" required
+                                    <input type="text" id="customNo" class="form-control  subtle-input"
+                                           th:field="*{customNo}" placeholder="사업자번호 입력(번호만)" maxlength="12"
                                            oninput="setCustomnoHyphen()">
-                                    <div class="invalid-feedback">
-                                        사업자 번호를 입력하세요.
-                                    </div>
+
                                 </td>
 
                                 <td class="v-middle" colspan="1">
@@ -174,26 +172,21 @@
 
                             <tr>
                                 <td class="v-middle" colspan="1">
-                                    <label><span class="form-notice">*</span>대표전화</label>
+                                    <label>대표전화</label>
                                 </td>
                                 <td class="left" colspan="1">
-                                    <input type="text" id="repPhone" class="form-control input-necessary subtle-input"
+                                    <input type="text" id="repPhone" class="form-control subtle-input"
                                            th:field="*{repPhone}" placeholder="대표 전화 입력"
                                             oninput="numericalType('repPhone')">
-                                    <div class="invalid-feedback">
-                                        대표전화나 전화번호 중 하나는 필수입니다.
-                                    </div>
+
                                 </td>
                                 <td class="v-middle" colspan="1">
-                                    <label><span class="form-notice">*</span>전화번호</label>
+                                    <label>전화번호</label>
                                 </td>
                                 <td class="left" colspan="2">
-                                    <input type="text" id="phone" class="form-control input-necessary subtle-input"
+                                    <input type="text" id="phone" class="form-control subtle-input"
                                            th:field="*{phone}" placeholder="전화 번호 입력"
                                            oninput="numericalType('phone')">
-                                    <div class="invalid-feedback">
-                                        대표전화나 전화번호 중 하나는 필수입니다.
-                                    </div>
                                 </td>
                                 <td class="v-middle" colspan="1">
                                     <label>팩스번호</label>
@@ -207,40 +200,32 @@
 
                             <tr>
                                 <td class="col-md-2 v-middle" colspan="1">
-                                    <label><span class="form-notice">*</span>우편번호<button type="button" id="postBtn" >주소검색</button></label>
+                                    <label>우편번호<button type="button" id="postBtn" >주소검색</button></label>
                                     <div class="mt-2">
-                                        <input type="text" class="form-control center input-necessary subtle-input pt-e-none" name="zipcode" id="zipcode" placeholder="우편번호(검색 입력)(필수)" th:field="*{zipcode}"  readonly required/>
+                                        <input type="text" class="form-control center  subtle-input pt-e-none" name="zipcode" id="zipcode" placeholder="우편번호(검색 입력)" th:field="*{zipcode}"  readonly/>
                                     </div>
                                 </td>
                                 <td class="col-md-10" colspan="11">
                                     <div class="row">
-                                        <label class="left"><span class="form-notice">*</span>도로명주소</label>
+                                        <label class="left">도로명주소</label>
                                         <div class="mt-2">
-                                            <input type="text" class="form-control input-necessary subtle-input pt-e-none" name="address1" id="address1" placeholder="도로명 주소(검색 입력)(필수)" th:field="*{address1}"  readonly required/>
-                                            <div class="invalid-feedback">
-                                                주소 검색을 먼저 하세요.
-                                            </div>
+                                            <input type="text" class="form-control  subtle-input pt-e-none" name="address1" id="address1" placeholder="도로명 주소(검색 입력)" th:field="*{address1}"  readonly />
+
                                         </div>
                                         <div class="mt-2">
-                                            <input type="text" class="form-control input-necessary subtle-input pt-e-none" name="address2" id="address2" placeholder="건물명, 나머지 주소(필수)" th:field="*{address2}" readonly required/>
-                                            <div class="invalid-feedback">
-                                                상세 주소를 입력 하세요.
-                                            </div>
+                                            <input type="text" class="form-control  subtle-input pt-e-none" name="address2" id="address2" placeholder="건물명, 나머지 주소" th:field="*{address2}" readonly />
+
                                         </div>
                                     </div>
                                     <div class="row mt-2">
-                                        <label class="left"><span class="form-notice">*</span>지번주소</label>
+                                        <label class="left">지번주소</label>
                                         <div class="mt-2">
-                                            <input type="text" class="form-control input-necessary subtle-input pt-e-none" name="addressJiBun1" id="addressJiBun1" placeholder="지번 주소(검색 입력)(필수)" th:field="*{addressJibun1}"  readonly required/>
-                                            <div class="invalid-feedback">
-                                                주소 검색을 먼저 하세요.
-                                            </div>
+                                            <input type="text" class="form-control  subtle-input pt-e-none" name="addressJiBun1" id="addressJiBun1" placeholder="지번 주소(검색 입력)" th:field="*{addressJibun1}"  readonly />
+
                                         </div>
                                         <div class="mt-2">
-                                            <input type="text" class="form-control input-necessary subtle-input pt-e-none" name="addressJiBun2" id="addressJiBun2" placeholder="건물명, 나머지 주소(필수)" th:field="*{addressJibun2}"  readonly required/>
-                                            <div class="invalid-feedback">
-                                                상세 주소를 입력 하세요.
-                                            </div>
+                                            <input type="text" class="form-control  subtle-input pt-e-none" name="addressJiBun2" id="addressJiBun2" placeholder="건물명, 나머지 주소" th:field="*{addressJibun2}"  readonly />
+
                                         </div>
                                     </div>
                                 </td>
@@ -305,9 +290,9 @@
                         </table>
                     </div>
                     <div id="divForm2" style="width: 28%; padding-left: 0.5rem;">
-                        <div id="divDamdang" style="margin-bottom: 0.5rem">
+                        <div id="divDamdang" style="margin-bottom: 0.5rem; height: 44%; width: 100%" >
                             <div class="form-notice">※담당자</div>
-                            <div class="form-border">
+                            <div class="form-border" style="overflow-y: scroll;">
                                 <span class="mb-1"><b>담당자1</b></span>
                                 <table class="table table-bordered text-center">
                                     <tbody>
@@ -391,6 +376,28 @@
                                                       style="resize: none" rows="3" id="damdangComments2" name="damdangComments1"
                                                       th:field="*{damdangComments2}" maxlength="1000"
                                                       oninput="if(this.value.length >= 1000) alert('1000자까지만 입력 가능합니다.')"></textarea>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div id="divFiles" class="form-border" style="height: 50%">
+                                <div class="form-notice">※첨부파일</div>
+                                <table class="table table-bordered text-center">
+                                    <tbody>
+                                    <tr>
+                                        <td class="v-middle" style="width: 79px" colspan="1">
+                                            <div class="flx">
+                                                <label for="realFile" class="form-control label-file">첨부파일1</label>
+                                                <input type="text"  class="form-control"
+                                                       readonly>
+                                                <button type="button" class="bi bi-search" ></button>
+                                                <button type="button" class="btnImageDel bi bi-x-lg"></button>
+
+                                                <input type="file" id="realFile" name="fileList[0]" class="fileList"
+                                                       accept="image/*" hidden>
+                                                <input type="text" name="deleteFileList[0]" data-group="delete" hidden>
+                                            </div>
                                         </td>
                                     </tr>
                                     </tbody>
