@@ -171,7 +171,7 @@ document.getElementById('hsCode').addEventListener('click', function () {
 
 function hsFinder(txtID, txtName, nLarge, sMiddle) {
 
-    let baseurl = "pages/article/hsFinder";
+    let baseurl = "/pages/article/hsFinder";
     let url = baseurl + "?txtID=" + txtID + "&txtName=" + txtName + "&nLarge=" + nLarge + "&sMiddle=" + sMiddle;
     let encodeUrl = encodeURI(url);
     let name = "plusfinder";

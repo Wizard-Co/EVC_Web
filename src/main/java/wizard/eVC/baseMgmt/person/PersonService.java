@@ -145,24 +145,14 @@ public class PersonService {
     }
 
     private void savePersonMenu(Person person) {
-        if(CollectionUtils.isEmpty(person.getMenuList())) return;
+        if (CollectionUtils.isEmpty(person.getMenuList())) return;
 
         String pgGubun = "7"; // 사무실은 7번
         mapper.deletePersonMenu(person.getPersonID(), "7");
 
         for (int i = 0; i < person.getMenuList().size(); i++) {
             Menu menu = person.getMenuList().get(i);
-
-            switch (menu.parentID.length()) {
-                case 3:
-                    menu.level = 1;
-                    break;
-                case 4:
-                    menu.level = 3;
-                    break;
-                default:
-                    menu.level = 0;
-            }
+            menu.setLevel(menu.getParentID().length() == 1 ? 0 : 3);
 
             Map<String, Object> params = new HashMap<>();
             params.put("personID", person.getPersonID());
