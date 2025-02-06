@@ -25,7 +25,7 @@ const preserveFormat = function(data) {
 const table = new DataTable('#customTable', {
     searching : false,
     info : false,
-    paging : false,
+    paging : true,
     numberFormat: false,
     language: {
         emptyTable : "검색된 항목이 없습니다.",
