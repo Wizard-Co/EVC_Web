@@ -36,7 +36,7 @@ public class UserLoginController {
     private UserLoginService service;
     private LoginManager loginManager;
 
-    @PostMapping("/")
+    @PostMapping("/Login")
     public String loginProc(HttpSession session, Model model, String userID, String password, HttpServletResponse response, HttpServletRequest request) throws IOException {
         String returnURL = "";
 
@@ -62,28 +62,25 @@ public class UserLoginController {
 //            }
             return returnURL;
         }
-
-        // 로그인 검증
-        LoginDto dto = service.xp_Common_Login(userID, password);
-        String error = dto.getResult();
-        System.out.println(error);
-
+        try{
+            LoginDto dto = service.xp_Common_Login(userID, password);
+            String error = dto.getResult();
+            System.out.println(error);
 //        if (error == null || error.equals("")) {
-        // 로그인 성공
+            // 로그인 성공
+
+            service.setLoginUser(userID);
+
+            model.addAttribute("user", loginManager.getLoginUser());
+            request.getSession().setAttribute("userId", loginManager.getPersonID());
+
+            session.setAttribute("UserID", userID);
+            session.setAttribute("Password", password);
+            session.setMaxInactiveInterval(-1);
 
 
-        service.setLoginUser(userID);
 
-        model.addAttribute("user", loginManager.getLoginUser());
-        request.getSession().setAttribute("personID", loginManager.getPersonID());
-
-        session.setAttribute("userID", userID);
-        session.setAttribute("Password", password);
-        session.setMaxInactiveInterval(-1);
-
-
-
-        // 파일로 저장하는 대신 레지스트리 사용
+            // 파일로 저장하는 대신 레지스트리 사용
 //        File sessionFile = new File("session.txt");
 //        try (BufferedWriter writer = new BufferedWriter(new FileWriter(sessionFile))) {
 //            writer.write("userID=" + userID);
@@ -92,16 +89,16 @@ public class UserLoginController {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-        // 로그인 성공 시 세션에서 실패 횟수 초기화
-        //session.setAttribute("failedAttempts", 0);
+            // 로그인 성공 시 세션에서 실패 횟수 초기화
+            //session.setAttribute("failedAttempts", 0);
 
-        // 리디렉션 URL을 JSON으로 반환
-        response.setStatus(HttpServletResponse.SC_OK);
-        response.setContentType("application/json");
-        response.getWriter().write("{\"redirectUrl\":\"/\"}");
-        return null; // 반환값이 없으므로 바로 응답을 보냄
+            // 리디렉션 URL을 JSON으로 반환
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.setContentType("application/json");
+            response.getWriter().write("{\"redirectUrl\":\"/\"}");
+            return null; // 반환값이 없으므로 바로 응답을 보냄
 //        } else {
-        // 로그인 실패 시 실패 횟수 증가
+            // 로그인 실패 시 실패 횟수 증가
 //            failedAttempts++;
 //            session.setAttribute("failedAttempts", failedAttempts); // 세션에 실패 횟수 업데이트
 //
@@ -111,6 +108,14 @@ public class UserLoginController {
 //            response.getWriter().write("{\"error\":\"" + error + "\", \"failedAttempts\":" + failedAttempts + "}");
 //            return null; // 반환값이 없으므로 바로 응답을 보냄
 //        }
+        }catch (RuntimeException e){
+            e.printStackTrace();
+        }
+        // 로그인 검증
+        response.setStatus(HttpServletResponse.SC_OK);
+        response.setContentType("application/json");
+        response.getWriter().write("{\"redirectUrl\":\"/\"}");
+        return null; // 반환값이 없으므로 바로 응답을 보냄
     }
 
     @GetMapping("/getSessionInfo")

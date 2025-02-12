@@ -35,10 +35,13 @@ public class UserLoginService {
 
     public Person setLoginUser(String userID) {
         Person loginUser = personService.getPersonDetail(userID);
+
         List<Menu> menuList = personService.getPersonMenu(userID);
+
         loginUser.setMenuList(menuList);
 
         loginManager.setLoginUser(loginUser);
+
         return loginUser;
     }
     public LoginDto xp_Common_Login(String loginId, String password) {

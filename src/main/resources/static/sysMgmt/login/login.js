@@ -118,7 +118,7 @@ function loginProc(e) {
     }
 
     // 로그인 시도
-    fetch('/sysMgmt/userLogin/', {
+    fetch('/sysMgmt/userLogin/Login', {
         method: 'POST',
         body: new URLSearchParams({
             userID: currentID,
