@@ -26,6 +26,18 @@
     display: flex;        /* flexbox를 사용하여 두 테이블을 가로로 배치 */
     gap: 20px;            /* 두 테이블 사이에 20px 간격 */
 }
+#KCustomTable tbody td {
+    white-space: nowrap; /* 기본적으로 줄 바꿈 방지 */
+    overflow: hidden;
+    text-overflow: ellipsis; /* 넘치는 텍스트는 '...' 처리 */
+    max-width: 200px; /* 열의 최대 크기 설정 */
+}
+#KCustomTable2 input[type="text"] {
+    width: 100%; /* 칸 안에서만 꽉 차게 설정 */
+    box-sizing: border-box; /* padding, border 포함하여 크기 계산 */
+    text-align: center; /* 입력 텍스트 중앙 정렬 */
+}
+
 
 table {
     width: 48%;           /* 각 테이블이 50%씩 차지하도록 설정 (간격을 고려해 48%로 설정) */

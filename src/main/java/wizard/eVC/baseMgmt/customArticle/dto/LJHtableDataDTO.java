@@ -7,19 +7,19 @@ import java.math.BigDecimal;
 
 @Data
 public class LJHtableDataDTO {
-    @JsonProperty("ArticleID")
-    private String ArticleID;
-
-    private String CustomID;
-    @JsonProperty("InvestmentUnitPrice")
-    private BigDecimal InvestmentUnitPrice = BigDecimal.ZERO;
-
-    @JsonProperty("UnitPrice")
-    private BigDecimal UnitPrice = BigDecimal.ZERO;
-
-    @JsonProperty("businessCommission")
-    private BigDecimal businessCommission = BigDecimal.ZERO;
-    private String PersonId;
+//    @JsonProperty("ArticleID")
+//    private String ArticleID;
+//
+//    private String CustomID;
+//    @JsonProperty("InvestmentUnitPrice")
+//    private BigDecimal InvestmentUnitPrice = BigDecimal.ZERO;
+//
+//    @JsonProperty("UnitPrice")
+//    private BigDecimal UnitPrice = BigDecimal.ZERO;
+//
+//    @JsonProperty("businessCommission")
+//    private BigDecimal businessCommission = BigDecimal.ZERO;
+//    private String PersonId;
 
 
 }
