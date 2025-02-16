@@ -27,7 +27,7 @@ public class customArticleController {
     @GetMapping("")
     public String home() {
 
-        return "/pages/baseMgmt/article/customArticle";
+        return "pages/baseMgmt/article/customArticle";
     }
     @PostMapping(value = "/searchDetail")
     @ResponseBody

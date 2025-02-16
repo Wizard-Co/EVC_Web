@@ -19,41 +19,133 @@ let saveBtn = true;
 
 
 window.addEventListener('load', function () {
-    console.log('load 이벤트 실행됨');
     mainBtnSetting();  // 버튼 이벤트 설정
     KCustomTable = initializeDataTable();  // DataTable 초기화 후 참조
     attachTableEvents();  // 테이블 관련 이벤트 설정
 });
 
+    function initializeDataTable() {
+        console.log("initializeDataTable 함수 호출됨");
 
+        // 이미 DataTable이 초기화된 경우 기존 테이블 반환
+        if ($.fn.dataTable.isDataTable('#KCustomTable')) {
+            console.log("KCustomTable은 이미 초기화되었습니다.");
+            return $('#KCustomTable').DataTable();
+        }
 
-function initializeDataTable() {
-    console.log("initializeDataTable 함수 호출됨");
-    return new DataTable('#KCustomTable', {
-        buttons: [{
-            extend: 'excel',
-            filename: '거래처별 품명코드',
-            title: '거래처별 품목코드',
-            customize: function (xlsx) {
-                let sheet = xlsx.xl.worksheets['sheet1.xml'];
-                $('row:first c', sheet).attr('s', '42');
+        const table = new DataTable('#KCustomTable', {
+            buttons: [{
+                extend: 'excel',
+                filename: '거래처별 품명코드',
+                title: '거래처별 품목코드',
+                exportOptions: {
+                    columns: ':visible',
+                    // format: {
+                    //     body: function (data, row, column, node) {
+                    //         // null, undefined 처리
+                    //         return data === null || data === undefined ? '' : data;
+                    //     }
+                    // },
+
+                },
+                customize: function (xlsx) {
+                    let sheet = xlsx.xl.worksheets['sheet1.xml'];
+
+                    $(sheet).find('row:last').remove();
+
+                    // 헤더 스타일 적용
+                    $('row:first c', sheet).attr('s', '42');
+
+                    // 데이터 정제
+                    $(sheet).find('row:not(:first)').each(function () {
+                        $(this).find('c').each(function () {
+                            let value = $('is t', this).text().trim();
+                            if (!value) {
+                                $('is t', this).text('');
+                            }
+                        });
+                    });
+                }
+            }],
+            columns: [
+                { data: "num", className: 'center', defaultContent: '' },
+                { data: "KCustom", className: 'left', defaultContent: '', width: "25%" },
+                { data: "comments", className: 'left', defaultContent: '', width: "15%" },
+                { data: "BuyerArticleNo", className: 'left', defaultContent: '', width: "20%" },
+                { data: "Article", className: 'left', defaultContent: '', width: "30%" }
+            ],
+            scrollY: '50vh',
+            scrollCollapse: true,
+            paging: false,
+            scrollX: true,
+            initComplete: function() {
+                // 'tfoot'이 존재하는지 확인 후 footer에 대한 설정을 진행
+                const tableFooter = this.api().table().footer();
+
+                // tfoot이 없는 경우 처리
+                if (!tableFooter) {
+                    console.log('tfoot이 존재하지 않습니다.');
+                    return;
+                }
+
+                // 필요한 경우 tfoot에 대한 설정을 추가로 진행할 수 있습니다.
             }
-        }],
-        columns: [
-            {data: "num", className: 'center'},
-            {data: "KCustom", className: 'left', orderable: false},
-            {data: "comments", className: 'left'},
-            {data: "buyerArticleNo", className: 'left', orderable: false},
-            {data: "article", className: 'left', orderable: false},
-            {data: "CustomID",visible:false},
-        ],
-        scrollY: '50vh',  // 세로 스크롤을 설정 (화면의 50% 높이로 제한)
-        scrollCollapse: true,
-        paging: false  // 페이지네이션 비활성화
-    });
-}
+        });
 
-// function checkAndShowPersonIDInput() {
+        return table;
+    }
+
+    document.getElementById('btnExcel').addEventListener("click", function () {
+        const table = $('#KCustomTable').DataTable();
+
+        if (!table || table.rows().count() === 0) {
+            console.error("테이블에 데이터가 없습니다.");
+            return;
+        }
+
+        // 🔥 원본 테이블을 복사하기 전에 DataTable 제거 (HTML 구조 깨짐 방지)
+        table.destroy();
+
+        // 🔥 깨끗한 HTML 상태의 테이블 복제
+        const clonedTable = $('#KCustomTable').clone();
+        clonedTable.find('tfoot').remove(); // 복제본에서만 tfoot 제거
+
+        // 🔥 복제본을 숨겨진 상태로 body에 추가
+        clonedTable.css({ display: "none" }).appendTo("body");
+
+        // 🔥 복제본을 새로운 DataTable로 초기화
+        const newTable = clonedTable.DataTable({
+            dom: "Bfrtip",
+            buttons: [{
+                extend: 'excel',
+                filename: '거래처별 품명코드',
+                title: '거래처별 품목코드',
+                exportOptions: {
+                    columns: ':visible',
+                    footer: false
+                }
+            }],
+            paging: false,
+            searching: false
+        });
+
+        // 🔥 일정 시간 후 엑셀 내보내기 실행 후 복제 테이블 삭제
+        setTimeout(() => {
+            newTable.button('.buttons-excel').trigger(); // 엑셀 다운로드 실행
+            newTable.destroy(); // DataTable 제거
+            clonedTable.remove(); // 복제 테이블 삭제
+
+            // 🔥 원본 테이블 다시 초기화 (복구)
+            $('#KCustomTable').DataTable();
+
+            Search(); // 검색 다시 실행
+            setTimeout(() => {
+                window.location.reload();
+            }, 200); // 0.2초 후 리로드
+        }, 100);
+    });
+
+    // function checkAndShowPersonIDInput() {
 //     var sessionPersonID = $('#sessionPersonID').val().trim();
 //
 //     if (!sessionPersonID) {
@@ -807,65 +899,108 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 // Search 함수 정의
-function Search() {
-    console.log("Search 함수 호출됨");
-    document.getElementById('KCustom').value = ''; // KCustom 텍스트박스 초기화
-    document.getElementById('customID').value = ''; // customID 히든값 초기화
-    const tbody2 = document.querySelector('#KCustomTable2 tbody');
-    tbody2.innerHTML = ''; // 테이블 초기화
-    document.querySelector('#selectCount').textContent = '0'; // 결과 건수 초기화
+    function Search() {
+        console.log("Search 함수 호출됨");
+        document.getElementById('KCustom').value = ''; // KCustom 텍스트박스 초기화
+        document.getElementById('customID').value = ''; // customID 히든값 초기화
+        const tbody2 = document.querySelector('#KCustomTable2 tbody');
+        tbody2.innerHTML = ''; // 테이블 초기화
+        document.querySelector('#selectCount').textContent = '0'; // 결과 건수 초기화
 
-    let param = {
-        KCustom: document.getElementById('KCustom').value,
-        businessTypeCode: document.getElementById('businessTypeCode').value,
-    };
+        let param = {
+            KCustom: document.getElementById('KCustom').value,
+            businessTypeCode: document.getElementById('businessTypeCode').value,
+        };
 
+        // URL 설정 (토글 상태에 따라 변경)
+        const currentURL = isToggled ? "/article/customArticle/allCustomArticle" : "/article/customArticle/search";
 
-    // URL 설정 (토글 상태에 따라 변경)
-    const currentURL = isToggled ? "/article/customArticle/allCustomArticle" : "/article/customArticle/search";
-
-    // 서버로 요청 보내기
-    return fetch(currentURL, {
-        method: "POST", // 'POST' 방식으로 요청
-        body: JSON.stringify(param),
-        headers: {
-            "Content-Type": "application/json" // 요청 본문이 JSON 형식임을 명시
-        }
-    })
-        .then(response => {
-            if (response.ok) {
-                return response.json(); // JSON 형식으로 응답 받기
-            } else {
-                throw new Error('Network response was not ok');
+        // 서버로 요청 보내기
+        return fetch(currentURL, {
+            method: "POST", // 'POST' 방식으로 요청
+            body: JSON.stringify(param),
+            headers: {
+                "Content-Type": "application/json" // 요청 본문이 JSON 형식임을 명시
             }
         })
-        .then(data => {
-            if (data && data.length > 0) {
-                // 데이터에 번호 추가
-                data.forEach((item, index) => {
-                    item.num = index + 1;
-                });
+            .then(response => {
+                if (response.ok) {
+                    return response.json(); // JSON 형식으로 응답 받기
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            })
+            .then(data => {
+                if (data && data.length > 0) {
+                    // 데이터에 번호 추가
+                    data.forEach((item, index) => {
+                        item.num = index + 1;
 
-                // DataTable 업데이트
-                KCustomTable.clear().rows.add(data).draw();
-                console.log("데이터 테이블 업데이트 완료");
+                        // null 값 처리: null이면 빈 문자열로 변환
+                        Object.keys(item).forEach(key => {
+                            if (item[key] === null) {
+                                item[key] = ''; // null 값을 빈 문자열로 설정
+                            }
+                        });
+                    });
+                    console.log("서버에서 받은 데이터 첫번째 테이블:", data); // 서버 응답 확인
 
-                // 건수 표시 업데이트
-                document.querySelector('#resultCount').textContent = data.length;
-            } else {
-                console.log("데이터가 없습니다.");
-                KCustomTable.clear().draw(); // 데이터가 없을 경우 테이블 비우기
-            }
-        })
-        .catch(error => {
-            console.error("Error:", error);
-        })
-        .finally(() => {
-            // 첫 번째 요청 처리 후 두 번째 요청 실행
-            fetchArticles(param);
+                    // DataTable 업데이트
+                    if ($.fn.dataTable.isDataTable('#KCustomTable')) {
+                        // 기존 DataTable이 이미 존재하면 업데이트
+                        KCustomTable.clear().rows.add(data).draw();
+                    } else {
+                        // DataTable이 존재하지 않으면 새로 초기화
+                        KCustomTable = new DataTable('#KCustomTable', {
+                            buttons: [{
+                                extend: 'excel',
+                                filename: '거래처별 품명코드',
+                                title: '거래처별 품목코드',
+                                customize: function (xlsx) {
+                                    let sheet = xlsx.xl.worksheets['sheet1.xml'];
+                                    // 첫 번째 행에 스타일 변경
+                                    $('row:first c', sheet).attr('s', '42');
+                                    // 데이터 필터링: 빈 값, null, undefined를 가진 데이터 제거
+                                    $(sheet).find('row').each(function () {
+                                        $(this).children().each(function () {
+                                            const text = $(this).text();
+                                            // 데이터가 없으면 빈 문자열로 설정
+                                            if (text === "" || text === null || text === undefined) {
+                                                $(this).text("없당"); // 엑셀에 빈 칸으로 설정
+                                            }
+                                        });
+                                    });
+                                }
+                            }],
+                            columns: [
+                                { data: "num", className: 'center', defaultContent: '' },
+                                { data: "KCustom", className: 'left', defaultContent: '', width: "25%" },
+                                { data: "comments", className: 'left', defaultContent: '', width: "15%" },
+                                { data: "BuyerArticleNo", className: 'left', defaultContent: '', width: "20%" },
+                                { data: "Article", className: 'left', defaultContent: '', width: "30%" }
+                            ],
+                            scrollY: '50vh',  // 세로 스크롤을 설정 (화면의 50% 높이로 제한)
+                            scrollCollapse: true,
+                            paging: false,  // 페이지네이션 비활성화
+                        });
+                    }
+                    console.log("데이터 테이블 업데이트 완료");
 
-        });
-}
+                    // 건수 표시 업데이트
+                    document.querySelector('#resultCount').textContent = data.length;
+                } else {
+                    console.log("데이터가 없습니다.");
+                    KCustomTable.clear().draw(); // 데이터가 없을 경우 테이블 비우기
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+            })
+            .finally(() => {
+                // 첫 번째 요청 처리 후 두 번째 요청 실행
+                fetchArticles(param);
+            });
+    }
 
 // 개별 체크박스의 상태가 변경될 때, 전체 선택 체크박스의 상태를 업데이트
 
