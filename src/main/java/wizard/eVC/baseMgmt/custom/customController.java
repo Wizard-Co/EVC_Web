@@ -102,9 +102,9 @@ public class customController {
         }
 //        List<CMCode> cboRegYear = getYearRange(regYear, 40 , 25);
         customDTO customdto = service.getCustomDetail(param);
-        if(customdto.customNo != null && !customdto.customNo.isEmpty()){
-            customdto.setCustomNo(customdto.customNo.replaceAll("(\\d{3})(\\d{2})(\\d{5})", "$1-$2-$3"));
-        }
+//        if(customdto.customNo != null && !customdto.customNo.isEmpty()){
+//            customdto.setCustomNo(customdto.customNo.replaceAll("(\\d{5})(\\d{2})(\\d{5})", "$1-$2-$3"));
+//        }
         model.addAttribute("customdto", customdto);
 //        model.addAttribute("cboRegYear", cboRegYear);
 
