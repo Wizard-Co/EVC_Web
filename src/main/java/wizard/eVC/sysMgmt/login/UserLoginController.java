@@ -62,13 +62,16 @@ public class UserLoginController {
 //            }
             return returnURL;
         }
-        try{
+        try {
             LoginDto dto = service.xp_Common_Login(userID, password);
             String error = dto.getResult();
             System.out.println(error);
-//        if (error == null || error.equals("")) {
-            // 로그인 성공
-
+             if (error != null || error.equals("")) {
+              response.setStatus(HttpServletResponse.SC_OK); // HTTP 상태 코드 200으로 설정
+                 response.setContentType("application/json; charset=UTF-8");
+              response.getWriter().write("{\"error\":\"" + error + "\"}"); // 에러 메시지만 반환
+              return null; // 메서드를 종료하고 응답을 보냄
+             }
             service.setLoginUser(userID);
 
             model.addAttribute("user", loginManager.getLoginUser());

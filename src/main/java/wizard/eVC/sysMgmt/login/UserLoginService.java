@@ -34,6 +34,7 @@ public class UserLoginService {
     }
 
     public Person setLoginUser(String userID) {
+        System.out.println(userID);
         Person loginUser = personService.getPersonDetail(userID);
 
         List<Menu> menuList = personService.getPersonMenu(userID);
